@@ -1,0 +1,127 @@
+.header {
+    background-color: #fff;
+    padding: 0;
+    box-shadow:  0 .0625rem .25rem 0 rgba(0,0,0,.02),0 .125rem .25rem 0 rgba(0,0,0,.09);
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+.hamburger{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+.hamburger_img{
+    margin-top: 15px;
+}
+
+
+.nav_menu_close{
+    width: 90%;
+    height: 100%;
+    position: fixed;
+    background-color: #fff;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .5s ease-out;
+}
+
+.nav_menu ul{
+    list-style: none;
+    border-top: .0625rem solid #b1b1b1;
+    border-bottom: .0625rem solid #b1b1b1;
+}
+
+.nav_menu a{
+    display: flex;
+    flex-direction: column;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    line-height: .75rem;
+    text-decoration: none;
+    font-weight: 400;
+    color: var(--black);
+    font-size: 2rem;
+}
+
+.nav_footer{
+    font-size: 1.2rem;
+}
+
+
+
+.barra {
+    display: none;
+}
+
+.imagen {
+    display: none;
+}
+
+@media (min-width: 480px){
+    .barra {
+        display: flex;    
+        flex-direction: column;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+        border-bottom: .0625rem solid #4a4a4a;
+    }
+    .imagen {
+        border-bottom: .0625rem solid #efefef;
+        display: flex;
+        justify-content: center;
+    }
+    .nav_menu{
+        display: none;
+    }
+    .hamburger{
+        display: none;
+    }
+    .header {
+        background-color: #fff;
+        box-shadow: none;
+        padding: 0;
+        position: sticky;
+        top: 0;
+        width: 100%;
+    }
+}
+
+
+.navegacion {
+    margin-top: 0rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+   
+}
+
+@media (min-width: 768px){
+    .navegacion {
+        margin-top: 0;
+
+    }
+}
+
+.navegacion a {
+    color: var(--black);
+    text-decoration: none;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    transition-property: background-color;
+    transition-duration: 300ms;
+    font-weight: 400;
+    padding: 0.5rem;
+    
+}
+.navegacion a:hover {
+    color: #4a4a4a;
+}
+
+.navegacion a:hover,
+.active {
+    background-color: var(--primary);
+}

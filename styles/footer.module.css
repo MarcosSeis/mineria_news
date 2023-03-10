@@ -1,0 +1,25 @@
+
+.footer {
+    font-weight: 400;
+    font-size: 1.2rem;
+    border-top: .0625rem solid #4a4a4a;
+    border-bottom: .0625rem solid #4a4a4a;
+}
+
+.footer h1 {
+    font-size: 2rem;
+}
+
+.footer p {
+    color: #b1b1b1;
+}
+
+.redes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.redes_iconos {
+    display: flex;
+}
