@@ -73,6 +73,14 @@
         border-bottom: .0625rem solid #efefef;
         display: flex;
         justify-content: center;
+        
+    }
+    .imagen h1 {
+        color: #000000;
+        
+    }
+    .imagen a {
+        text-decoration: none;
     }
     .nav_menu{
         display: none;

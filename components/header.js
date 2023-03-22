@@ -37,13 +37,10 @@ export default function Header() {
                 </nav>
             </div>
         </div>
-       
-
-
         <div>
             <div className={styles.imagen}>
                 <Link href="/">
-                    <Image src={logo.src} width={100} height={40} alt='Logo de mineria news'/>
+                    <h1>Minería News</h1>
                 </Link>
             </div>
         </div>
@@ -55,9 +52,6 @@ export default function Header() {
     </div>
    
 </header>
-
-
-
 
   )
 }

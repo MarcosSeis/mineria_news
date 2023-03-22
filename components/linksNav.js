@@ -7,24 +7,32 @@ export default function LinksNav() {
   return (
     <>
         <Link 
-        href="/"
-        className={router.pathname === '/' ? styles.active : ''}>
+        href="/">
         Inicio
         </Link>
         <Link 
-            href="/noticias"
-            className={router.pathname === '/nosotros' ? styles.active : ''}>
+            href="/noticias">
             Noticias
         </Link>
         <Link 
-            href="/articulos"
-            className={router.pathname === '/tienda' ? styles.active : ''}>
+            href="/eventos">
             Eventos
         </Link>
         <Link 
-            href="/blog"
-            className={router.pathname === '/blog' ? styles.active : ''}>
-            Metales
+            href="/recursos">
+            recursos
+        </Link>
+        <Link 
+            href="/provedores">
+            Provedores
+        </Link>
+        <Link 
+            href="/bolsa">
+            Bolsa de trabajo
+        </Link>
+        <Link 
+            href="/investigacion">
+            Investigación
         </Link>
     </>
   )
