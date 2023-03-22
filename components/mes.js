@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styles from '@/styles/meses.module.css';
 
 export default function Mes({mes, id, actual, onClick}) {

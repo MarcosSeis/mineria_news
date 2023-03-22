@@ -1,8 +1,7 @@
 import Layout from "@/components/layout";
-import stylesGrid from '@/styles/gridEventos.module.css';
 import styles from '@/styles/eventos.module.css';
 import Meses from "@/components/meses";
-import Post from "@/components/noticia";
+
 
 export default function Noticias({eventos}) {
 
