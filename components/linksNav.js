@@ -20,8 +20,8 @@ export default function LinksNav() {
         </Link>
     
         <Link 
-            href="/provedores">
-            Provedores
+            href="/proveedores">
+            Proveedores
         </Link>
         <Link 
             href="/trabajos">

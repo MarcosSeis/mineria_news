@@ -6,8 +6,8 @@ export default function Noticias({posts}) {
   return (
     <>
     <Layout
-        title={'Noticias'}
-        description={'Mineria news, noticias de mineria, noticias geologia, geofisica, ciencias de la tierra, metalurgia'}
+        title={'Proveedores'}
+        description={'Proveedores de mineria, noticias geologia, geofisica, ciencias de la tierra, metalurgia'}
     >
 
     <main>
