@@ -15,9 +15,24 @@
 }
 
 
+.jobs button {
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    border: none;
+}
+
 @media (min-width: 768px) {
     .jobs{
         text-align: start;
+    }
+    .jobs button {
+        font-size: 20px !important;
+
     }
 }
 .jobs .empresa {
@@ -55,8 +70,8 @@
 .jobs button {
     background-color: black;
     color: white;
-    font-size: 20px;
-    padding: 10px 60px;
+    font-size: 10px;
+    padding: 10px 30px;
     border-radius: 5px;
     margin: 10px 0px;
     cursor: pointer;
