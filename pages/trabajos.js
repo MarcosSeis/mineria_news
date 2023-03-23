@@ -1,6 +1,5 @@
 import Layout from "@/components/layout";
 import stylesgrid from '@/styles/gridEventos.module.css';
-import styles from '@/styles/jobs.module.css'
 import Job from "@/components/job";
 
 export default function Noticias({jobs}) {

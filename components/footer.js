@@ -6,13 +6,11 @@ export default function Footer() {
       <div className={styles.redes}>
 
         <div>
-          <h1>© MINERIA NEWS</h1>
+          <h1>© MINERÍA NEWS</h1>
         </div>
 
         <div className={styles.redes_iconos}>
-          <a href="#">Fb</a>
-          <a href="#">Ig</a>
-          <a href="#">Tw</a>
+        
         </div>
 
       </div>

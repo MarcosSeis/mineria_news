@@ -1,13 +1,12 @@
 import Layout from "@/components/layout";
 import styles from '@/styles/grid.module.css';
-import Post from "@/components/noticia";
 
 export default function Noticias({posts}) {
   return (
     <>
     <Layout
         title={'Proveedores'}
-        description={'Proveedores de mineria, noticias geologia, geofisica, ciencias de la tierra, metalurgia'}
+        description={'Proveedores de mineria, proveedores geologia, proveedores geofisica, ciencias de la tierra, proveedores metalurgia'}
     >
 
     <main>

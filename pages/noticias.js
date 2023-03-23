@@ -1,8 +1,11 @@
 import Layout from "@/components/layout";
-import styles from '@/styles/grid.module.css';
+import styles from '@/styles/gridEventos.module.css';
 import Post from "@/components/noticia";
 
 export default function Noticias({posts}) {
+
+  
+
   return (
     <>
     <Layout

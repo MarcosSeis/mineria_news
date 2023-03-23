@@ -1,0 +1,19 @@
+.centrar{
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.trabajos{
+    border-top: 0.2rem solid #000;
+}
+
+.trabajos button {
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    border: none;
+}
