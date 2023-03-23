@@ -1,0 +1,69 @@
+.enlace {
+    text-decoration: none;
+    color: #000;
+}
+
+.jobs {
+    text-align: center;
+    padding: 24px 32px;
+    margin-bottom: 8px;
+    z-index: auto;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.12), 0 1px 6px 0 rgba(0,29,124,0.05);
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 6px;
+}
+
+
+@media (min-width: 768px) {
+    .jobs{
+        text-align: start;
+    }
+}
+.jobs .empresa {
+    font-weight: 900;
+}
+
+.jobs h3{
+    margin-bottom: -2rem;
+    text-transform: uppercase;
+}
+
+.jobs .resumen{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.jobs p:last-of-type {
+    font-size: 1.8rem;
+    margin-top: -2rem;
+}
+
+.jobs .requisitos {
+    text-align: justify;
+    white-space: pre-line;
+}
+
+.jobs .button{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.jobs button {
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    padding: 10px 60px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    border: none;
+}
+
+.post {
+    max-width: 80rem;
+    margin: 0 auto;
+}

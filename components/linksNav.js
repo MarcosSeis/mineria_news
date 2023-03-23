@@ -27,7 +27,7 @@ export default function LinksNav() {
             Provedores
         </Link>
         <Link 
-            href="/bolsa">
+            href="/trabajos">
             Bolsa de trabajo
         </Link>
         <Link 

@@ -10,7 +10,7 @@ export default function Noticias({eventos}) {
   return (
     <>
     <Layout
-        title={'Noticias'}
+        title={'Eventos'}
         description={'Mineria news, Eventos de mineria, Eventos geologia, geofisica, ciencias de la tierra, metalurgia'}
     >
 
