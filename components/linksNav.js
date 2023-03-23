@@ -18,10 +18,7 @@ export default function LinksNav() {
             href="/eventos">
             Eventos
         </Link>
-        <Link 
-            href="/recursos">
-            recursos
-        </Link>
+    
         <Link 
             href="/provedores">
             Provedores
@@ -30,10 +27,7 @@ export default function LinksNav() {
             href="/trabajos">
             Bolsa de trabajo
         </Link>
-        <Link 
-            href="/investigacion">
-            Investigación
-        </Link>
+      
     </>
   )
 }
