@@ -4,7 +4,7 @@ import Post from "@/components/noticia";
 
 export default function Noticias({posts}) {
 
-  const postsPrincipales = [... posts].sort((a, b) => a.attributes.publishedAt < b.attributes.publishedAt)
+  const postsPrincipales = [... posts].sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt))
 
   return (
     <>

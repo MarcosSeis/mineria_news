@@ -12,10 +12,10 @@ export default function Home({jobs, posts, eventos}) {
   const fecha_hoy = new Date()
   const pev = [...eventos].filter(evento => fecha_hoy < (new Date(evento.attributes.fecha_ini)))
 
-  const postsPrincipales = [... posts].sort((a, b) => a.attributes.publishedAt < b.attributes.publishedAt).slice(0, 3)
-  const orden_jobs = [... jobs].sort((a, b) => a.attributes.fecha < b.attributes.fecha ).slice(0, 3)
-  const postsMas = [... posts].sort((a, b) => a.attributes.publishedAt < b.attributes.publishedAt ).slice(3, 6)
-  const proxEventos = [... pev].sort((a, b) => a.attributes.fecha_ini > b.attributes.fecha_ini ).slice(0, 3)
+  const postsPrincipales = [... posts].sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt)).slice(0, 3)
+  const orden_jobs = [... jobs].sort((a, b) => new Date(b.attributes.fecha) - new Date(a.attributes.fecha)).slice(0, 3)
+  const postsMas = [... posts].sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt) ).slice(3, 6)
+  const proxEventos = [... pev].sort((a, b) => new Date(a.attributes.fecha_ini ) - new Date(b.attributes.fecha_ini) ).slice(0, 3)
 
   return (
     <>
