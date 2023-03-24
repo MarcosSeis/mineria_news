@@ -44,6 +44,7 @@ export default function Header() {
             <div className={styles.imagen}>
                 <Link href="/">
                     <h1>Minería News</h1>
+                    <p>el portal lider de minería</p>
                 </Link>
             </div>
         </div>
