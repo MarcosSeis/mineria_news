@@ -1,6 +1,26 @@
 .centrar{
     text-transform: uppercase;
-    text-align: center;
+    color: #222;
+    border-bottom: 5px solid #000;
+    margin-right: 10rem;
+}
+
+@media (min-width: 600px) {
+    .centrar {
+        margin-right: 30rem;
+    }
+}
+
+
+@media (min-width: 900px) {
+    .centrar {
+        margin-right: 80rem;
+    }
+}
+
+.centrar_boton{
+    display: flex;
+    justify-content: center;
 }
 
 .trabajos{

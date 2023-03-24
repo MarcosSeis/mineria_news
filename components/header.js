@@ -6,6 +6,8 @@ import LinksNav from "./linksNav";
 export default function Header() {
   
     const [navMenu, setNavMenu] = useState(false);
+    const hoy = new Date().toLocaleDateString("es-Es", {timeZone: 'UTC', year: "numeric", month: "short", day: "numeric"});
+    const hora = new Date().toLocaleTimeString("es-Es", { hour: "2-digit", minute: "2-digit" });
 
   return (
     <header className={styles.header}>
@@ -19,8 +21,10 @@ export default function Header() {
                             <rect y="40" width="100" height="6"></rect>
                         </svg>
                 </div>
-                <div>
-                    <h1>Mineria News</h1>
+
+                <div className={styles.horas}>
+                    <p> {hoy} | Actualizado {hora} CST</p>
+                    <h1>Minería News</h1>
                 </div>
             </div>
             <div className={navMenu ? styles.nav_menu: styles.nav_menu_close}>
@@ -35,7 +39,8 @@ export default function Header() {
                 </nav>
             </div>
         </div>
-        <div>
+        <div className={`${styles.horas} contenedor`}>
+            <p> {hoy} | Actualizado {hora} CST</p>
             <div className={styles.imagen}>
                 <Link href="/">
                     <h1>Minería News</h1>
