@@ -4,7 +4,7 @@ import Post from "@/components/noticia";
 
 export default function Noticias({posts}) {
 
-  
+  const postsPrincipales = [... posts].sort((a, b) => a.attributes.publishedAt < b.attributes.publishedAt)
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function Noticias({posts}) {
 
     <main>
       <div className={styles.grid}>
-      {posts.map(post => (
+      {postsPrincipales.map(post => (
               <Post 
                 key={post.id}
                 post={post.attributes}
