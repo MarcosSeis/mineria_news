@@ -12,7 +12,12 @@ export default function Proxevento({evento}) {
         <div>
             <Image src={imagen.data.attributes.url} width={200} height={200} alt={`Imagen blog ${titulo}`} />     
         <div className={styles.contenido}>
+            <Link href={pagina_evento}
+                    className={styles.enlace_titulo}
+                    target="_blank"
+                    >
             <h3 >{titulo}</h3>
+            </Link>
 
             <p className={styles.fecha}>{formatearFecha(fecha_ini)} - {formatearFecha(fecha_fin)}</p>
             <p className={styles.fecha}>Ubicación: {ubicacion}</p>
