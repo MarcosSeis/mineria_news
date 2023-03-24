@@ -13,7 +13,7 @@ export default function Post({post}) {
             <Link href={`/noticias/${url}`}
                 className={styles.enlace_titulo}
                 >
-                 <Image src={imagen.data.attributes.formats.medium.url} width={600} height={400} alt={`Imagen blog ${titulo}`} />
+                 <Image src={imagen.data.attributes.url} width={600} height={400} alt={`Imagen blog ${titulo}`} />
             </Link>
        
 

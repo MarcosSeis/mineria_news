@@ -1,8 +1,6 @@
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/header.module.css"
-import logo from "@/public/img/logo.jpg"
 import LinksNav from "./linksNav";
 
 export default function Header() {

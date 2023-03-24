@@ -3,7 +3,6 @@ import Link from "next/link";
 import stylesNoticias from '@/styles/grid.module.css';
 import stylesIndex from '@/styles/principal.module.css';
 import stylesgrid from '@/styles/gridEventos.module.css';
-import stylesJobs from '@/styles/jobs.module.css'
 import Post from "@/components/noticia";
 import Job from "@/components/job";
 import Proxevento from "@/components/proxevento";
@@ -13,11 +12,9 @@ export default function Home({jobs, posts, eventos}) {
   const fecha_hoy = new Date()
   const pev = [...eventos].filter(evento => fecha_hoy < (new Date(evento.attributes.fecha_ini)))
 
-  console.log(pev);
-
-  const postsPrincipales = [... posts].sort((a, b) => a.attributes.fecha < b.attributes.fecha ).slice(0, 3)
+  const postsPrincipales = [... posts].sort((a, b) => a.attributes.publishedAt < b.attributes.publishedAt).slice(0, 3)
   const orden_jobs = [... jobs].sort((a, b) => a.attributes.fecha < b.attributes.fecha ).slice(0, 3)
-  const postsMas = [... posts].sort((a, b) => a.attributes.fecha < b.attributes.fecha ).slice(3, 9)
+  const postsMas = [... posts].sort((a, b) => a.attributes.publishedAt < b.attributes.publishedAt ).slice(3, 6)
   const proxEventos = [... pev].sort((a, b) => a.attributes.fecha_ini > b.attributes.fecha_ini ).slice(0, 3)
 
   return (
