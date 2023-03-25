@@ -48,7 +48,7 @@ export default function Home({jobs, posts, eventos}) {
               </div>
               
                 <div className={stylesIndex.centrar_boton}> 
-                    <Link href="/trabajos" target="_blank">
+                    <Link href="/trabajos">
                     <button>Ver más trabajos</button>
                     </Link>
                 </div>    
