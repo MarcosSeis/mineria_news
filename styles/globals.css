@@ -46,3 +46,7 @@ main {
 .ocultar{
   visibility: hidden;
 }
+
+p {
+  text-align: justify;
+}
