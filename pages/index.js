@@ -109,6 +109,7 @@ export async function getStaticProps() {
           jobs,
           posts,
           eventos
-      }
+      },
+      revalidate: 10,
   }
 }
