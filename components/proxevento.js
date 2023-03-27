@@ -23,13 +23,6 @@ export default function Proxevento({evento}) {
             <p className={styles.fecha}>Ubicación: {ubicacion}</p>
             <p className={styles.resumen}>{detalles}</p>
 
-            <Link href={pagina_evento}
-                className={styles.enlace_titulo}
-                target="_blank"
-                >
-                <h3 >Ver pagina </h3>
-            </Link>
-
         </div>
         </div>
    

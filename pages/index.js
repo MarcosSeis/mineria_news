@@ -37,7 +37,7 @@ export default function Home({jobs, posts, eventos}) {
 
 
           <section className={`${stylesIndex.trabajos} contenedor`}>
-            <h2 className={stylesIndex.centrar}> Ultimos trabajos </h2>
+            <h2 className={stylesIndex.centrar}> Últimos trabajos </h2>
               <div className={stylesgrid.grid}>
               {orden_jobs.map(job => (
                       <Job
@@ -68,7 +68,7 @@ export default function Home({jobs, posts, eventos}) {
           </section>
 
           <section className={`${stylesIndex.trabajos} contenedor`}>
-            <h2 className={stylesIndex.centrar}>Proximos Eventos</h2>
+            <h2 className={stylesIndex.centrar}>Próximos Eventos</h2>
             <div className={stylesgrid.grid}>
             {proxEventos.map(evento => (
                     <Proxevento 
