@@ -17,7 +17,7 @@ export default function Noticias({jobs}) {
 
     <main>
 
-      <h1>Bolsa de trabajo</h1>
+      <h1>Bolsa de Trabajo</h1>
 
       <div className={stylesgrid.grid}>
       {orden_jobs.map(job => (

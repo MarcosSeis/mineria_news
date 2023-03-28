@@ -14,6 +14,7 @@ export default function Noticias({posts}) {
     >
 
     <main>
+      <h1>Ultimas Noticias</h1>
       <div className={styles.grid}>
       {postsPrincipales.map(post => (
               <Post 
