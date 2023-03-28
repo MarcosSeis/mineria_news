@@ -1,0 +1,82 @@
+.grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(1fr);
+    gap: 4rem;
+}
+@media (min-width: 428px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: 992px) {
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.proveedor{
+    box-shadow: rgba(0, 0, 0, 0.4) -5px 5px, rgba(0, 0, 0, 0.3) -10px 10px, rgba(0, 0, 0, 0.2) -15px 15px, rgba(0, 0, 0, 0.1) -20px 20px, rgba(0, 0, 0, 0.05) -25px 25px;
+    margin-bottom: 0rem;
+    height: 35rem;
+}
+
+.proveedor:first-child{
+    margin-top: 3rem;
+}
+
+
+@media (min-width: 428px) {
+    .proveedor{
+        margin-bottom: 1rem;
+    }
+    .proveedor:first-child{
+        margin-top: 0rem;
+    }
+    
+}
+@media (min-width: 768px) {
+    .proveedor{
+        margin-bottom: 3rem;
+    }
+}
+
+.proveedor .imagen {
+
+    height: 10rem;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.proveedor .contenido {
+    display: block;
+    padding: 2rem;
+    text-align: start;
+    font-size: 1.3rem;
+    font-weight: 900;
+    line-height: 1.4rem;
+    margin-top: 1.3rem;
+}
+
+.proveedor .contenido p{
+   margin-top: -0.8rem;
+}
+
+.proveedor .contenido span {
+    font-weight: 200;
+}
+
+.proveedor .contenido a{
+    font-style: none;
+    color: #000;
+    text-decoration: none;
+}
+

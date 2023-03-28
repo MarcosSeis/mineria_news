@@ -1,7 +1,11 @@
 import Layout from "@/components/layout";
-import styles from '@/styles/grid.module.css';
+import styles from '@/styles/proveedores.module.css';
+import Proveedor from "@/components/proveedor";
 
-export default function Noticias({posts}) {
+export default function Noticias({proveedores}) {
+
+  const provOrdenados = [... proveedores].sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt))
+
   return (
     <>
     <Layout
@@ -11,7 +15,13 @@ export default function Noticias({posts}) {
 
     <main>
       <div className={styles.grid}>
-        <h1>Tu empresa aquí</h1>
+        {provOrdenados.map(proveedor => (
+            <Proveedor 
+              key={proveedor.id}
+              proveedor={proveedor.attributes}
+            />
+          ))
+        }        
       </div>
     </main>
 
@@ -23,12 +33,12 @@ export default function Noticias({posts}) {
 
 export async function getStaticProps() { 
  
-    const respuesta = await fetch (`${process.env.API_URL}/posts?populate=imagen`);
-    const { data: posts } = await respuesta.json();
+    const respuesta = await fetch (`${process.env.API_URL}/proveedores?populate=logo`);
+    const { data: proveedores } = await respuesta.json();
   
     return{
         props: {
-            posts
+            proveedores
         },
         revalidate: 10,
     }
