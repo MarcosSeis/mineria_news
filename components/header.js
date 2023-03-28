@@ -40,7 +40,7 @@ export default function Header() {
             </div>
         </div>
         <div className={`${styles.horas} contenedor`}>
-        <p> {hoy} | Actualizado {hora} CST</p>
+        <p className={styles.ocultar_movil}> {hoy} | Actualizado {hora} CST</p>
             <div className={styles.imagen}>
                 <Link href="/">
                     <h1>Minería News</h1>
