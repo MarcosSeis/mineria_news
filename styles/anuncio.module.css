@@ -1,0 +1,12 @@
+.anuncios {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1.5rem 0;
+    border-top:  0.2rem solid #000;
+}
+
+
+.bgn{
+    background-color: #000;
+}

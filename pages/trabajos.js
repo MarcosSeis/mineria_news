@@ -5,8 +5,7 @@ import Job from "@/components/job";
 export default function Noticias({jobs}) {
 
   const orden_jobs = [... jobs].sort((a, b) => new Date(b.attributes.fecha) - new Date(a.attributes.fecha));
-
-  console.log(jobs)
+  
 
   return (
     <>

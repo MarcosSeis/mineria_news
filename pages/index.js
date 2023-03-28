@@ -3,9 +3,11 @@ import Link from "next/link";
 import stylesNoticias from '@/styles/grid.module.css';
 import stylesIndex from '@/styles/principal.module.css';
 import stylesgrid from '@/styles/gridEventos.module.css';
+import styleAnuncios from '@/styles/anuncio.module.css';
 import Post from "@/components/noticia";
 import Job from "@/components/job";
 import Proxevento from "@/components/proxevento";
+import Anuncio from "@/components/anuncio";
 
 export default function Home({jobs, posts, eventos}) {
 
@@ -54,6 +56,33 @@ export default function Home({jobs, posts, eventos}) {
                 </div>    
      
           </section>
+          
+          <section className={`${styleAnuncios.anuncios} contenedor`}>
+            <Anuncio
+              ruta={'/img/proveedores/logo-0_0000_SEIMPAC.png'} 
+              link={'https://seimpac.com/'}
+              />
+            <Anuncio
+              ruta={'/img/proveedores/logo-0_0001_RADIOCOM.png'} 
+              link={'http://www.radiocom.com.mx/'}
+              fondo={true}
+              />
+            <Anuncio
+              ruta={'/img/proveedores/logo-0_0002_MAQUINTRA.png'}
+              link={'http://www.maquinariaytractores.com.mx/'}
+              />
+            <Anuncio
+              ruta={'/img/proveedores/logo-0_0003_MAMIPA.png'}
+              link={'https://www.mamipa.com/'}
+              />
+            <Anuncio
+              ruta={'/img/proveedores/logo-0_0004_IEESA.png'}
+              link={'http://ieeesa.mx/'}
+              fondo={true}
+              />
+          </section>
+          
+
 
           <section className={`${stylesIndex.trabajos} contenedor`}>
             <h2 className={stylesIndex.centrar}>Más Noticias</h2>
