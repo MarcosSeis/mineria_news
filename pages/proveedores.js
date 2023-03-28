@@ -14,6 +14,7 @@ export default function Noticias({proveedores}) {
     >
 
     <main>
+      <h1>Proveedores premium</h1>
       <div className={styles.grid}>
         {provOrdenados.map(proveedor => (
             <Proveedor 
