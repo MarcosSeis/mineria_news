@@ -8,6 +8,7 @@ import Post from "@/components/noticia";
 import Job from "@/components/job";
 import Proxevento from "@/components/proxevento";
 import Anuncio from "@/components/anuncio";
+import Subscribe from "@/components/subscribe";
 
 export default function Home({jobs, posts, eventos}) {
 
@@ -108,6 +109,10 @@ export default function Home({jobs, posts, eventos}) {
             </div>
           </section>
 
+          <section className="contenedor_boletin">
+            <Subscribe />
+          </section>
+          
           
 
         </Layout>

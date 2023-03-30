@@ -1,0 +1,120 @@
+.subscribeContainer{
+    margin: 20px 0px;
+    padding: 15px;
+    max-width: 768px;
+    box-sizing: border-box;
+    border: 1px solid #0d0d0d;
+    background: #fff;
+    
+}
+
+.sub_header {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.sub_text {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: #2d3748;
+  line-height: 1.5;
+}
+
+.subFormContainer{
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+
+}
+@media (max-width: 531px) {
+    .SubFormContainer{
+    width: 100%;
+    display: block;
+    }
+  }
+
+
+.form_input {
+  width: 78%;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  font-size: 16px;
+  
+}
+@media (max-width: 531px) {
+    .form-input {
+        display: block;
+    }
+  }
+
+
+
+.form_input input {
+  outline: #f9fafb;
+  display: block;
+  width: 100%;
+  background-color: #f9fafb;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 4px;
+  border: 1px solid #6a4feb2e;
+  font-size: 16px;
+
+ 
+}
+
+@media (max-width: 531px) {
+    .form_input input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+   
+  }
+
+
+.sub_form_btn {
+  margin-left: 10px;
+}
+
+.sub_form_btn .form_btn {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+
+    /* :disabled {
+      background: #636262;
+  color: #cbced0;
+    } */
+}
+
+.sub_form_btn .form_btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 531px) {
+    .sub_form_btn .form_btn{
+        margin-top: 10px;
+        margin-left: 0;
+    }
+  }
+
+.successState{
+    color: #087d07;
+    padding-top: 20px;
+}
+ 
+.errorState{
+    color: #b00020;
+  padding-top: 20px;
+}
