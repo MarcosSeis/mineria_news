@@ -23,7 +23,7 @@ export default function Header() {
                 </div>
 
                 <div className={styles.horas}>
-                    <p> {hoy} | Actualizado {hora} CS</p>
+                    <p> {hoy} | Actualizado {hora} CST</p>
                     <h1>Minería News</h1>
                 </div>
             </div>
