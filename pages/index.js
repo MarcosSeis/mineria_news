@@ -122,10 +122,24 @@ export default function Home({jobs, posts, eventos}) {
 }
 
 export async function getStaticProps() {
-  const urlJobs = `${process.env.API_URL}/jobs?populate=imagen`
-  const urlPosts = `${process.env.API_URL}/posts?populate=imagen`
+
+  const qs = require('qs');
+  const query = qs.stringify({
+    sort: ['publishedAt:desc'],
+    pagination: {
+      pageSize: 6,
+      page: 1,
+    },
+    publicationState: 'live',
+  }, {
+    encodeValuesOnly: true, // prettify URL
+  });
+
+  const urlJobs = `${process.env.API_URL}/jobs?${query}`
+  const urlPosts = `${process.env.API_URL}/posts?populate=imagen&${query}`
   const urlEventos = `${process.env.API_URL}/eventos?populate=imagen`
 
+  console.log(urlJobs)
 
   const [ resJobs, resPosts, resEventos ] = await Promise.all([
     fetch(urlJobs),
