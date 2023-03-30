@@ -26,7 +26,7 @@ function Subscribe() {
     <div className={styles.subscribeContainer}>
       <h4 className={styles.sub_header}>Suscríbete a nuestro boletin semanal</h4>
       <p className={styles.sub_text}>
-        No te pierdas las noticias mas destacadas de la semana en la mineria. Te enviaremos un email a la semana, no spam.
+         No te pierdas las noticias más destacadas de la semana en la Minería. Te enviaremos un email a la semana, no spam.
       </p>
       <form onSubmit={subscribe}>
         <div className={styles.subFormContainer}>
