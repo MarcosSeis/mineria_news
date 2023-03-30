@@ -16,12 +16,12 @@ export default function Job({job}) {
       <main className={`${styles.post} ${styles['mt-3']}`}>
         <Link href={`/trabajos/${url}`} className={`${styles.enlace} ${dif_days > 28 ? 'ocultar': ''} `}>
             <div className={styles.jobs}>
-                <p>Hace {dif_days} {dif_days > 1 ? 'días': 'dia'}</p>
+                <p className={styles.resumen}>Hace {dif_days} {dif_days > 1 ? 'días': 'dia'}</p>
                 <h3>{titulo}</h3>
                 <p>{sueldo}</p>
                 <p className={styles.resumen}>{requisitos}</p>
                 <p className={styles.empresa}>{empresa}</p>
-                <p>Ubicacion: {ubicacion}</p>
+                <p>Ubicacion: <span className={styles.resumen}>{ubicacion}</span></p>
             </div>
         </Link> 
       </main>
