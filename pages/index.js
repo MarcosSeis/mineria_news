@@ -139,8 +139,6 @@ export async function getStaticProps() {
   const urlPosts = `${process.env.API_URL}/posts?populate=imagen&${query}`
   const urlEventos = `${process.env.API_URL}/eventos?populate=imagen`
 
-  console.log(urlJobs)
-
   const [ resJobs, resPosts, resEventos ] = await Promise.all([
     fetch(urlJobs),
     fetch(urlPosts),
