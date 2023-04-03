@@ -17,6 +17,7 @@ export default function Noticias({jobs}) {
     <main>
 
       <h1>Bolsa de Trabajo</h1>
+      <h2>Ultimos 30 días</h2>
 
       <div className={stylesgrid.grid}>
       {orden_jobs.map(job => (
@@ -37,8 +38,21 @@ export default function Noticias({jobs}) {
 
 
 export async function getStaticProps() { 
+  const qs = require('qs');
+  const query = qs.stringify({
+      sort: ['publishedAt:desc'],
+      pagination: {
+        pageSize: 24,
+        page: 1,
+      },
+      publicationState: 'live',
+    }, {
+      encodeValuesOnly: true, // prettify URL
+    });
+
+    const urlJobs = `${process.env.API_URL}/jobs?${query}`
  
-    const respuesta = await fetch (`${process.env.API_URL}/jobs?populate=imagen`);
+    const respuesta = await fetch (urlJobs);
     const { data: jobs } = await respuesta.json();
   
     return{
