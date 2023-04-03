@@ -7,8 +7,12 @@ export default function LinksNav() {
   return (
     <>
         <Link 
-        href="/">
-        Inicio
+            href="/">
+            Inicio
+        </Link>
+        <Link 
+            href="/nosotros">
+            Nosotros
         </Link>
         <Link 
             href="/noticias">

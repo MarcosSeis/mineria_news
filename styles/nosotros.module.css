@@ -1,0 +1,11 @@
+.contenido{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.contenido p {
+    max-width: 100rem;
+}
