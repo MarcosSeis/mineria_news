@@ -21,6 +21,7 @@ export default function Nosotros() {
         <p>Por otro lado, la sección de bolsa de trabajo de Mineria News ofrece oportunidades de empleo en la industria minera para aquellos que buscan trabajo o desean avanzar en sus carreras. Esta sección se actualiza regularmente con ofertas de trabajo en diversos campos de la industria minera, incluyendo ingeniería, operaciones mineras, seguridad, medio ambiente y más.</p>
         <p>También ofrecemos una sección de eventos mineros, donde los usuarios pueden encontrar información sobre los próximos eventos de la industria minera, como conferencias, ferias, exposiciones y seminarios.</p>   
         <p>En Mineria News, también queremos brindar la oportunidad a empresas y proveedores de ser parte de nuestra sección de proveedores, donde pueden ofrecer sus servicios y productos a nuestra audiencia especializada en la industria minera. Esta sección es una herramienta valiosa para las empresas que buscan expandir su alcance y conectar con posibles clientes en la industria minera.</p>   
+        
         <p>Nos enorgullece ser un portal web especializado en temas de minería y esperamos seguir siendo una fuente confiable de información y herramientas para aquellos que buscan estar al tanto de los últimos desarrollos y oportunidades en la industria minera.</p>
       </div>
     
