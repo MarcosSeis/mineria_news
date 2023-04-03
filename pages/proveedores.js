@@ -2,7 +2,7 @@ import Layout from "@/components/layout";
 import styles from '@/styles/proveedores.module.css';
 import Proveedor from "@/components/proveedor";
 
-export default function Noticias({proveedores}) {
+export default function Proveedores({proveedores}) {
 
   const provOrdenados = [... proveedores].sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt))
 

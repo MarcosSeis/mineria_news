@@ -3,7 +3,7 @@ import styles from '@/styles/eventos.module.css';
 import Meses from "@/components/meses";
 
 
-export default function Noticias({eventos}) {
+export default function Eventos({eventos}) {
 
     const year =  new Date().getFullYear();
 

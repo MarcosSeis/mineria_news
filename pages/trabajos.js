@@ -2,7 +2,7 @@ import Layout from "@/components/layout";
 import stylesgrid from '@/styles/gridEventos.module.css';
 import Job from "@/components/job";
 
-export default function Noticias({jobs}) {
+export default function Trabajos({jobs}) {
 
   const orden_jobs = [... jobs].sort((a, b) => new Date(b.attributes.fecha) - new Date(a.attributes.fecha));
   
