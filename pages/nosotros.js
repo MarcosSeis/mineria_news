@@ -14,7 +14,7 @@ export default function Nosotros() {
     <main>
       <h1>Nosotros</h1>
       <div className={styles.contenido}>
-        <p>Bienvenidos a la sección de "Nosotros" de Mineria News, el portal web especializado en temas de minería. En esta sección, queremos presentarnos y compartir nuestra misión y visión para ofrecer una experiencia completa a nuestros usuarios.</p>   
+        <p>Bienvenidos a la sección de Nosotros de Mineria News, el portal web especializado en temas de minería. En esta sección, queremos presentarnos y compartir nuestra misión y visión para ofrecer una experiencia completa a nuestros usuarios.</p>   
         <p>En Mineria News, nos enfocamos en proporcionar información actualizada y relevante sobre la industria minera, incluyendo noticias, análisis de mercado, tecnología, medio ambiente, seguridad y salud, así como también temas relacionados con la minería artesanal y la minería a gran escala.</p>   
         <p>Además, nos comprometemos con la sostenibilidad y el impacto ambiental de la minería, y creemos que la industria minera puede ser más responsable y sostenible a través de la gestión adecuada de los recursos naturales y la implementación de prácticas mineras responsables.</p>   
         <p>En nuestra sección de noticias, nuestros usuarios pueden encontrar las últimas noticias de la industria minera, reportajes exclusivos y artículos de opinión. Además, nuestra sección de bolsa de trabajo ofrece oportunidades de carrera en la industria minera para aquellos que buscan trabajo o desean avanzar en sus carreras.</p>   
