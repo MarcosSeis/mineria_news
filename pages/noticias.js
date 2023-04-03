@@ -32,8 +32,22 @@ export default function Noticias({posts}) {
 
 
 export async function getStaticProps() { 
+
+  const qs = require('qs');
+  const query = qs.stringify({
+      sort: ['publishedAt:desc'],
+      pagination: {
+        pageSize: 24,
+        page: 1,
+      },
+      publicationState: 'live',
+    }, {
+      encodeValuesOnly: true, // prettify URL
+    });
+
+    const urlPosts = `${process.env.API_URL}/posts?populate=imagen&${query}`
  
-    const respuesta = await fetch (`${process.env.API_URL}/posts?populate=imagen`);
+    const respuesta = await fetch (urlPosts);
     const { data: posts } = await respuesta.json();
   
     return{
