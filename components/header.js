@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "@/styles/header.module.css"
 import LinksNav from "./linksNav";
 
+
 export default function Header() {
   
     const [navMenu, setNavMenu] = useState(false);
@@ -10,6 +11,7 @@ export default function Header() {
     const hora = new Date().toLocaleTimeString("es-Es", { hour: "2-digit", minute: "2-digit" });
 
   return (
+  
     <header className={styles.header}>
         <div className={styles.menu_mobil}>
             <div className={styles.hamburger}>

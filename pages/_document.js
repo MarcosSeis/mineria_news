@@ -18,19 +18,23 @@ export default function Document() {
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       <link rel="manifest" href="/site.webmanifest" />
     </Head>
-    <Script  strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-8YF6K6NR9F" />
-    <Script 
-      id='google-analytics'
+     
+
+    <Script
+      src="https://www.googletagmanager.com/gtag/js?id=G-8YF6K6NR9F "
       strategy="afterInteractive"
-      dangerouslySetInnerHTML={{
-      __html: `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-8YF6K6NR9F');
-      `,
-      }}
-      />
+    />
+    <Script id="google-analytics" strategy="afterInteractive">
+      {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8YF6K6NR9F ');
+      `}
+    </Script>
+
+   
     <body>
       <Main />
       <NextScript />
