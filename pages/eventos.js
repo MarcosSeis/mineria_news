@@ -1,6 +1,8 @@
 import Layout from "@/components/layout";
 import styles from '@/styles/eventos.module.css';
 import Meses from "@/components/meses";
+import axios from 'axios';
+
 
 
 export default function Eventos({eventos}) {
@@ -29,14 +31,13 @@ export default function Eventos({eventos}) {
 
 
 
-export async function getStaticProps() { 
- 
-  const respuesta = await fetch (`${process.env.API_URL}/eventos?populate=imagen`);
-  const { data: eventos } = await respuesta.json();
+export async function getStaticProps() {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?categories=2`);
+  const eventos = await response.data;
   
-  return{
-      props: {
-          eventos
-      }
+  return {
+    props: {
+      eventos
+    }
   }
 }

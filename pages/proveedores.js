@@ -1,11 +1,12 @@
 import Layout from "@/components/layout";
 import styles from '@/styles/proveedores.module.css';
+import axios from "axios";
 import Proveedor from "@/components/proveedor";
 
 export default function Proveedores({proveedores}) {
 
-  const provOrdenados = [... proveedores].sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt))
-
+  const provOrdenados = [... proveedores].sort((a, b) => new Date(b.date) - new Date(a.date))
+ 
   return (
     <>
     <Layout
@@ -19,7 +20,7 @@ export default function Proveedores({proveedores}) {
         {provOrdenados.map(proveedor => (
             <Proveedor 
               key={proveedor.id}
-              proveedor={proveedor.attributes}
+              proveedor={proveedor.acf} 
             />
           ))
         }        
@@ -34,8 +35,8 @@ export default function Proveedores({proveedores}) {
 
 export async function getStaticProps() { 
  
-    const respuesta = await fetch (`${process.env.API_URL}/proveedores?populate=logo`);
-    const { data: proveedores } = await respuesta.json();
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?categories=5`);
+    const proveedores = await response.data;
   
     return{
         props: {

@@ -1,13 +1,19 @@
 import Layout from "@/components/layout";
 import Link from "next/link";
 import styles from '@/styles/jobs.module.css'
+import axios from "axios";
 
 export default function Job({job}) {
 
-    const {titulo, requisitos, fecha, sueldo, empresa, ubicacion, link } = job[0].attributes
+    const {titulo, requisitos, fecha, sueldo, empresa, ubicacion, link } = job[0].acf
+
+
+  const fecha_pub = fecha.slice(0, 8);
+  const fecha_form = `${fecha_pub.slice(0, 4)}-${fecha_pub.slice(4, 6)}-${fecha_pub.slice(6, 8)}`
+
 
     const hoy = new Date();
-    const fecha_publicacion = new Date(fecha);
+    const fecha_publicacion = new Date(fecha_form);
     const day_as_milliseconds = 86400000;
     const diff_mill = hoy - fecha_publicacion;
     const dif_days = Math.floor(diff_mill / day_as_milliseconds)
@@ -45,8 +51,10 @@ export default function Job({job}) {
 
 export async function getServerSideProps({query: {url}}) { 
     
-    const respuesta = await fetch (`${process.env.API_URL}/jobs?filters[url]=${url}&populate=imagen`);
-    const { data: job } = await respuesta.json();
+    
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?slug=${url}&categories=4`);
+    const job = await response.data;
+    
 
     return{
         props: {

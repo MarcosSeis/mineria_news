@@ -1,4 +1,4 @@
-import Image from "next/image"
+import { useEffect, useState } from "react";
 import Link from "next/link"
 import styles from '@/styles/proveedores.module.css';
 
@@ -6,7 +6,20 @@ export default function Proveedor({proveedor}) {
 
     const { nombre, web, telefono, correo, direccion, logo } = proveedor;
 
-    const back = `url(${logo.data.attributes.url})`
+    const [imageUrl, setImageUrl] = useState('');
+
+    const apiUrl = process.env.API_URL;
+
+    useEffect(() => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/media/${logo}`)
+          .then(response => response.json())
+          .then(data => {
+            const url = data.source_url;
+            setImageUrl(url);
+          })
+        }, [logo]);
+
+    const back = `url(${imageUrl})`
 
   return (
         <div className={styles.proveedor}>

@@ -1,10 +1,11 @@
 import Layout from "@/components/layout";
 import stylesgrid from '@/styles/gridEventos.module.css';
 import Job from "@/components/job";
+import axios from "axios";
 
 export default function Trabajos({jobs}) {
 
-  const orden_jobs = [... jobs].sort((a, b) => new Date(b.attributes.fecha) - new Date(a.attributes.fecha));
+  const orden_jobs = [... jobs].sort((a, b) => new Date(b.date) - new Date(a.date));
   
 
   return (
@@ -23,7 +24,8 @@ export default function Trabajos({jobs}) {
       {orden_jobs.map(job => (
               <Job
                 key={job.id}
-                job={job.attributes}
+                job={job.acf}
+                id={job.slug}
                 />
           ))}
         
@@ -38,22 +40,9 @@ export default function Trabajos({jobs}) {
 
 
 export async function getStaticProps() { 
-  const qs = require('qs');
-  const query = qs.stringify({
-      sort: ['publishedAt:desc'],
-      pagination: {
-        pageSize: 24,
-        page: 1,
-      },
-      publicationState: 'live',
-    }, {
-      encodeValuesOnly: true, // prettify URL
-    });
-
-    const urlJobs = `${process.env.API_URL}/jobs?${query}`
  
-    const respuesta = await fetch (urlJobs);
-    const { data: jobs } = await respuesta.json();
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?categories=4&per_page=24`);
+    const jobs = await response.data;
   
     return{
         props: {

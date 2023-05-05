@@ -17,13 +17,17 @@ export default function Meses({year, eventos}) {
   
     useEffect(() => {
       if(mesSeleccionado){
-        const eventos_meses = eventos.filter(e => meses[mesSeleccionado].mes.toLocaleLowerCase() === new Date(e.attributes.fecha_ini).toLocaleDateString("es-Es", {timeZone: 'UTC',   month: "long"}));
-
+        const eventos_meses = eventos.filter(e => {
+          const fecha = e.acf.fecha_ini.slice(0, 8);
+          return meses[mesSeleccionado].mes.toLocaleLowerCase() === new Date(`${fecha.slice(0, 4)}-${fecha.slice(4, 6)}-${fecha.slice(6, 8)}`).toLocaleDateString("es-ES", {month: "long"});
+        });
         setEventos_meses(eventos_meses);
       }
      
 
     },[mesSeleccionado])
+
+    console.log(eventos_meses)
 
   return (
     <>
@@ -48,7 +52,7 @@ export default function Meses({year, eventos}) {
           eventos_meses.map(evento => (
             <Evento 
               key={evento.id}
-              evento={evento.attributes}
+              evento={evento.acf}
               />
           ))
       }

@@ -1,12 +1,15 @@
 import Link from 'next/link'
 import styles from '@/styles/jobs.module.css'
 
-export default function Job({job}) {
+export default function Job({job, id}) {
   
-  const {titulo, requisitos, fecha, sueldo, empresa, ubicacion, url } = job
+  const {titulo, requisitos, fecha, sueldo, empresa, ubicacion } = job
+  
+  const fecha_pub = fecha.slice(0, 8);
+  const fecha_form = `${fecha_pub.slice(0, 4)}-${fecha_pub.slice(4, 6)}-${fecha_pub.slice(6, 8)}`
 
   const hoy = new Date();
-  const fecha_publicacion = new Date(fecha);
+  const fecha_publicacion = new Date(fecha_form);
   const day_as_milliseconds = 86400000;
   const diff_mill = hoy - fecha_publicacion;
   const dif_days = Math.floor(diff_mill / day_as_milliseconds)
@@ -14,7 +17,7 @@ export default function Job({job}) {
   return (
 
       <main className={`${styles.post} ${styles['mt-3']}`}>
-        <Link href={`/trabajos/${url}`} className={`${styles.enlace} ${dif_days > 28 ? 'ocultar': ''} `}>
+        <Link href={`/trabajos/${id}`} className={`${styles.enlace} ${dif_days > 28 ? 'ocultar': ''} `}>
             <div className={styles.jobs}>
                 <p className={styles.resumen}>Hace {dif_days} {dif_days > 1 ? 'días': 'dia'}</p>
                 <h3>{titulo}</h3>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import Layout from "@/components/layout";
 import Link from "next/link";
 import stylesNoticias from '@/styles/grid.module.css';
@@ -12,13 +13,21 @@ import Subscribe from "@/components/subscribe";
 
 export default function Home({jobs, posts, eventos}) {
 
-  const fecha_hoy = new Date()
-  const pev = [...eventos].filter(evento => fecha_hoy < (new Date(evento.attributes.fecha_ini)))
+  
 
-  const postsPrincipales = [... posts].sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt)).slice(0, 3)
-  const orden_jobs = [... jobs].sort((a, b) => new Date(b.attributes.fecha) - new Date(a.attributes.fecha)).slice(0, 3)
-  const postsMas = [... posts].sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt) ).slice(3, 6)
-  const proxEventos = [... pev].sort((a, b) => new Date(a.attributes.fecha_ini ) - new Date(b.attributes.fecha_ini) ).slice(0, 3)
+  const fecha_hoy = new Date()
+
+  const pev = [...eventos].filter(evento => fecha_hoy < (new Date(`${evento.acf.fecha_ini.slice(0, 4)}-${evento.acf.fecha_ini.slice(4, 6)}-${evento.acf.fecha_ini.slice(6, 8)}`)))
+
+  const postsPrincipales =  [... posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3)
+
+  const orden_jobs = [... jobs].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3)
+
+  const postsMas = [... posts].sort((a, b) => new Date(b.date) - new Date(a.date) ).slice(3, 6)
+
+  const proxEventos = pev.slice(0, 3).sort((a, b) => new Date(`${a.acf.fecha_ini.slice(0, 4)}-${a.acf.fecha_ini.slice(4, 6)}-${a.acf.fecha_ini.slice(6, 8)}`) - new Date(`${b.acf.fecha_ini.slice(0, 4)}-${b.acf.fecha_ini.slice(4, 6)}-${b.acf.fecha_ini.slice(6, 8)}`));
+
+
 
   return (
     <>
@@ -32,7 +41,9 @@ export default function Home({jobs, posts, eventos}) {
             {postsPrincipales.map(post => (
                     <Post 
                       key={post.id}
-                      post={post.attributes}
+                      post={post.acf}
+                      id={post.slug}
+                      date={post.date}
                       />
                 ))}
             </div>
@@ -45,7 +56,8 @@ export default function Home({jobs, posts, eventos}) {
               {orden_jobs.map(job => (
                       <Job
                         key={job.id}
-                        job={job.attributes}
+                        job={job.acf}
+                        id={job.slug}
                         />
                   ))}
               </div>
@@ -90,8 +102,10 @@ export default function Home({jobs, posts, eventos}) {
             <div className={stylesgrid.grid}>
             {postsMas.map(post => (
                     <Post 
-                      key={post.id}
-                      post={post.attributes}
+                      key={post.id} 
+                      post={post.acf}
+                      id={post.slug}
+                      date={post.date}
                       />
                 ))}
             </div>
@@ -103,7 +117,7 @@ export default function Home({jobs, posts, eventos}) {
             {proxEventos.map(evento => (
                     <Proxevento 
                       key={evento.id}
-                      evento={evento.attributes}
+                      evento={evento.acf}
                       />
                 ))}
             </div>
@@ -123,31 +137,19 @@ export default function Home({jobs, posts, eventos}) {
 
 export async function getStaticProps() {
 
-  const qs = require('qs');
-  const query = qs.stringify({
-    sort: ['publishedAt:desc'],
-    pagination: {
-      pageSize: 6,
-      page: 1,
-    },
-    publicationState: 'live',
-  }, {
-    encodeValuesOnly: true, // prettify URL
-  });
-
-  const urlJobs = `${process.env.API_URL}/jobs?${query}`
-  const urlPosts = `${process.env.API_URL}/posts?populate=imagen&${query}`
-  const urlEventos = `${process.env.API_URL}/eventos?populate=imagen`
+  const urlJobs = `${process.env.NEXT_PUBLIC_API_URL}/posts?categories=4&per_page=24`
+  const urlPosts = `${process.env.NEXT_PUBLIC_API_URL}/posts?categories=6&per_page=24`
+  const urlEventos = `${process.env.NEXT_PUBLIC_API_URL}/posts?categories=2`
 
   const [ resJobs, resPosts, resEventos ] = await Promise.all([
-    fetch(urlJobs),
-    fetch(urlPosts),
-    fetch(urlEventos)
+    axios.get(urlJobs),
+    axios.get(urlPosts),
+    axios.get(urlEventos)
   ])
   const [{ data: jobs }, {data: posts}, {data: eventos}] = await Promise.all([
-      resJobs.json(),
-      resPosts.json(),
-      resEventos.json()
+      resJobs,
+      resPosts,
+      resEventos
   ])
 
   return {

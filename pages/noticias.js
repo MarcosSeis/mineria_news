@@ -1,10 +1,11 @@
 import Layout from "@/components/layout";
 import styles from '@/styles/gridEventos.module.css';
 import Post from "@/components/noticia";
+import axios from "axios";
 
 export default function Noticias({posts}) {
 
-  const postsPrincipales = [... posts].sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt))
+  const postsPrincipales = [... posts].sort((a, b) => new Date(b.date) - new Date(a.date))
 
   return (
     <>
@@ -19,7 +20,9 @@ export default function Noticias({posts}) {
       {postsPrincipales.map(post => (
               <Post 
                 key={post.id}
-                post={post.attributes}
+                post={post.acf}
+                id={post.slug}
+                date={post.date}
                 />
           ))}
       </div>
@@ -32,23 +35,9 @@ export default function Noticias({posts}) {
 
 
 export async function getStaticProps() { 
-
-  const qs = require('qs');
-  const query = qs.stringify({
-      sort: ['publishedAt:desc'],
-      pagination: {
-        pageSize: 24,
-        page: 1,
-      },
-      publicationState: 'live',
-    }, {
-      encodeValuesOnly: true, // prettify URL
-    });
-
-    const urlPosts = `${process.env.API_URL}/posts?populate=imagen&${query}`
- 
-    const respuesta = await fetch (urlPosts);
-    const { data: posts } = await respuesta.json();
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?categories=6&per_page=24`);
+    const posts = await response.data;
+  
   
     return{
         props: {
