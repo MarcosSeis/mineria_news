@@ -9,24 +9,13 @@ export default function Post({post, id, date}) {
 
     const { contenido, imagen, titulo } = post;
 
-    const [imageUrl, setImageUrl] = useState('');
-
-    
-    useEffect(() => {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/media/${imagen}`)
-          .then(response => response.json())
-          .then(data => {
-            const url = data.source_url;
-            setImageUrl(url);
-          })
-        }, [imagen]);
 
   return (
     <article>
             <Link href={`/noticias/${id}`}
                 className={styles.enlace_titulo}
                 >
-                 <Image src={imageUrl}
+                 <Image src={imagen}
                         width={600}
                         height={400}
                         alt={`Imagen ${titulo}`}

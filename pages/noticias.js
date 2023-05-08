@@ -35,10 +35,9 @@ export default function Noticias({posts}) {
 
 
 export async function getStaticProps() { 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?categories=6&per_page=24`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?acf_format=standard&categories=6&per_page=24&orderby=date`);
     const posts = await response.data;
-  
-  
+    
     return{
         props: {
             posts

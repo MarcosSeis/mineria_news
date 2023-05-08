@@ -5,11 +5,10 @@ export default function Job({job, id}) {
   
   const {titulo, requisitos, fecha, sueldo, empresa, ubicacion } = job
   
-  const fecha_pub = fecha.slice(0, 8);
-  const fecha_form = `${fecha_pub.slice(0, 4)}-${fecha_pub.slice(4, 6)}-${fecha_pub.slice(6, 8)}`
+  console.log(fecha)
 
   const hoy = new Date();
-  const fecha_publicacion = new Date(fecha_form);
+  const fecha_publicacion = new Date(fecha);
   const day_as_milliseconds = 86400000;
   const diff_mill = hoy - fecha_publicacion;
   const dif_days = Math.floor(diff_mill / day_as_milliseconds)

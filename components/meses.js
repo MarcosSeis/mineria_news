@@ -13,13 +13,13 @@ export default function Meses({year, eventos}) {
 
     const meses = [{mes:'Enero', id:0}, {mes:'Febrero', id:1}, {mes:'Marzo', id:2}, {mes:'Abril', id:3}, {mes:'Mayo', id:4}, {mes:'Junio', id:5}, {mes:'Julio', id:6}, {mes:'Agosto', id:7}, {mes:'Septiembre', id:8}, {mes:'Octubre', id:9}, {mes:'Noviembre', id:10}, {mes:'Diciembre', id:11}]
 
-   
+    console.log(eventos)
   
     useEffect(() => {
       if(mesSeleccionado){
         const eventos_meses = eventos.filter(e => {
-          const fecha = e.acf.fecha_ini.slice(0, 8);
-          return meses[mesSeleccionado].mes.toLocaleLowerCase() === new Date(`${fecha.slice(0, 4)}-${fecha.slice(4, 6)}-${fecha.slice(6, 8)}`).toLocaleDateString("es-ES", {month: "long"});
+          const fecha = e.acf.fecha_ini;
+          return meses[mesSeleccionado].mes.toLocaleLowerCase() === new Date(fecha).toLocaleDateString("es-ES", {month: "long"});
         });
         setEventos_meses(eventos_meses);
       }

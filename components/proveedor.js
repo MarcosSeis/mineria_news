@@ -6,20 +6,7 @@ export default function Proveedor({proveedor}) {
 
     const { nombre, web, telefono, correo, direccion, logo } = proveedor;
 
-    const [imageUrl, setImageUrl] = useState('');
-
-    const apiUrl = process.env.API_URL;
-
-    useEffect(() => {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/media/${logo}`)
-          .then(response => response.json())
-          .then(data => {
-            const url = data.source_url;
-            setImageUrl(url);
-          })
-        }, [logo]);
-
-    const back = `url(${imageUrl})`
+    const back = `url(${logo})`
 
   return (
         <div className={styles.proveedor}>
