@@ -1,7 +1,11 @@
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/header.module.css"
 import LinksNav from "./linksNav";
+import imagen from "@/public/ads/Convencion-2023-banner-1-1200x200.jpg"
+import imagentablet from "@/public/ads/Convencion-2023-banner-2-600x200.jpg"
+
 
 
 export default function Header() {
@@ -11,7 +15,7 @@ export default function Header() {
     const hora = new Date().toLocaleTimeString("es-Es", { hour: "2-digit", minute: "2-digit" });
 
   return (
-  
+    <>
     <header className={styles.header}>
         <div className={styles.menu_mobil}>
             <div className={styles.hamburger}>
@@ -56,8 +60,44 @@ export default function Header() {
         <LinksNav />
         </nav>
     </div>
+
+   
    
 </header>
+    <div className={`contenedor `}>
+        <div className={styles.bannerfull}>
+            <Link href="https://convencionmineramexico.mx/">
+                <Image 
+                    src={imagen}
+                    width={1200}
+                    height={200}
+                    alt={`Imagen convencion minera acapulco 23 al 27 de octubre`} />
+            </Link>
+        </div>
+
+        <div className={styles.bannertablet}>
+            <Link href="https://convencionmineramexico.mx/">
+                <Image 
+                    src={imagentablet}
+                    width={800}
+                    height={200}
+                    alt={`Imagen convencion minera acapulco 23 al 27 de octubre`} />
+            </Link>
+        </div>
+
+        <div className={styles.bannermobil}>
+            <Link href="https://convencionmineramexico.mx/">
+                <Image 
+                    src={imagentablet}
+                    width={600}
+                    height={200}
+                    alt={`Imagen convencion minera acapulco 23 al 27 de octubre`} />
+            </Link>
+        </div>
+  
+    
+    </div>
+    </>
 
   )
 }

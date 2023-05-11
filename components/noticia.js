@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { formatearFecha } from "@/utils/helpers";
 import styles from '@/styles/blog.module.css'

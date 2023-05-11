@@ -138,7 +138,7 @@ export default function Home({jobs, posts, eventos}) {
 export async function getStaticProps() {
 
   const urlJobs = `${process.env.NEXT_PUBLIC_API_URL}/posts?acf_format=standard&categories=4&orderby=date`
-  const urlPosts = `${process.env.NEXT_PUBLIC_API_URL}/posts?acf_format=standard&categories=6&per_page=24&orderby=date`
+  const urlPosts = `${process.env.NEXT_PUBLIC_API_URL}/posts?acf_format=standard&categories=6&per_page=6&orderby=date`
   const urlEventos = `${process.env.NEXT_PUBLIC_API_URL}/posts?categories=2`
 
   const [ resJobs, resPosts, resEventos ] = await Promise.all([

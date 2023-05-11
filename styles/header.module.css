@@ -157,3 +157,40 @@
         display: block;
     }
 }
+
+
+.bannermobil{
+    display: block;
+
+}
+
+.bannertablet{
+    display: none;
+}
+
+.bannerfull {
+    display: none;
+}
+
+
+@media (min-width: 800px){
+    .bannertablet{
+        display: none !important;
+    }
+    .bannerfull {
+        display: block;
+    }
+    
+
+}
+
+@media (min-width: 480px){
+.bannermobil{
+    display: none;
+}
+.bannertablet{
+    display: block;
+}
+
+
+}
