@@ -6,7 +6,7 @@ export default function Evento({evento}) {
 
     const {titulo, horario, imagen, detalles, ubicacion, pagina_evento, calendario_google, fecha_ini, fecha_fin} = evento 
 
-    console.log(fecha_ini)
+
 
     const inicia_weekday = new Date(fecha_ini).toLocaleDateString("es-Es", {timeZone: 'UTC', weekday: "short"})
     const inicia_day = new Date(fecha_ini).toLocaleDateString("es-Es", {timeZone: 'UTC', day: "numeric"}) 

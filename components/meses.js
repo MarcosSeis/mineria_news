@@ -13,7 +13,6 @@ export default function Meses({year, eventos}) {
 
     const meses = [{mes:'Enero', id:0}, {mes:'Febrero', id:1}, {mes:'Marzo', id:2}, {mes:'Abril', id:3}, {mes:'Mayo', id:4}, {mes:'Junio', id:5}, {mes:'Julio', id:6}, {mes:'Agosto', id:7}, {mes:'Septiembre', id:8}, {mes:'Octubre', id:9}, {mes:'Noviembre', id:10}, {mes:'Diciembre', id:11}]
 
-    console.log(eventos)
   
     useEffect(() => {
       if(mesSeleccionado){
