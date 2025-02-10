@@ -32,7 +32,7 @@ export default function Eventos({eventos}) {
 
 
 export async function getStaticProps() {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?acf_format=standard&categories=2`);
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/evento`);
   const eventos = await response.data;
   
   return {

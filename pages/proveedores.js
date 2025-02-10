@@ -35,7 +35,7 @@ export default function Proveedores({proveedores}) {
 
 export async function getStaticProps() { 
  
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?acf_format=standard&categories=5&orderby=date`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proveedor`);
     const proveedores = await response.data;
   
     return{

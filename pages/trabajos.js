@@ -41,7 +41,7 @@ export default function Trabajos({jobs}) {
 
 export async function getStaticProps() { 
  
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?acf_format=standard&categories=4&orderby=date`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/job`);
     const jobs = await response.data;
   
     return{

@@ -26,7 +26,6 @@ export default function Meses({year, eventos}) {
 
     },[mesSeleccionado])
 
-    console.log(eventos_meses)
 
   return (
     <>

@@ -52,7 +52,7 @@ export default function Job({job}) {
 export async function getServerSideProps({query: {url}}) { 
     
     
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?slug=${url}&categories=4`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/job?slug=${url}`);
     const job = await response.data;
     
 

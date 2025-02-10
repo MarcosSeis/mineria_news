@@ -6,7 +6,7 @@ import axios from "axios";
 
 export default function Post({post}) {
 
-    const { titulo, contenido, imagen} = post[0].acf
+    const { titulo, contenido, imagen} = post[0]?.acf
 
   return (
     <Layout
@@ -30,7 +30,7 @@ export default function Post({post}) {
 export async function getServerSideProps({query: {url}}) { 
    
     
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?slug=${url}&acf_format=standard&categories=6`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/noticia?slug=${url}`);
     const post = await response.data;
     
 

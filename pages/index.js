@@ -17,7 +17,7 @@ export default function Home({jobs, posts, eventos}) {
 
   const fecha_hoy = new Date()
 
-  const pev = [...eventos].filter(evento => fecha_hoy < (new Date(`${evento.acf.fecha_ini.slice(0, 4)}-${evento.acf.fecha_ini.slice(4, 6)}-${evento.acf.fecha_ini.slice(6, 8)}`)))
+  const pev = [...eventos].filter(evento => fecha_hoy < (new Date(`${evento.acf.fecha_ini}`)))
 
   const postsPrincipales =  [... posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3)
 
@@ -25,7 +25,7 @@ export default function Home({jobs, posts, eventos}) {
 
   const postsMas = [... posts].sort((a, b) => new Date(b.date) - new Date(a.date) ).slice(3, 6)
 
-  const proxEventos = pev.slice(0, 3).sort((a, b) => new Date(`${a.acf.fecha_ini.slice(0, 4)}-${a.acf.fecha_ini.slice(4, 6)}-${a.acf.fecha_ini.slice(6, 8)}`) - new Date(`${b.acf.fecha_ini.slice(0, 4)}-${b.acf.fecha_ini.slice(4, 6)}-${b.acf.fecha_ini.slice(6, 8)}`));
+  const proxEventos = pev.slice(0, 3).sort((a, b) => new Date(`${a.acf.fecha_ini}`) - new Date(`${b.acf.fecha_ini}`));
 
 
 
@@ -137,9 +137,9 @@ export default function Home({jobs, posts, eventos}) {
 
 export async function getStaticProps() {
 
-  const urlJobs = `${process.env.NEXT_PUBLIC_API_URL}/posts?acf_format=standard&categories=4&orderby=date`
-  const urlPosts = `${process.env.NEXT_PUBLIC_API_URL}/posts?acf_format=standard&categories=6&per_page=6&orderby=date`
-  const urlEventos = `${process.env.NEXT_PUBLIC_API_URL}/posts?categories=2`
+  const urlJobs = `${process.env.NEXT_PUBLIC_API_URL}/job`
+  const urlPosts = `${process.env.NEXT_PUBLIC_API_URL}/noticia`
+  const urlEventos = `${process.env.NEXT_PUBLIC_API_URL}/evento`
 
   const [ resJobs, resPosts, resEventos ] = await Promise.all([
     axios.get(urlJobs),

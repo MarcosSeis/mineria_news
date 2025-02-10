@@ -5,7 +5,6 @@ export default function Job({job, id}) {
   
   const {titulo, requisitos, fecha, sueldo, empresa, ubicacion } = job
   
-  console.log(fecha)
 
   const hoy = new Date();
   const fecha_publicacion = new Date(fecha);
