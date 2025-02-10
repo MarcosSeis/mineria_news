@@ -2,10 +2,11 @@ import Layout from "@/components/layout";
 import styles from '@/styles/proveedores.module.css';
 import axios from "axios";
 import Proveedor from "@/components/proveedor";
+import dayjs from 'dayjs';
 
 export default function Proveedores({proveedores}) {
 
-  const provOrdenados = [... proveedores].sort((a, b) => new Date(b.date) - new Date(a.date))
+  const provOrdenados = [...proveedores].sort((a, b) => dayjs(b.date) - dayjs(a.date));
  
   return (
     <>

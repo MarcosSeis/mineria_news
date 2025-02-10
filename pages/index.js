@@ -10,14 +10,21 @@ import Job from "@/components/job";
 import Proxevento from "@/components/proxevento";
 import Anuncio from "@/components/anuncio";
 import Subscribe from "@/components/subscribe";
+import dayjs from 'dayjs';
 
 export default function Home({jobs, posts, eventos}) {
 
   
 
-  const fecha_hoy = new Date()
-
-  const pev = [...eventos].filter(evento => fecha_hoy < (new Date(`${evento.acf.fecha_ini}`)))
+  const fecha_hoy = dayjs()
+  
+  const pev = eventos.filter(evento => {
+   
+    const fecha_ini = dayjs(evento.acf.fecha_ini, 'YYYYMMDD');
+  
+    return fecha_ini.isAfter(fecha_hoy);
+  });
+  
 
   const postsPrincipales =  [... posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3)
 
@@ -25,7 +32,17 @@ export default function Home({jobs, posts, eventos}) {
 
   const postsMas = [... posts].sort((a, b) => new Date(b.date) - new Date(a.date) ).slice(3, 6)
 
-  const proxEventos = pev.slice(0, 3).sort((a, b) => new Date(`${a.acf.fecha_ini}`) - new Date(`${b.acf.fecha_ini}`));
+   
+  const proxEventos = pev
+  .slice(0, 3) 
+  .sort((a, b) => {
+    // Parsear las fechas usando dayjs y el formato 'YYYYMMDD'
+    const fechaA = dayjs(a.acf.fecha_ini, 'YYYYMMDD');
+    const fechaB = dayjs(b.acf.fecha_ini, 'YYYYMMDD');
+
+    // Comparar las fechas
+    return fechaA - fechaB;
+  });
 
 
 

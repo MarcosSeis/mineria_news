@@ -2,10 +2,18 @@ import Layout from "@/components/layout";
 import styles from '@/styles/gridEventos.module.css';
 import Post from "@/components/noticia";
 import axios from "axios";
+import dayjs from 'dayjs';
 
 export default function Noticias({posts}) {
 
-  const postsPrincipales = [... posts].sort((a, b) => new Date(b.date) - new Date(a.date))
+  const postsPrincipales = [...posts].sort((a, b) => {
+    // Convertir las fechas a objetos dayjs
+    const fechaA = dayjs(a.date);
+    const fechaB = dayjs(b.date);
+  
+    // Ordenar de forma descendente (de la más reciente a la más antigua)
+    return fechaB - fechaA;
+  });
 
   return (
     <>

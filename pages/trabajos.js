@@ -2,10 +2,11 @@ import Layout from "@/components/layout";
 import stylesgrid from '@/styles/gridEventos.module.css';
 import Job from "@/components/job";
 import axios from "axios";
+import dayjs from 'dayjs';
 
 export default function Trabajos({jobs}) {
 
-  const orden_jobs = [... jobs].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const orden_jobs = [...jobs].sort((a, b) => dayjs(b.date) - dayjs(a.date));
   
 
   return (
