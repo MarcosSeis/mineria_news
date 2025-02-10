@@ -160,7 +160,7 @@
 
 
 .bannermobil{
-    display: block;
+    display: flex;
 
 }
 
@@ -178,7 +178,8 @@
         display: none !important;
     }
     .bannerfull {
-        display: block;
+        display: flex;
+        justify-content: center;
     }
     
 

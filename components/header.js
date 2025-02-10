@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/header.module.css"
 import LinksNav from "./linksNav";
-import imagen from "@/public/ads/Convencion-2023-banner-1-1200x200.jpg"
-import imagentablet from "@/public/ads/Convencion-2023-banner-2-600x200.jpg"
+import imagen from "@/public/ads/banner_2025convencion.png"
+import imagentablet from "@/public/ads/banner_2025convencion.png"
 
 
 
@@ -64,12 +64,12 @@ export default function Header() {
    
    
 </header>
-    <div className={`contenedor `}>
+    <div className={`contenedor`}>
         <div className={styles.bannerfull}>
             <Link href="https://convencionmineramexico.mx/">
                 <Image 
                     src={imagen}
-                    width={1200}
+                    width={600}
                     height={200}
                     alt={`Imagen convencion minera acapulco 23 al 27 de octubre`} />
             </Link>
@@ -79,7 +79,7 @@ export default function Header() {
             <Link href="https://convencionmineramexico.mx/">
                 <Image 
                     src={imagentablet}
-                    width={800}
+                    width={400}
                     height={200}
                     alt={`Imagen convencion minera acapulco 23 al 27 de octubre`} />
             </Link>
