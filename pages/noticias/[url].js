@@ -13,7 +13,7 @@ export default function Post({post}) {
         title={`${titulo}`}
         >
         <article className={`${styles.post} ${styles['mt-3']}`}>
-            <Image src={imagen} width={1000} height={400} alt={`Imagen ${titulo}`} />
+        {imagen && (<Image src={imagen} width={1000} height={400} alt={`Imagen ${titulo}`} />)}
 
             <div className={styles.contenido}>
                 <h3 >{titulo}</h3>
