@@ -71,7 +71,7 @@ export default function Header() {
                     src={imagen}
                     width={600}
                     height={200}
-                    alt={`Imagen convencion minera acapulco 23 al 27 de octubre`} />
+                    alt={`Imagen convencion minera acapulco `} />
             </Link>
         </div>
 
@@ -81,7 +81,7 @@ export default function Header() {
                     src={imagentablet}
                     width={400}
                     height={200}
-                    alt={`Imagen convencion minera acapulco 23 al 27 de octubre`} />
+                    alt={`Imagen convencion minera acapulco`} />
             </Link>
         </div>
 
