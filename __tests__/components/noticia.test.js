@@ -13,6 +13,12 @@ describe('Noticia (Post)', () => {
     screen.getAllByRole('link').forEach(a => expect(a).toHaveAttribute('href', '/noticias/gran-hallazgo'))
   })
 
+  it('prefiere el campo resumen sobre el contenido completo', () => {
+    render(<Post post={{ ...post, contenido: 'Texto completo larguísimo', resumen: 'Resumen editorial' }} id="x" date="2026-10-01" />)
+    expect(screen.getByText('Resumen editorial')).toBeInTheDocument()
+    expect(screen.queryByText('Texto completo larguísimo')).not.toBeInTheDocument()
+  })
+
   it('no renderiza imagen si no existe', () => {
     render(<Post post={{ ...post, imagen: '' }} id="x" date="2026-10-01" />)
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
