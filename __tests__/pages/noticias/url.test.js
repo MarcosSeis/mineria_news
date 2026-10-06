@@ -24,6 +24,24 @@ describe('Detalle de noticia', () => {
     expect(screen.queryByAltText('Imagen Noticia 1')).not.toBeInTheDocument()
   })
 
+  it('usa el resumen como description y muestra la fuente enlazada', () => {
+    const post = crearPost(1, '2026-10-01', {
+      contenido: 'Texto largo', resumen: 'Resumen corto', fuente: 'The Northern Miner',
+      fuente_url: 'https://www.northernminer.com/nota', credito_imagen: 'Foto: Banco Minería News'
+    })
+    render(<Noticia post={post} />)
+    expect(document.querySelector('meta[name="description"]')).toHaveAttribute('content', 'Resumen corto')
+    expect(screen.getByRole('link', { name: 'The Northern Miner' })).toHaveAttribute('href', 'https://www.northernminer.com/nota')
+    expect(screen.getByText('Foto: Banco Minería News')).toBeInTheDocument()
+  })
+
+  it('muestra la fuente sin enlace si la URL no es segura', () => {
+    const post = crearPost(1, '2026-10-01', { fuente: 'Medio X', fuente_url: 'javascript:alert(1)' })
+    render(<Noticia post={post} />)
+    expect(screen.getByText(/Fuente: Medio X/)).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Medio X' })).not.toBeInTheDocument()
+  })
+
   it('getStaticPaths genera bajo demanda (fallback blocking)', async () => {
     expect(await getStaticPaths()).toEqual({ paths: [], fallback: 'blocking' })
   })

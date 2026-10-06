@@ -28,6 +28,22 @@
     white-space: pre-wrap;
 }
 
+.fuente {
+    font-size: 1.4rem;
+    color: #4a4a4a;
+    border-top: 1px solid #e1e1e1;
+    padding-top: 1.5rem;
+}
+.fuente a {
+    color: inherit;
+}
+.credito {
+    font-size: 1.2rem;
+    color: #6b6b6b;
+    margin: 0.5rem 1.5rem 0;
+    text-align: right;
+}
+
 .mt-3 {
     margin-top: 3rem;
 }
