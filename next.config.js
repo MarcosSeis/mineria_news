@@ -1,9 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  turbopack: { root: __dirname },
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['res.cloudinary.com', 'minasapi.space']
+    remotePatterns: [
+      { protocol: 'https', hostname: 'res.cloudinary.com' },
+      { protocol: 'https', hostname: 'minasapi.space' }
+    ]
   }
 }
 

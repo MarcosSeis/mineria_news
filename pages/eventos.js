@@ -1,13 +1,11 @@
 import Layout from "@/components/layout";
 import styles from '@/styles/eventos.module.css';
 import Meses from "@/components/meses";
-import axios from 'axios';
-
-
+import { fetchList } from "@/lib/api";
 
 export default function Eventos({eventos}) {
 
-    const year =  new Date().getFullYear();
+    const year = new Date().getFullYear();
 
   return (
     <>
@@ -18,7 +16,7 @@ export default function Eventos({eventos}) {
 
     <main>
      <h1 className={styles.encabezado}> Próximos Eventos {year} </h1>
-        <Meses 
+        <Meses
           year={year}
           eventos={eventos}
           />
@@ -29,15 +27,11 @@ export default function Eventos({eventos}) {
   )
 }
 
-
-
 export async function getStaticProps() {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/evento`);
-  const eventos = await response.data;
-  
+  const eventos = await fetchList('evento')
+
   return {
-    props: {
-      eventos
-    }
+    props: { eventos },
+    revalidate: 3600,
   }
 }

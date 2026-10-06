@@ -1,13 +1,12 @@
 import Layout from "@/components/layout";
 import stylesgrid from '@/styles/gridEventos.module.css';
 import Job from "@/components/job";
-import axios from "axios";
-import dayjs from 'dayjs';
+import { fetchList } from "@/lib/api";
+import { filtrarRecientes, ordenarPorFechaDesc } from "@/utils/helpers";
 
 export default function Trabajos({jobs}) {
 
-  const orden_jobs = [...jobs].sort((a, b) => dayjs(b.date) - dayjs(a.date));
-  
+  const jobsRecientes = ordenarPorFechaDesc(filtrarRecientes(jobs))
 
   return (
     <>
@@ -22,14 +21,14 @@ export default function Trabajos({jobs}) {
       <h2>Ultimos 30 días</h2>
 
       <div className={stylesgrid.grid}>
-      {orden_jobs.map(job => (
+      {jobsRecientes.map(job => (
               <Job
                 key={job.id}
                 job={job.acf}
                 id={job.slug}
                 />
           ))}
-        
+
       </div>
 
     </main>
@@ -39,16 +38,11 @@ export default function Trabajos({jobs}) {
   )
 }
 
+export async function getStaticProps() {
+    const jobs = await fetchList('job')
 
-export async function getStaticProps() { 
- 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/job`);
-    const jobs = await response.data;
-  
-    return{
-        props: {
-            jobs
-        },
+    return {
+        props: { jobs },
         revalidate: 10,
     }
-  }
+}

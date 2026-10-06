@@ -11,7 +11,10 @@
     background-color: transparent;
 }
 
-.meses a {
+.meses button {
+    border: 0;
+    font: inherit;
+    text-transform: inherit;
     color: #a0a09f;
     background-color: #f5f5f5;
     padding: 5px 10px;
@@ -48,6 +51,11 @@
     text-align: center;
 }
 .lista_evento{
+    width: 100%;
+    border: 0;
+    font: inherit;
+    text-align: left;
+    color: inherit;
     background-color: #fff;
     display: flex;
     gap: 1rem;
