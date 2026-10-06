@@ -1,13 +1,13 @@
 import Layout from "@/components/layout";
 import styles from '@/styles/proveedores.module.css';
-import axios from "axios";
 import Proveedor from "@/components/proveedor";
-import dayjs from 'dayjs';
+import { fetchList } from "@/lib/api";
+import { ordenarPorFechaDesc } from "@/utils/helpers";
 
 export default function Proveedores({proveedores}) {
 
-  const provOrdenados = [...proveedores].sort((a, b) => dayjs(b.date) - dayjs(a.date));
- 
+  const provOrdenados = ordenarPorFechaDesc(proveedores)
+
   return (
     <>
     <Layout
@@ -19,12 +19,12 @@ export default function Proveedores({proveedores}) {
       <h1>Proveedores Premium</h1>
       <div className={styles.grid}>
         {provOrdenados.map(proveedor => (
-            <Proveedor 
+            <Proveedor
               key={proveedor.id}
-              proveedor={proveedor.acf} 
+              proveedor={proveedor.acf}
             />
           ))
-        }        
+        }
       </div>
     </main>
 
@@ -33,16 +33,11 @@ export default function Proveedores({proveedores}) {
   )
 }
 
+export async function getStaticProps() {
+    const proveedores = await fetchList('proveedor')
 
-export async function getStaticProps() { 
- 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/proveedor`);
-    const proveedores = await response.data;
-  
-    return{
-        props: {
-            proveedores
-        },
+    return {
+        props: { proveedores },
         revalidate: 10,
     }
-  }
+}

@@ -8,7 +8,6 @@ export default function Post({ post, id, date }) {
 
     return (
         <article>
-            {/* Mostrar la imagen solo si está disponible */}
             {imagen && (
                 <Link href={`/noticias/${id}`} className={styles.enlace_titulo}>
                     <Image

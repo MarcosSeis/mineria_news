@@ -1,36 +1,47 @@
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/header.module.css"
 import LinksNav from "./linksNav";
 import imagen from "@/public/ads/banner_2025convencion.png"
-import imagentablet from "@/public/ads/banner_2025convencion.png"
+import { CONTACT_EMAIL } from "@/lib/config";
 
+const suscribirNada = () => () => {}
 
+const fechaHoraActual = () => {
+    const ahora = new Date();
+    const hoy = ahora.toLocaleDateString("es-ES", { year: "numeric", month: "short", day: "numeric" });
+    const hora = ahora.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+    return `${hoy} | Actualizado ${hora}`;
+}
 
 export default function Header() {
-  
+
     const [navMenu, setNavMenu] = useState(false);
-    const hoy = new Date().toLocaleDateString("es-Es", {timeZone: 'UTC', year: "numeric", month: "short", day: "numeric"});
-    const hora = new Date().toLocaleTimeString("es-Es", { hour: "2-digit", minute: "2-digit" });
+    // Vacío en el servidor y fecha real en el cliente: evita el desajuste de hidratación
+    const fechaHora = useSyncExternalStore(suscribirNada, fechaHoraActual, () => '');
 
   return (
     <>
     <header className={styles.header}>
         <div className={styles.menu_mobil}>
             <div className={styles.hamburger}>
-                <div className={styles.hamburger_img}
+                <button
+                    type="button"
+                    className={styles.hamburger_img}
+                    aria-label="Abrir menú"
+                    aria-expanded={navMenu}
                     onClick={ () => setNavMenu(!navMenu)}>
-                        <svg viewBox="0 0 100 60" width="40" height="40">
+                        <svg viewBox="0 0 100 60" width="40" height="40" aria-hidden="true">
                             <rect  width="100" height="6"></rect>
                             <rect y="20" width="80" height="6"></rect>
                             <rect y="40" width="100" height="6"></rect>
                         </svg>
-                </div>
+                </button>
 
                 <div className={styles.horas}>
-                    <p> {hoy} | Actualizado {hora} CST</p>
-                    <h1>Minería News</h1>
+                    <p>{fechaHora}</p>
+                    <p className={styles.titulo_movil}>Minería News</p>
                 </div>
             </div>
             <div className={navMenu ? styles.nav_menu: styles.nav_menu_close}>
@@ -39,14 +50,14 @@ export default function Header() {
                         <LinksNav />
                     </ul>
                     <ul className={styles.nav_footer}>
-                        <li>Contacto: info@minerianews.com</li>
+                        <li>Contacto: {CONTACT_EMAIL}</li>
                         <li>Diseñado por Marcos</li>
                     </ul>
                 </nav>
             </div>
         </div>
         <div className={`${styles.horas} contenedor`}>
-        <p className={styles.ocultar_movil}> {hoy} | Actualizado {hora} CST</p>
+        <p className={styles.ocultar_movil}>{fechaHora}</p>
             <div className={styles.imagen}>
                 <Link href="/">
                     <h1>Minería News</h1>
@@ -61,43 +72,19 @@ export default function Header() {
         </nav>
     </div>
 
-   
-   
 </header>
     <div className={`contenedor`}>
-        <div className={styles.bannerfull}>
-            <Link href="https://convencionmineramexico.mx/">
-                <Image 
+        <div className={styles.banner}>
+            <Link href="https://convencionmineramexico.mx/" target="_blank" rel="noopener noreferrer">
+                <Image
                     src={imagen}
                     width={600}
                     height={200}
-                    alt={`Imagen convencion minera acapulco `} />
+                    priority
+                    alt="Convención Minera Acapulco 23 al 27 de octubre" />
             </Link>
         </div>
-
-        <div className={styles.bannertablet}>
-            <Link href="https://convencionmineramexico.mx/">
-                <Image 
-                    src={imagentablet}
-                    width={400}
-                    height={200}
-                    alt={`Imagen convencion minera acapulco`} />
-            </Link>
-        </div>
-
-        <div className={styles.bannermobil}>
-            <Link href="https://convencionmineramexico.mx/">
-                <Image 
-                    src={imagentablet}
-                    width={600}
-                    height={200}
-                    alt={`Imagen convencion minera acapulco 23 al 27 de octubre`} />
-            </Link>
-        </div>
-  
-    
     </div>
     </>
-
   )
 }

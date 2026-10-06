@@ -50,8 +50,3 @@ main {
 p {
   text-align: justify;
 }
-
-.contenedor_boletin {
-  display: flex;
-  justify-content: center;
-}

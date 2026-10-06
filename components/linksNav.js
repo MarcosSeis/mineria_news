@@ -1,38 +1,22 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 
+const enlaces = [
+    { href: '/', texto: 'Inicio' },
+    { href: '/nosotros', texto: 'Nosotros' },
+    { href: '/noticias', texto: 'Noticias' },
+    { href: '/eventos', texto: 'Eventos' },
+    { href: '/proveedores', texto: 'Proveedores' },
+    { href: '/trabajos', texto: 'Bolsa de trabajo' }
+]
 
 export default function LinksNav() {
-    const router = useRouter();
   return (
     <>
-        <Link 
-            href="/">
-            Inicio
-        </Link>
-        <Link 
-            href="/nosotros">
-            Nosotros
-        </Link>
-        <Link 
-            href="/noticias">
-            Noticias
-        </Link>
-        <Link 
-            href="/eventos">
-            Eventos
-        </Link>
-    
-        <Link 
-            href="/proveedores">
-            Proveedores
-        </Link>
-        <Link 
-            href="/trabajos">
-            Bolsa de trabajo
-        </Link>
-      
+        {enlaces.map(({ href, texto }) => (
+            <Link key={href} href={href}>
+                {texto}
+            </Link>
+        ))}
     </>
   )
 }
-

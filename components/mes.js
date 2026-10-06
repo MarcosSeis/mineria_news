@@ -2,12 +2,12 @@ import styles from '@/styles/meses.module.css';
 
 export default function Mes({mes, id, actual, onClick}) {
 
-
   return (
-        <a 
-          data-val={id}  
+        <button
+          type="button"
+          aria-pressed={actual === id}
           className={actual === id ? styles.actual : ''}
-          onClick={onClick}
-        >{mes}</a>
+          onClick={() => onClick(id)}
+        >{mes}</button>
   )
 }
