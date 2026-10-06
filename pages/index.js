@@ -10,9 +10,12 @@ import Proxevento from "@/components/proxevento";
 import Anuncio from "@/components/anuncio";
 import { anuncios } from "@/data/anuncios";
 import { fetchList } from "@/lib/api";
+import useActualizacionAutomatica from "@/hooks/useActualizacionAutomatica";
 import { eventosProximos, filtrarRecientes, ordenarPorFechaDesc } from "@/utils/helpers";
 
 export default function Home({jobs, posts, eventos}) {
+
+  useActualizacionAutomatica()
 
   const postsOrdenados = ordenarPorFechaDesc(posts)
   const postsPrincipales = postsOrdenados.slice(0, 3)

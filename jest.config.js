@@ -11,6 +11,7 @@ module.exports = createJestConfig({
     'components/**/*.js',
     'pages/**/*.js',
     'lib/**/*.js',
+    'hooks/**/*.js',
     'utils/**/*.js',
     'data/**/*.js',
     '!pages/_document.js'
