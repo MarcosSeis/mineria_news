@@ -2,9 +2,12 @@ import Layout from "@/components/layout";
 import styles from '@/styles/gridEventos.module.css';
 import Post from "@/components/noticia";
 import { fetchList } from "@/lib/api";
+import useActualizacionAutomatica from "@/hooks/useActualizacionAutomatica";
 import { ordenarPorFechaDesc } from "@/utils/helpers";
 
 export default function Noticias({posts}) {
+
+  useActualizacionAutomatica()
 
   const postsOrdenados = ordenarPorFechaDesc(posts)
 
