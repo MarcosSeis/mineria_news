@@ -1,15 +1,15 @@
 import { useState } from "react";
 import styles from '@/styles/grafica.module.css';
-import { METALES, formatearPrecio } from '@/lib/metales';
+import { formatearPrecio } from '@/lib/metales';
 
-const RANGOS = [{ id: '1m', texto: '1 mes', dias: 22 }, { id: '3m', texto: '3 meses', dias: Infinity }]
+const RANGOS = [{ id: '1m', texto: '1 mes', dias: 22 }, { id: '3m', texto: '3 meses', dias: 66 }, { id: '1a', texto: '1 año', dias: Infinity }]
 const ANCHO = 600, ALTO = 260, MARGEN = { arriba: 16, derecha: 16, abajo: 28, izquierda: 64 }
 
 const formatearFecha = (fecha) =>
     new Date(`${fecha}T12:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', timeZone: 'UTC' })
 
-export default function GraficaMetal({ historico }) {
-  const disponibles = METALES.filter(m => historico[m.symbol])
+export default function GraficaMetal({ metales }) {
+  const disponibles = metales.filter(m => m.serie?.length > 1)
   const [symbol, setSymbol] = useState(disponibles[0]?.symbol)
   const [rango, setRango] = useState('1m')
   const [activo, setActivo] = useState(null)
@@ -18,7 +18,7 @@ export default function GraficaMetal({ historico }) {
 
   const metal = disponibles.find(m => m.symbol === symbol) ?? disponibles[0]
   const dias = RANGOS.find(r => r.id === rango).dias
-  const serie = historico[metal.symbol].slice(-dias)
+  const serie = metal.serie.slice(-dias)
 
   const precios = serie.map(p => p.precio)
   const min = Math.min(...precios), max = Math.max(...precios)

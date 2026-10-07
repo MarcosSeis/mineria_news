@@ -10,7 +10,7 @@ export default function PreciosMetales({ metales }) {
             ))}
         </div>
         <p className={styles.fuente}>
-            Precios spot referenciales en dólares, actualizados cada pocos minutos. Fuente: gold-api.com
+            Precios spot referenciales en dólares, actualizados una vez al día. Fuente: gold-api.com
         </p>
     </>
   )

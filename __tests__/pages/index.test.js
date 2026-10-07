@@ -1,13 +1,13 @@
 import { render, screen, within } from '@testing-library/react'
 import Home, { getStaticProps } from '@/pages/index'
 import { fetchList } from '@/lib/api'
-import { fetchPrecios } from '@/lib/metales'
+import { leerPrecios } from '@/lib/metales'
 import {
   crearPost, crearJob, crearEvento, congelarFecha, descongelarFecha
 } from '../../test-utils/fixtures'
 
 jest.mock('@/lib/api')
-jest.mock('@/lib/metales', () => ({ ...jest.requireActual('@/lib/metales'), fetchPrecios: jest.fn() }))
+jest.mock('@/lib/metales', () => ({ ...jest.requireActual('@/lib/metales'), leerPrecios: jest.fn() }))
 
 beforeEach(() => congelarFecha())
 afterEach(() => { descongelarFecha(); jest.resetAllMocks() })
@@ -76,14 +76,14 @@ describe('Home', () => {
 describe('getStaticProps (index)', () => {
   it('carga trabajos, noticias y eventos y revalida cada 10 s', async () => {
     fetchList.mockImplementation(async (r) => [r])
-    fetchPrecios.mockResolvedValue(['metal'])
+    leerPrecios.mockReturnValue(['metal'])
     const result = await getStaticProps()
     expect(result).toEqual({ props: { jobs: ['job'], posts: ['noticia'], eventos: ['evento'], metales: ['metal'] }, revalidate: 10 })
   })
 
   it('devuelve props vacías cuando la API falla', async () => {
     fetchList.mockResolvedValue([])
-    fetchPrecios.mockResolvedValue([])
+    leerPrecios.mockReturnValue([])
     const { props } = await getStaticProps()
     expect(props).toEqual({ jobs: [], posts: [], eventos: [], metales: [] })
   })

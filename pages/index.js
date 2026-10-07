@@ -11,7 +11,7 @@ import Anuncio from "@/components/anuncio";
 import PreciosMetales from "@/components/preciosMetales";
 import { anuncios } from "@/data/anuncios";
 import { fetchList } from "@/lib/api";
-import { fetchPrecios } from "@/lib/metales";
+import { leerPrecios } from "@/lib/metales";
 import { eventosProximos, filtrarRecientes, ordenarPorFechaDesc } from "@/utils/helpers";
 
 export default function Home({jobs, posts, eventos, metales = []}) {
@@ -118,15 +118,14 @@ export default function Home({jobs, posts, eventos, metales = []}) {
 }
 
 export async function getStaticProps() {
-  const [jobs, posts, eventos, metales] = await Promise.all([
+  const [jobs, posts, eventos] = await Promise.all([
     fetchList('job'),
     fetchList('noticia'),
-    fetchList('evento'),
-    fetchPrecios()
+    fetchList('evento')
   ])
 
   return {
-      props: { jobs, posts, eventos, metales },
+      props: { jobs, posts, eventos, metales: leerPrecios() },
       revalidate: 10,
   }
 }

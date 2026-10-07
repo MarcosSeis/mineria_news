@@ -1,23 +1,19 @@
 import { render, screen } from '@testing-library/react'
 import Metales, { getStaticProps } from '@/pages/metales'
-import { fetchPrecios } from '@/lib/metales'
-import { fetchHistorico } from '@/lib/historico'
 
-jest.mock('@/lib/metales', () => ({ ...jest.requireActual('@/lib/metales'), fetchPrecios: jest.fn() }))
-
-jest.mock('@/lib/historico', () => ({ fetchHistorico: jest.fn() }))
+const serie = (base) => Array.from({ length: 5 }, (_, i) => ({ fecha: `2026-10-0${i + 1}`, precio: base + i }))
 
 describe('Metales', () => {
-  it('muestra una tarjeta por metal', () => {
+  it('muestra una tarjeta por metal y la gráfica', () => {
     const metales = [
-      { symbol: 'XAU', nombre: 'Oro', unidad: 'USD / onza troy', precio: 4146.5 },
-      { symbol: 'HG', nombre: 'Cobre', unidad: 'USD / libra', precio: 6.56 }
+      { symbol: 'XAU', nombre: 'Oro', unidad: 'USD / onza troy', precio: 4146.5, serie: serie(4000) },
+      { symbol: 'HG', nombre: 'Cobre', unidad: 'USD / libra', precio: 6.56, serie: serie(6) }
     ]
     render(<Metales metales={metales} />)
     expect(screen.getByRole('heading', { name: 'Precios de metales' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Oro' })).toBeInTheDocument()
     expect(screen.getByText('$6.56')).toBeInTheDocument()
-    expect(screen.getByText('USD / libra')).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: /Gráfica de precio de Oro/ })).toBeInTheDocument()
   })
 
   it('muestra un mensaje si no hay datos', () => {
@@ -25,9 +21,9 @@ describe('Metales', () => {
     expect(screen.getByText(/No pudimos cargar los precios/)).toBeInTheDocument()
   })
 
-  it('getStaticProps revalida cada 5 minutos', async () => {
-    fetchPrecios.mockResolvedValue(['m'])
-    fetchHistorico.mockResolvedValue({ XAU: [] })
-    expect(await getStaticProps()).toEqual({ props: { metales: ['m'], historico: { XAU: [] } }, revalidate: 300 })
+  it('getStaticProps lee los datos guardados con su histórico', () => {
+    const { props } = getStaticProps()
+    expect(props.metales.length).toBeGreaterThan(0)
+    expect(props.metales[0].serie.length).toBeGreaterThan(1)
   })
 })

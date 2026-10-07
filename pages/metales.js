@@ -2,10 +2,9 @@ import Layout from "@/components/layout";
 import PreciosMetales from "@/components/preciosMetales";
 import GraficaMetal from "@/components/graficaMetal";
 import styles from '@/styles/metales.module.css';
-import { fetchPrecios } from "@/lib/metales";
-import { fetchHistorico } from "@/lib/historico";
+import { leerMetalesConHistorico } from "@/lib/metales";
 
-export default function Metales({ metales, historico = {} }) {
+export default function Metales({ metales }) {
   return (
     <>
     <Layout
@@ -17,7 +16,7 @@ export default function Metales({ metales, historico = {} }) {
       {metales.length
         ? <>
             <PreciosMetales metales={metales} />
-            <GraficaMetal historico={historico} />
+            <GraficaMetal metales={metales} />
           </>
         : <p className={styles.vacio}>No pudimos cargar los precios en este momento. Intenta de nuevo en unos minutos.</p>}
     </main>
@@ -26,10 +25,6 @@ export default function Metales({ metales, historico = {} }) {
   )
 }
 
-export async function getStaticProps() {
-  const [metales, historico] = await Promise.all([fetchPrecios(), fetchHistorico()])
-  return {
-    props: { metales, historico },
-    revalidate: 300,
-  }
+export function getStaticProps() {
+  return { props: { metales: leerMetalesConHistorico() } }
 }
