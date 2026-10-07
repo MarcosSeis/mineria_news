@@ -1,11 +1,13 @@
 import { render, screen, within } from '@testing-library/react'
 import Home, { getStaticProps } from '@/pages/index'
 import { fetchList } from '@/lib/api'
+import { fetchPrecios } from '@/lib/metales'
 import {
   crearPost, crearJob, crearEvento, congelarFecha, descongelarFecha
 } from '../../test-utils/fixtures'
 
 jest.mock('@/lib/api')
+jest.mock('@/lib/metales', () => ({ ...jest.requireActual('@/lib/metales'), fetchPrecios: jest.fn() }))
 
 beforeEach(() => congelarFecha())
 afterEach(() => { descongelarFecha(); jest.resetAllMocks() })
@@ -54,6 +56,17 @@ describe('Home', () => {
     expect(screen.queryByRole('button', { name: 'Suscríbete' })).not.toBeInTheDocument()
   })
 
+  it('muestra la sección de precios solo cuando hay datos', () => {
+    const metales = [{ symbol: 'XAU', nombre: 'Oro', unidad: 'USD / onza troy', precio: 4146.5 }]
+    const { unmount } = montar({ metales })
+    expect(screen.getByRole('heading', { name: 'Precios de metales' })).toBeInTheDocument()
+    expect(screen.getByText('$4,146.50')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Ver más precios' }).closest('a')).toHaveAttribute('href', '/metales')
+    unmount()
+    montar()
+    expect(screen.queryByRole('heading', { name: 'Precios de metales' })).not.toBeInTheDocument()
+  })
+
   it('no se rompe sin datos (API caída)', () => {
     render(<Home jobs={[]} posts={[]} eventos={[]} />)
     expect(screen.getByRole('heading', { name: 'Principales noticias' })).toBeInTheDocument()
@@ -63,13 +76,15 @@ describe('Home', () => {
 describe('getStaticProps (index)', () => {
   it('carga trabajos, noticias y eventos y revalida cada 10 s', async () => {
     fetchList.mockImplementation(async (r) => [r])
+    fetchPrecios.mockResolvedValue(['metal'])
     const result = await getStaticProps()
-    expect(result).toEqual({ props: { jobs: ['job'], posts: ['noticia'], eventos: ['evento'] }, revalidate: 10 })
+    expect(result).toEqual({ props: { jobs: ['job'], posts: ['noticia'], eventos: ['evento'], metales: ['metal'] }, revalidate: 10 })
   })
 
   it('devuelve props vacías cuando la API falla', async () => {
     fetchList.mockResolvedValue([])
+    fetchPrecios.mockResolvedValue([])
     const { props } = await getStaticProps()
-    expect(props).toEqual({ jobs: [], posts: [], eventos: [] })
+    expect(props).toEqual({ jobs: [], posts: [], eventos: [], metales: [] })
   })
 })
