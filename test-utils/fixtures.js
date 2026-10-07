@@ -71,3 +71,20 @@ export const crearProveedor = (id, date = '2026-09-01T10:00:00', acf = {}) => ({
     ...acf
   }
 })
+
+export const crearMina = (id, acf = {}) => ({
+  id,
+  slug: `mina-${id}`,
+  acf: {
+    titulo: `Mina ${id}`,
+    estado: 'Zacatecas',
+    empresa: `Empresa ${id}`,
+    minerales: 'Oro, Plata',
+    tipo: 'Subterránea',
+    estatus: 'En operación',
+    descripcion: `Descripción ${id}`,
+    imagen: `https://minasapi.space/mina-${id}.jpg`,
+    sitio_web: `https://mina${id}.test/`,
+    ...acf
+  }
+})
