@@ -1,0 +1,27 @@
+name: Actualizar precios de metales
+on:
+  schedule:
+    - cron: '30 22 * * 1-5' # lunes a viernes, tras el cierre de COMEX
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm run actualizar:metales
+      - name: Guardar cambios
+        run: |
+          if [ -n "$(git status --porcelain data/metales.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/metales.json
+            git commit -m "Actualiza precios de metales"
+            git push
+          fi

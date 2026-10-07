@@ -4,6 +4,7 @@ const enlaces = [
     { href: '/', texto: 'Inicio' },
     { href: '/nosotros', texto: 'Nosotros' },
     { href: '/noticias', texto: 'Noticias' },
+    { href: '/metales', texto: 'Precios' },
     { href: '/eventos', texto: 'Eventos' },
     { href: '/proveedores', texto: 'Proveedores' },
     { href: '/trabajos', texto: 'Bolsa de trabajo' }

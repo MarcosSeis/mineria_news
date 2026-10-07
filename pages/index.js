@@ -8,12 +8,14 @@ import Post from "@/components/noticia";
 import Job from "@/components/job";
 import Proxevento from "@/components/proxevento";
 import Anuncio from "@/components/anuncio";
+import PreciosMetales from "@/components/preciosMetales";
 import { anuncios } from "@/data/anuncios";
 import { fetchList } from "@/lib/api";
+import { leerPrecios } from "@/lib/metales";
 import useActualizacionAutomatica from "@/hooks/useActualizacionAutomatica";
 import { eventosProximos, filtrarRecientes, ordenarPorFechaDesc } from "@/utils/helpers";
 
-export default function Home({jobs, posts, eventos}) {
+export default function Home({jobs, posts, eventos, metales = []}) {
 
   useActualizacionAutomatica()
 
@@ -42,6 +44,18 @@ export default function Home({jobs, posts, eventos}) {
                 ))}
             </div>
           </section>
+
+          {metales.length > 0 && (
+            <section className={`${stylesIndex.trabajos} contenedor`}>
+              <h2 className={stylesIndex.centrar}>Precios de metales</h2>
+              <PreciosMetales metales={metales} />
+              <div className={stylesIndex.centrar_boton}>
+                <Link href="/metales">
+                  <button>Ver más precios</button>
+                </Link>
+              </div>
+            </section>
+          )}
 
           <section className={`${stylesIndex.trabajos} contenedor`}>
             <h2 className={stylesIndex.centrar}> Últimos trabajos </h2>
@@ -114,7 +128,7 @@ export async function getStaticProps() {
   ])
 
   return {
-      props: { jobs, posts, eventos },
+      props: { jobs, posts, eventos, metales: leerPrecios() },
       revalidate: 10,
   }
 }
