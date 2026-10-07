@@ -14,17 +14,10 @@ describe('Header', () => {
     expect(screen.getAllByText(/oct/i).length).toBeGreaterThan(0)
   })
 
-  it('tiene un único h1 y un solo banner', () => {
+  it('tiene un único h1 y ningún banner', () => {
     render(<Header />)
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
-    expect(screen.getAllByAltText(/Convención Minera/)).toHaveLength(1)
-  })
-
-  it('el banner abre la convención en una pestaña nueva de forma segura', () => {
-    render(<Header />)
-    const enlace = screen.getByAltText(/Convención Minera/).closest('a')
-    expect(enlace).toHaveAttribute('href', 'https://convencionmineramexico.mx/')
-    expect(enlace).toHaveAttribute('rel', 'noopener noreferrer')
+    expect(screen.queryByAltText(/Convención Minera/)).not.toBeInTheDocument()
   })
 
   it('el botón de menú alterna aria-expanded', async () => {
