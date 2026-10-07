@@ -1,8 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import Metales, { getStaticProps } from '@/pages/metales'
 import { fetchPrecios } from '@/lib/metales'
+import { fetchHistorico } from '@/lib/historico'
 
 jest.mock('@/lib/metales', () => ({ ...jest.requireActual('@/lib/metales'), fetchPrecios: jest.fn() }))
+
+jest.mock('@/lib/historico', () => ({ fetchHistorico: jest.fn() }))
 
 describe('Metales', () => {
   it('muestra una tarjeta por metal', () => {
@@ -24,6 +27,7 @@ describe('Metales', () => {
 
   it('getStaticProps revalida cada 5 minutos', async () => {
     fetchPrecios.mockResolvedValue(['m'])
-    expect(await getStaticProps()).toEqual({ props: { metales: ['m'] }, revalidate: 300 })
+    fetchHistorico.mockResolvedValue({ XAU: [] })
+    expect(await getStaticProps()).toEqual({ props: { metales: ['m'], historico: { XAU: [] } }, revalidate: 300 })
   })
 })

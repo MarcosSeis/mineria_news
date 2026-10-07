@@ -1,0 +1,93 @@
+.grafica {
+    margin-top: 4rem;
+}
+
+.controles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.grupo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.grupo button {
+    background: #fff;
+    color: #000;
+    border: 0.2rem solid #000;
+    font-family: inherit;
+    font-size: 1.6rem;
+    padding: 0.4rem 1.4rem;
+    cursor: pointer;
+}
+
+.grupo button.activo {
+    background: #000;
+    color: #fff;
+}
+
+.resumen {
+    margin: 2rem 0 0;
+    text-align: left;
+    color: #222;
+}
+
+.resumen span {
+    font-size: 1.6rem;
+    color: #666;
+}
+
+.grafica svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    touch-action: none;
+}
+
+.linea {
+    fill: none;
+    stroke: #000;
+    stroke-width: 2;
+    stroke-linejoin: round;
+}
+
+.rejilla {
+    stroke: #e3e3e3;
+    stroke-width: 1;
+}
+
+.guia {
+    stroke: #999;
+    stroke-width: 1;
+}
+
+.punto {
+    fill: #000;
+    stroke: #fff;
+    stroke-width: 2;
+}
+
+.eje {
+    font-size: 11px;
+    fill: #666;
+    font-family: inherit;
+}
+
+.lectura {
+    min-height: 3rem;
+    margin: 0;
+    text-align: center;
+    font-size: 1.6rem;
+    color: #222;
+}
+
+.fuente {
+    font-size: 1.3rem;
+    color: #666;
+    text-align: center;
+    margin: 0;
+}
