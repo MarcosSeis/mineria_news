@@ -1,9 +1,7 @@
 import { useState, useSyncExternalStore } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/header.module.css"
 import LinksNav from "./linksNav";
-import imagen from "@/public/ads/banner_2025convencion.png"
 import { CONTACT_EMAIL } from "@/lib/config";
 
 const suscribirNada = () => () => {}
@@ -73,18 +71,6 @@ export default function Header() {
     </div>
 
 </header>
-    <div className={`contenedor`}>
-        <div className={styles.banner}>
-            <Link href="https://convencionmineramexico.mx/" target="_blank" rel="noopener noreferrer">
-                <Image
-                    src={imagen}
-                    width={600}
-                    height={200}
-                    priority
-                    alt="Convención Minera Acapulco 23 al 27 de octubre" />
-            </Link>
-        </div>
-    </div>
     </>
   )
 }
