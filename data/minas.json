@@ -8,7 +8,10 @@
       "empresa": "Newmont",
       "minerales": "Oro, Plata, Plomo, Zinc",
       "tipo": "Tajo a cielo abierto",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.newmont.com",
+      "telefono": "+1 303 863 7414",
+      "direccion": "6900 E Layton Avenue, Suite 700, Denver, CO 80237, EE. UU."
     }
   },
   {
@@ -20,7 +23,10 @@
       "empresa": "Grupo México",
       "minerales": "Cobre, Molibdeno",
       "tipo": "Tajo a cielo abierto",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.gmexico.com",
+      "telefono": "+52 55 5836 8200",
+      "direccion": "Campos Elíseos 400, Lomas de Chapultepec, 11000, Ciudad de México"
     }
   },
   {
@@ -32,7 +38,10 @@
       "empresa": "Grupo México",
       "minerales": "Cobre, Molibdeno",
       "tipo": "Tajo a cielo abierto",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.gmexico.com",
+      "telefono": "+52 55 5836 8200",
+      "direccion": "Campos Elíseos 400, Lomas de Chapultepec, 11000, Ciudad de México"
     }
   },
   {
@@ -44,7 +53,8 @@
       "empresa": "Fresnillo plc",
       "minerales": "Plata, Oro, Plomo, Zinc",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.fresnilloplc.com"
     }
   },
   {
@@ -56,7 +66,8 @@
       "empresa": "Fresnillo plc",
       "minerales": "Plata, Oro, Plomo, Zinc",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.fresnilloplc.com"
     }
   },
   {
@@ -68,7 +79,8 @@
       "empresa": "Fresnillo plc",
       "minerales": "Plata, Oro",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.fresnilloplc.com"
     }
   },
   {
@@ -80,7 +92,8 @@
       "empresa": "Fresnillo plc",
       "minerales": "Oro, Plata, Plomo, Zinc",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.fresnilloplc.com"
     }
   },
   {
@@ -92,7 +105,8 @@
       "empresa": "Fresnillo plc",
       "minerales": "Oro",
       "tipo": "Tajo a cielo abierto",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.fresnilloplc.com"
     }
   },
   {
@@ -101,10 +115,11 @@
     "acf": {
       "titulo": "Juanicipio",
       "estado": "Zacatecas",
-      "empresa": "Fresnillo plc y MAG Silver",
+      "empresa": "Fresnillo plc (operador, 56%) y Pan American Silver (44%)",
       "minerales": "Plata, Oro, Plomo, Zinc",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.fresnilloplc.com"
     }
   },
   {
@@ -116,7 +131,11 @@
       "empresa": "Alamos Gold",
       "minerales": "Oro",
       "tipo": "Tajo a cielo abierto",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.alamosgold.com",
+      "telefono": "+52 662 217 3707",
+      "correo": "info@alamosgold.com",
+      "direccion": "Calle de los Pimas 81, Parque Industrial Hermosillo, Hermosillo, Sonora, C.P. 83299"
     }
   },
   {
@@ -127,7 +146,11 @@
       "estado": "Chihuahua",
       "empresa": "Agnico Eagle",
       "minerales": "Oro, Plata",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.agnicoeagle.com",
+      "telefono": "(614) 180 31 00",
+      "correo": "info@agnicoeagle.com",
+      "direccion": "Ave. Mirador 7724, Colinas del Valle, Chihuahua, Chih., C.P. 31217"
     }
   },
   {
@@ -138,7 +161,11 @@
       "estado": "Chihuahua",
       "empresa": "Pan American Silver",
       "minerales": "Oro, Plata",
-      "estatus": "Lixiviación residual"
+      "estatus": "Lixiviación residual",
+      "sitio_web": "https://panamericansilver.com",
+      "telefono": "+1 604 684 1175",
+      "direccion": "Vancouver Centre II, 2100-733 Seymour Street, Vancouver, BC V6B 0S6, Canadá",
+      "descripcion": "La mina está en fase de lixiviación residual, que se prevé se extienda hasta finales de 2026."
     }
   },
   {
@@ -150,7 +177,10 @@
       "empresa": "Pan American Silver",
       "minerales": "Plata, Zinc, Plomo",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://panamericansilver.com",
+      "telefono": "+1 604 684 1175",
+      "direccion": "Vancouver Centre II, 2100-733 Seymour Street, Vancouver, BC V6B 0S6, Canadá"
     }
   },
   {
@@ -161,7 +191,12 @@
       "estado": "Guerrero",
       "empresa": "Equinox Gold",
       "minerales": "Oro",
-      "estatus": "En reinicio"
+      "estatus": "En reinicio",
+      "sitio_web": "https://www.equinoxgold.com",
+      "telefono": "+1 604 558 0560",
+      "correo": "info@equinoxgold.com",
+      "direccion": "Suite 3000, 1090 West Pender St., Vancouver, BC V6E 0E3, Canadá",
+      "descripcion": "En junio de 2026 Equinox Gold firmó acuerdos de acceso a tierras por 20 años con las comunidades y comenzó el reinicio gradual de la lixiviación en pilas."
     }
   },
   {
@@ -172,7 +207,11 @@
       "estado": "Guerrero",
       "empresa": "Torex Gold",
       "minerales": "Oro, Cobre, Plata",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.torexgold.com",
+      "telefono": "+1 647 260 1500",
+      "correo": "info@torexgold.com",
+      "direccion": "Exchange Tower, 130 King Street West, Suite 740, Toronto, ON M5X 2A2, Canadá"
     }
   },
   {
@@ -181,10 +220,15 @@
     "acf": {
       "titulo": "Camino Rojo",
       "estado": "Zacatecas",
-      "empresa": "Orla Mining",
+      "empresa": "Equinox Gold",
       "minerales": "Oro, Plata",
       "tipo": "Tajo a cielo abierto",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.equinoxgold.com",
+      "telefono": "+1 604 558 0560",
+      "correo": "info@equinoxgold.com",
+      "direccion": "Suite 3000, 1090 West Pender St., Vancouver, BC V6E 0E3, Canadá",
+      "descripcion": "Desde el 31 de julio de 2026 pertenece a Equinox Gold, tras completarse su fusión con Orla Mining."
     }
   },
   {
@@ -195,7 +239,8 @@
       "estado": "Chihuahua",
       "empresa": "Coeur Mining",
       "minerales": "Plata, Oro",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.coeur.com"
     }
   },
   {
@@ -207,7 +252,8 @@
       "empresa": "Capstone Copper",
       "minerales": "Cobre, Plata",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "descripcion": "En septiembre de 2026 Capstone Copper acordó vender la mina a Luca Mining; la operación aún no se ha cerrado."
     }
   },
   {
@@ -219,7 +265,10 @@
       "empresa": "First Majestic Silver",
       "minerales": "Plata, Oro",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.firstmajestic.com",
+      "correo": "info@firstmajestic.com",
+      "direccion": "1800 - 925 West Georgia Street, Vancouver, BC V6C 3L2, Canadá"
     }
   },
   {
@@ -231,7 +280,8 @@
       "empresa": "Endeavour Silver",
       "minerales": "Plata, Oro",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.edrsilver.com"
     }
   },
   {
@@ -243,7 +293,10 @@
       "empresa": "Grupo México (IMMSA)",
       "minerales": "Zinc, Plomo, Plata, Cobre",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.gmexico.com",
+      "telefono": "+52 55 5836 8200",
+      "direccion": "Campos Elíseos 400, Lomas de Chapultepec, 11000, Ciudad de México"
     }
   },
   {
@@ -255,7 +308,10 @@
       "empresa": "Grupo México (IMMSA)",
       "minerales": "Zinc, Plomo, Plata, Cobre",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.gmexico.com",
+      "telefono": "+52 55 5836 8200",
+      "direccion": "Campos Elíseos 400, Lomas de Chapultepec, 11000, Ciudad de México"
     }
   },
   {
@@ -267,7 +323,10 @@
       "empresa": "Grupo México (IMMSA)",
       "minerales": "Zinc, Plomo, Cobre, Plata",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.gmexico.com",
+      "telefono": "+52 55 5836 8200",
+      "direccion": "Campos Elíseos 400, Lomas de Chapultepec, 11000, Ciudad de México"
     }
   },
   {
@@ -279,7 +338,10 @@
       "empresa": "Peñoles y Fresnillo plc",
       "minerales": "Zinc, Plomo, Plata",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.penoles.com.mx",
+      "telefono": "+52 55 5279 3000",
+      "direccion": "Calzada Legaria 549, Torre 2, Piso 14, Col. 10 de Abril, 11250, Ciudad de México"
     }
   },
   {
@@ -291,7 +353,10 @@
       "empresa": "Peñoles",
       "minerales": "Zinc, Plomo, Cobre, Plata",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.penoles.com.mx",
+      "telefono": "+52 55 5279 3000",
+      "direccion": "Calzada Legaria 549, Torre 2, Piso 14, Col. 10 de Abril, 11250, Ciudad de México"
     }
   },
   {
@@ -303,7 +368,10 @@
       "empresa": "Peñoles",
       "minerales": "Zinc, Plomo, Cobre, Plata",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.penoles.com.mx",
+      "telefono": "+52 55 5279 3000",
+      "direccion": "Calzada Legaria 549, Torre 2, Piso 14, Col. 10 de Abril, 11250, Ciudad de México"
     }
   },
   {
@@ -315,7 +383,10 @@
       "empresa": "Peñoles",
       "minerales": "Plata, Oro, Plomo, Zinc",
       "tipo": "Subterránea",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.penoles.com.mx",
+      "telefono": "+52 55 5279 3000",
+      "direccion": "Calzada Legaria 549, Torre 2, Piso 14, Col. 10 de Abril, 11250, Ciudad de México"
     }
   },
   {
@@ -327,7 +398,10 @@
       "empresa": "Grupo México",
       "minerales": "Cobre, Oro",
       "tipo": "Tajo a cielo abierto",
-      "estatus": "En desarrollo"
+      "estatus": "En desarrollo",
+      "sitio_web": "https://www.gmexico.com",
+      "telefono": "+52 55 5836 8200",
+      "direccion": "Campos Elíseos 400, Lomas de Chapultepec, 11000, Ciudad de México"
     }
   },
   {
@@ -350,7 +424,10 @@
       "estado": "Michoacán",
       "empresa": "ArcelorMittal México",
       "minerales": "Hierro",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://mexico.arcelormittal.com",
+      "telefono": "+52 81 1223 6700",
+      "direccion": "Torre Trébol Park, Av. Lázaro Cárdenas 2424, Col. Residencial San Agustín, Monterrey, Nuevo León"
     }
   },
   {
@@ -361,7 +438,8 @@
       "estado": "Hidalgo",
       "empresa": "Autlán",
       "minerales": "Manganeso",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.autlan.com.mx"
     }
   },
   {
@@ -373,7 +451,8 @@
       "empresa": "Exportadora de Sal (ESSA)",
       "minerales": "Sal",
       "tipo": "Evaporación solar",
-      "estatus": "En operación"
+      "estatus": "En operación",
+      "sitio_web": "https://www.essa.com.mx"
     }
   },
   {
