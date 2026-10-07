@@ -8,9 +8,9 @@ const ANCHO = 600, ALTO = 260, MARGEN = { arriba: 16, derecha: 16, abajo: 28, iz
 const formatearFecha = (fecha) =>
     new Date(`${fecha}T12:00:00Z`).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', timeZone: 'UTC' })
 
-export default function GraficaMetal({ metales }) {
+export default function GraficaMetal({ metales, inicial }) {
   const disponibles = metales.filter(m => m.serie?.length > 1)
-  const [symbol, setSymbol] = useState(disponibles[0]?.symbol)
+  const [symbol, setSymbol] = useState(disponibles.some(m => m.symbol === inicial) ? inicial : disponibles[0]?.symbol)
   const [rango, setRango] = useState('1m')
   const [activo, setActivo] = useState(null)
 
@@ -42,7 +42,7 @@ export default function GraficaMetal({ metales }) {
   }
 
   return (
-    <div className={styles.grafica}>
+    <div className={styles.grafica} id="grafica">
         <div className={styles.controles}>
             <div role="group" aria-label="Metal" className={styles.grupo}>
                 {disponibles.map(m => (
