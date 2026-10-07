@@ -1,11 +1,8 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Minas, { getStaticProps } from '@/pages/minas'
-import { fetchList } from '@/lib/api'
 import { crearMina } from '../../test-utils/fixtures'
 
-jest.mock('@/lib/api')
-afterEach(() => jest.resetAllMocks())
 
 const minas = [
   crearMina(1, { titulo: 'Peñasquito', estado: 'Zacatecas', minerales: 'Oro, Plata' }),
@@ -45,9 +42,13 @@ describe('Minas', () => {
     expect(screen.getByText('Todavía no hay minas en el directorio.')).toBeInTheDocument()
   })
 
-  it('getStaticProps carga las minas y revalida cada 60 s', async () => {
-    fetchList.mockResolvedValue(['m'])
-    expect(await getStaticProps()).toEqual({ props: { minas: ['m'] }, revalidate: 60 })
-    expect(fetchList).toHaveBeenCalledWith('mina')
+  it('muestra el aviso de información referencial', () => {
+    render(<Minas minas={minas} />)
+    expect(screen.getByText(/Información referencial/)).toBeInTheDocument()
+  })
+
+  it('getStaticProps carga las minas del archivo de datos', () => {
+    const { props } = getStaticProps()
+    expect(props.minas.length).toBeGreaterThan(0)
   })
 })

@@ -2,7 +2,8 @@ import { useState } from "react";
 import Layout from "@/components/layout";
 import Mina from "@/components/mina";
 import styles from '@/styles/minas.module.css';
-import { fetchList } from "@/lib/api";
+import { leerMinas } from "@/lib/minas";
+import { CONTACT_EMAIL } from "@/lib/config";
 import { filtrarMinas, listarEstados, listarMinerales, ordenarMinas } from "@/utils/minas";
 
 export default function Minas({ minas }) {
@@ -20,6 +21,10 @@ export default function Minas({ minas }) {
     >
     <main>
       <h1>Directorio de minas</h1>
+      <p className={styles.aviso}>
+        Información referencial de fuentes públicas; la empresa y el estatus pueden cambiar.
+        ¿Encontraste un error? Escríbenos a {CONTACT_EMAIL}.
+      </p>
 
       <div className={styles.filtros}>
         <label>
@@ -61,9 +66,6 @@ export default function Minas({ minas }) {
   )
 }
 
-export async function getStaticProps() {
-  return {
-    props: { minas: await fetchList('mina') },
-    revalidate: 60,
-  }
+export function getStaticProps() {
+  return { props: { minas: leerMinas() } }
 }

@@ -26,7 +26,7 @@ npm run dev                  # http://localhost:3000
 - `REVALIDATE_SECRET`: secreto de `POST /api/revalidate`, que regenera al instante la portada, `/noticias` y la nota recién publicada. Sin él, la ruta responde 401 y el sitio se actualiza solo por ISR (el primer visitante ve la versión anterior).
 
 ## Directorio de minas
-`/minas` y `/minas/[url]` leen el tipo de contenido `mina` de WordPress (`/wp-json/wp/v2/mina`). Campos ACF (todos texto, con "Mostrar en REST API" activo): `titulo` (obligatorio), `estado`, `empresa`, `minerales` (separados por coma), `tipo`, `estatus`, `descripcion`, `imagen` (URL de `minasapi.space`), `sitio_web`. Sin minas cargadas la página muestra un mensaje vacío.
+`/minas` y `/minas/[url]` leen `data/minas.json` (vía `lib/minas.js`). Cada entrada tiene la misma forma que devolvería WordPress: `{ id, slug, acf: { titulo, estado, empresa, minerales, tipo, estatus, descripcion, imagen, sitio_web } }`. Solo `titulo` es obligatorio y los campos vacíos se omiten en la ficha; `minerales` va separado por coma. Los datos son referenciales: revisa empresa y estatus antes de ampliar la lista. Para migrar a WordPress basta con cambiar `leerMinas`/`leerMina` por `fetchList('mina')`/`fetchBySlug('mina', slug)`.
 
 ## Estructura
 - `pages/`: rutas. Las listas usan ISR; los detalles se generan bajo demanda (`fallback: 'blocking'`).

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Layout from "@/components/layout";
 import styles from '@/styles/minas.module.css'
-import { fetchBySlug } from "@/lib/api";
+import { leerMina, leerMinas } from "@/lib/minas";
 import { urlSegura } from "@/utils/helpers";
 import { separarMinerales } from "@/utils/minas";
 
@@ -52,19 +52,11 @@ export default function FichaMina({ mina }) {
   )
 }
 
-export async function getStaticPaths() {
-  return { paths: [], fallback: 'blocking' }
+export function getStaticPaths() {
+  return { paths: leerMinas().map(m => ({ params: { url: m.slug } })), fallback: false }
 }
 
-export async function getStaticProps({ params }) {
-  const mina = await fetchBySlug('mina', params.url)
-
-  if (!mina?.acf) {
-    return { notFound: true, revalidate: 10 }
-  }
-
-  return {
-    props: { mina },
-    revalidate: 60,
-  }
+export function getStaticProps({ params }) {
+  const mina = leerMina(params.url)
+  return mina ? { props: { mina } } : { notFound: true }
 }

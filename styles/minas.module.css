@@ -29,6 +29,11 @@
     color: #000;
 }
 
+.aviso {
+    font-size: 1.4rem;
+    color: #4a4a4a;
+}
+
 .cuenta {
     font-size: 1.6rem;
     color: #4a4a4a;

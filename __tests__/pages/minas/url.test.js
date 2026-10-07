@@ -1,10 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import FichaMina, { getStaticProps, getStaticPaths } from '@/pages/minas/[url]'
-import { fetchBySlug } from '@/lib/api'
+import { leerMinas } from '@/lib/minas'
 import { crearMina } from '../../../test-utils/fixtures'
 
-jest.mock('@/lib/api')
-afterEach(() => jest.resetAllMocks())
 
 describe('Ficha de mina', () => {
   it('muestra los datos y los botones', () => {
@@ -32,15 +30,16 @@ describe('Ficha de mina', () => {
     expect(screen.queryByRole('button', { name: 'Sitio web' })).not.toBeInTheDocument()
   })
 
-  it('getStaticPaths genera bajo demanda', async () => {
-    expect(await getStaticPaths()).toEqual({ paths: [], fallback: 'blocking' })
+  it('getStaticPaths genera una ruta por mina y no admite otras', () => {
+    const { paths, fallback } = getStaticPaths()
+    expect(paths).toHaveLength(leerMinas().length)
+    expect(paths[0]).toEqual({ params: { url: leerMinas()[0].slug } })
+    expect(fallback).toBe(false)
   })
 
-  it('getStaticProps devuelve la mina o notFound', async () => {
-    fetchBySlug.mockResolvedValueOnce(crearMina(1))
-    expect((await getStaticProps({ params: { url: 'mina-1' } })).props.mina.slug).toBe('mina-1')
-    expect(fetchBySlug).toHaveBeenCalledWith('mina', 'mina-1')
-    fetchBySlug.mockResolvedValueOnce(null)
-    expect(await getStaticProps({ params: { url: 'x' } })).toMatchObject({ notFound: true })
+  it('getStaticProps devuelve la mina o notFound', () => {
+    const { slug } = leerMinas()[0]
+    expect(getStaticProps({ params: { url: slug } }).props.mina.slug).toBe(slug)
+    expect(getStaticProps({ params: { url: 'no-existe' } })).toEqual({ notFound: true })
   })
 })

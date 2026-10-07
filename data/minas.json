@@ -1,0 +1,391 @@
+[
+  {
+    "id": 1,
+    "slug": "penasquito",
+    "acf": {
+      "titulo": "Peñasquito",
+      "estado": "Zacatecas",
+      "empresa": "Newmont",
+      "minerales": "Oro, Plata, Plomo, Zinc",
+      "tipo": "Tajo a cielo abierto",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 2,
+    "slug": "cananea-buenavista-del-cobre",
+    "acf": {
+      "titulo": "Cananea (Buenavista del Cobre)",
+      "estado": "Sonora",
+      "empresa": "Grupo México",
+      "minerales": "Cobre, Molibdeno",
+      "tipo": "Tajo a cielo abierto",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 3,
+    "slug": "la-caridad",
+    "acf": {
+      "titulo": "La Caridad",
+      "estado": "Sonora",
+      "empresa": "Grupo México",
+      "minerales": "Cobre, Molibdeno",
+      "tipo": "Tajo a cielo abierto",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 4,
+    "slug": "fresnillo",
+    "acf": {
+      "titulo": "Fresnillo",
+      "estado": "Zacatecas",
+      "empresa": "Fresnillo plc",
+      "minerales": "Plata, Oro, Plomo, Zinc",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 5,
+    "slug": "saucito",
+    "acf": {
+      "titulo": "Saucito",
+      "estado": "Zacatecas",
+      "empresa": "Fresnillo plc",
+      "minerales": "Plata, Oro, Plomo, Zinc",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 6,
+    "slug": "san-julian",
+    "acf": {
+      "titulo": "San Julián",
+      "estado": "Chihuahua",
+      "empresa": "Fresnillo plc",
+      "minerales": "Plata, Oro",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 7,
+    "slug": "cienega",
+    "acf": {
+      "titulo": "Ciénega",
+      "estado": "Durango",
+      "empresa": "Fresnillo plc",
+      "minerales": "Oro, Plata, Plomo, Zinc",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 8,
+    "slug": "la-herradura",
+    "acf": {
+      "titulo": "La Herradura",
+      "estado": "Sonora",
+      "empresa": "Fresnillo plc",
+      "minerales": "Oro",
+      "tipo": "Tajo a cielo abierto",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 9,
+    "slug": "juanicipio",
+    "acf": {
+      "titulo": "Juanicipio",
+      "estado": "Zacatecas",
+      "empresa": "Fresnillo plc y MAG Silver",
+      "minerales": "Plata, Oro, Plomo, Zinc",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 10,
+    "slug": "mulatos",
+    "acf": {
+      "titulo": "Mulatos",
+      "estado": "Sonora",
+      "empresa": "Alamos Gold",
+      "minerales": "Oro",
+      "tipo": "Tajo a cielo abierto",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 11,
+    "slug": "pinos-altos",
+    "acf": {
+      "titulo": "Pinos Altos",
+      "estado": "Chihuahua",
+      "empresa": "Agnico Eagle",
+      "minerales": "Oro, Plata",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 12,
+    "slug": "dolores",
+    "acf": {
+      "titulo": "Dolores",
+      "estado": "Chihuahua",
+      "empresa": "Pan American Silver",
+      "minerales": "Oro, Plata",
+      "estatus": "Lixiviación residual"
+    }
+  },
+  {
+    "id": 13,
+    "slug": "la-colorada",
+    "acf": {
+      "titulo": "La Colorada",
+      "estado": "Zacatecas",
+      "empresa": "Pan American Silver",
+      "minerales": "Plata, Zinc, Plomo",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 14,
+    "slug": "los-filos",
+    "acf": {
+      "titulo": "Los Filos",
+      "estado": "Guerrero",
+      "empresa": "Equinox Gold",
+      "minerales": "Oro",
+      "estatus": "En reinicio"
+    }
+  },
+  {
+    "id": 15,
+    "slug": "el-limon-guajes-y-media-luna",
+    "acf": {
+      "titulo": "El Limón-Guajes y Media Luna",
+      "estado": "Guerrero",
+      "empresa": "Torex Gold",
+      "minerales": "Oro, Cobre, Plata",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 16,
+    "slug": "camino-rojo",
+    "acf": {
+      "titulo": "Camino Rojo",
+      "estado": "Zacatecas",
+      "empresa": "Orla Mining",
+      "minerales": "Oro, Plata",
+      "tipo": "Tajo a cielo abierto",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 17,
+    "slug": "palmarejo",
+    "acf": {
+      "titulo": "Palmarejo",
+      "estado": "Chihuahua",
+      "empresa": "Coeur Mining",
+      "minerales": "Plata, Oro",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 18,
+    "slug": "cozamin",
+    "acf": {
+      "titulo": "Cozamin",
+      "estado": "Zacatecas",
+      "empresa": "Capstone Copper",
+      "minerales": "Cobre, Plata",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 19,
+    "slug": "san-dimas",
+    "acf": {
+      "titulo": "San Dimas",
+      "estado": "Durango",
+      "empresa": "First Majestic Silver",
+      "minerales": "Plata, Oro",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 20,
+    "slug": "guanacevi",
+    "acf": {
+      "titulo": "Guanaceví",
+      "estado": "Durango",
+      "empresa": "Endeavour Silver",
+      "minerales": "Plata, Oro",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 21,
+    "slug": "charcas",
+    "acf": {
+      "titulo": "Charcas",
+      "estado": "San Luis Potosí",
+      "empresa": "Grupo México (IMMSA)",
+      "minerales": "Zinc, Plomo, Plata, Cobre",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 22,
+    "slug": "san-martin",
+    "acf": {
+      "titulo": "San Martín",
+      "estado": "Zacatecas",
+      "empresa": "Grupo México (IMMSA)",
+      "minerales": "Zinc, Plomo, Plata, Cobre",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 23,
+    "slug": "santa-barbara",
+    "acf": {
+      "titulo": "Santa Bárbara",
+      "estado": "Chihuahua",
+      "empresa": "Grupo México (IMMSA)",
+      "minerales": "Zinc, Plomo, Cobre, Plata",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 24,
+    "slug": "tizapa",
+    "acf": {
+      "titulo": "Tizapa",
+      "estado": "Estado de México",
+      "empresa": "Peñoles y Fresnillo plc",
+      "minerales": "Zinc, Plomo, Plata",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 25,
+    "slug": "sabinas",
+    "acf": {
+      "titulo": "Sabinas",
+      "estado": "Zacatecas",
+      "empresa": "Peñoles",
+      "minerales": "Zinc, Plomo, Cobre, Plata",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 26,
+    "slug": "francisco-i-madero",
+    "acf": {
+      "titulo": "Francisco I. Madero",
+      "estado": "Zacatecas",
+      "empresa": "Peñoles",
+      "minerales": "Zinc, Plomo, Cobre, Plata",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 27,
+    "slug": "velardena",
+    "acf": {
+      "titulo": "Velardeña",
+      "estado": "Durango",
+      "empresa": "Peñoles",
+      "minerales": "Plata, Oro, Plomo, Zinc",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 28,
+    "slug": "el-arco",
+    "acf": {
+      "titulo": "El Arco",
+      "estado": "Baja California Sur",
+      "empresa": "Grupo México",
+      "minerales": "Cobre, Oro",
+      "tipo": "Tajo a cielo abierto",
+      "estatus": "En desarrollo"
+    }
+  },
+  {
+    "id": 29,
+    "slug": "pena-colorada",
+    "acf": {
+      "titulo": "Peña Colorada",
+      "estado": "Colima",
+      "empresa": "Ternium y ArcelorMittal",
+      "minerales": "Hierro",
+      "tipo": "Tajo a cielo abierto",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 30,
+    "slug": "las-truchas",
+    "acf": {
+      "titulo": "Las Truchas",
+      "estado": "Michoacán",
+      "empresa": "ArcelorMittal México",
+      "minerales": "Hierro",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 31,
+    "slug": "molango",
+    "acf": {
+      "titulo": "Molango",
+      "estado": "Hidalgo",
+      "empresa": "Autlán",
+      "minerales": "Manganeso",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 32,
+    "slug": "guerrero-negro",
+    "acf": {
+      "titulo": "Guerrero Negro",
+      "estado": "Baja California Sur",
+      "empresa": "Exportadora de Sal (ESSA)",
+      "minerales": "Sal",
+      "tipo": "Evaporación solar",
+      "estatus": "En operación"
+    }
+  },
+  {
+    "id": 33,
+    "slug": "el-boleo",
+    "acf": {
+      "titulo": "El Boleo",
+      "estado": "Baja California Sur",
+      "empresa": "Minera y Metalúrgica del Boleo",
+      "minerales": "Cobre, Cobalto, Zinc",
+      "tipo": "Subterránea",
+      "estatus": "En operación"
+    }
+  }
+]
