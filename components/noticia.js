@@ -4,7 +4,7 @@ import { formatearFecha } from "@/utils/helpers";
 import styles from '@/styles/blog.module.css';
 
 export default function Post({ post, id, date }) {
-    const { contenido, imagen, titulo } = post;
+    const { contenido, imagen, titulo, resumen } = post;
 
     return (
         <article>
@@ -24,7 +24,7 @@ export default function Post({ post, id, date }) {
                     <h3>{titulo}</h3>
                 </Link>
                 <p className={styles.fecha}>{formatearFecha(date)}</p>
-                <p className={styles.resumen}>{contenido}</p>
+                <p className={styles.resumen}>{resumen || contenido}</p>
             </div>
         </article>
     );

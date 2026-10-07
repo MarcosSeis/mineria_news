@@ -12,9 +12,12 @@ import PreciosMetales from "@/components/preciosMetales";
 import { anuncios } from "@/data/anuncios";
 import { fetchList } from "@/lib/api";
 import { leerPrecios } from "@/lib/metales";
+import useActualizacionAutomatica from "@/hooks/useActualizacionAutomatica";
 import { eventosProximos, filtrarRecientes, ordenarPorFechaDesc } from "@/utils/helpers";
 
 export default function Home({jobs, posts, eventos, metales = []}) {
+
+  useActualizacionAutomatica()
 
   const postsOrdenados = ordenarPorFechaDesc(posts)
   const postsPrincipales = postsOrdenados.slice(0, 3)

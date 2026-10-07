@@ -23,10 +23,12 @@ npm run dev                  # http://localhost:3000
 
 ## Variables de entorno
 - `API_URL`: URL base de la API REST de WordPress (`NEXT_PUBLIC_API_URL` se acepta como respaldo).
+- `REVALIDATE_SECRET`: secreto de `POST /api/revalidate`, que regenera al instante la portada, `/noticias` y la nota recién publicada. Sin él, la ruta responde 401 y el sitio se actualiza solo por ISR (el primer visitante ve la versión anterior).
 
 ## Estructura
 - `pages/`: rutas. Las listas usan ISR; los detalles se generan bajo demanda (`fallback: 'blocking'`).
 - `components/`, `styles/`: UI y CSS Modules.
+- `hooks/useActualizacionAutomatica.js`: la portada y `/noticias` se refrescan solas cada 60 s (y al volver a la pestaña) sin recargar la página.
 - `lib/api.js`: cliente de la API; devuelve `[]`/`null` si la API falla, así que las páginas no se caen.
 - `utils/helpers.js`: fechas (`YYYYMMDD`, `YYYY-MM-DD`, `MM/DD/YYYY`), filtros y validación de URLs.
 - `__tests__/`, `test-utils/`: pruebas y datos de ejemplo.
