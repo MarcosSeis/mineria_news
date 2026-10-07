@@ -6,9 +6,14 @@ import { leerMina, leerMinas } from "@/lib/minas";
 import { urlSegura } from "@/utils/helpers";
 import { separarMinerales } from "@/utils/minas";
 
+const CORREO_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export default function FichaMina({ mina }) {
-  const { titulo, estado, empresa, minerales, tipo, estatus, descripcion, imagen, sitio_web } = mina.acf
+  const { titulo, estado, empresa, minerales, tipo, estatus, descripcion, imagen, sitio_web, telefono, correo, direccion } = mina.acf
   const sitio = urlSegura(sitio_web)
+  const enlaceTelefono = telefono ? `tel:${telefono.replace(/[^\d+]/g, '')}` : null
+  const enlaceCorreo = CORREO_REGEX.test(correo ?? '') ? `mailto:${correo}` : null
+  const hayContacto = Boolean(enlaceTelefono || enlaceCorreo || direccion)
   const datos = [
     ['Estado', estado],
     ['Empresa', empresa],
@@ -36,6 +41,17 @@ export default function FichaMina({ mina }) {
         </dl>
 
         {descripcion && <p className={styles.descripcion}>{descripcion}</p>}
+
+        {hayContacto && (
+          <section aria-labelledby="contacto">
+            <h2 id="contacto" className={styles.subtitulo}>Contacto de la empresa</h2>
+            <dl className={styles.datos}>
+              {direccion && <div><dt>Dirección</dt><dd>{direccion}</dd></div>}
+              {enlaceTelefono && <div><dt>Teléfono</dt><dd><a href={enlaceTelefono}>{telefono}</a></dd></div>}
+              {enlaceCorreo && <div><dt>Correo</dt><dd><a href={enlaceCorreo}>{correo}</a></dd></div>}
+            </dl>
+          </section>
+        )}
 
         <div className={styles.botones}>
           {sitio && (
