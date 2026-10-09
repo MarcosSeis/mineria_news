@@ -9,12 +9,15 @@ const otra = secreta.replace(/./g, 'X')
 const escribir = (palabra) => [...palabra].forEach((l) => fireEvent.keyDown(window, { key: l }))
 
 describe('MineralWordle', () => {
-  beforeEach(() => localStorage.clear())
+  const CLAVE = 'mineral-wordle-instrucciones-vistas'
+  // Por defecto el jugador ya vio las instrucciones, así que el cuadro no estorba.
+  beforeEach(() => { localStorage.clear(); localStorage.setItem(CLAVE, '1') })
 
   it('muestra el tablero con el largo del mineral del día', () => {
     render(<MineralWordle />)
     expect(screen.getAllByRole('gridcell')).toHaveLength(secreta.length * 6)
-    expect(screen.getByText(`${secreta.length} letras`)).toBeInTheDocument()
+    expect(screen.getByText(`${secreta.length} letras · intento 1 de 6`)).toBeInTheDocument()
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 
   it('ignora Enter si la palabra está incompleta', () => {
@@ -117,7 +120,7 @@ describe('MineralWordle', () => {
   it('pierde tras 6 intentos y muestra la pista desde el tercero', () => {
     render(<MineralWordle />)
     for (let i = 0; i < 3; i++) { escribir(otra); fireEvent.keyDown(window, { key: 'Enter' }) }
-    expect(screen.getByText(/Pista:/)).toBeInTheDocument()
+    expect(screen.getByText(/💡/)).toBeInTheDocument()
     for (let i = 0; i < 3; i++) { escribir(otra); fireEvent.keyDown(window, { key: 'Enter' }) }
     expect(screen.getByRole('status')).toHaveTextContent('Se acabaron los intentos')
   })
@@ -135,15 +138,49 @@ describe('MineralWordle', () => {
     expect(screen.getAllByRole('gridcell')).toHaveLength(secreta.length * 6)
   })
 
-  it('muestra las instrucciones abiertas la primera vez y las recuerda cerradas', () => {
-    const { unmount } = render(<MineralWordle />)
-    const detalle = screen.getByText('¿Cómo se juega?').closest('details')
-    expect(detalle).toHaveAttribute('open')
-    detalle.removeAttribute('open')
-    fireEvent(detalle, new Event('toggle'))
-    expect(localStorage.getItem('mineral-wordle-instrucciones-vistas')).toBe('1')
-    unmount()
-    render(<MineralWordle />)
-    expect(screen.getByText('¿Cómo se juega?').closest('details')).not.toHaveAttribute('open')
+  describe('instrucciones', () => {
+    beforeEach(() => localStorage.clear())
+
+    it('aparecen en un cuadro la primera vez y se recuerdan al cerrarlas', () => {
+      const { unmount } = render(<MineralWordle />)
+      expect(screen.getByRole('dialog', { name: '¿Cómo se juega?' })).toBeInTheDocument()
+      fireEvent.click(screen.getByRole('button', { name: '¡A jugar!' }))
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      expect(localStorage.getItem(CLAVE)).toBe('1')
+      unmount()
+      render(<MineralWordle />)
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    })
+
+    it('se cierran con Escape y tocando fuera del cuadro, pero no al tocar dentro', () => {
+      render(<MineralWordle />)
+      fireEvent.keyDown(window, { key: 'x' })
+      expect(screen.getByRole('dialog')).toBeInTheDocument()
+      fireEvent.click(screen.getByRole('dialog'))
+      expect(screen.getByRole('dialog')).toBeInTheDocument()
+      fireEvent.keyDown(window, { key: 'Escape' })
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Cómo se juega' }))
+      fireEvent.click(screen.getByRole('dialog').parentElement)
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    })
+
+    it('no dejan escribir mientras están abiertas y se pueden volver a abrir con el botón ?', () => {
+      render(<MineralWordle />)
+      escribir(secreta)
+      fireEvent.keyDown(window, { key: 'Enter' })
+      expect(screen.getAllByRole('gridcell')[0]).toHaveAttribute('data-estado', 'vacia')
+      fireEvent.click(screen.getByRole('button', { name: '¡A jugar!' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Cómo se juega' }))
+      expect(screen.getByRole('dialog')).toBeInTheDocument()
+    })
+
+    it('se muestran si el navegador no permite guardar datos', () => {
+      jest.spyOn(Storage.prototype, 'getItem').mockImplementation(() => { throw new Error('bloqueado') })
+      render(<MineralWordle />)
+      expect(screen.getByRole('dialog')).toBeInTheDocument()
+      jest.restoreAllMocks()
+    })
   })
 })
