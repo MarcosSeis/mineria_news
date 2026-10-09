@@ -1,17 +1,21 @@
-import Layout from '@/components/layout'
+import Head from 'next/head'
 import MineralWordle from '@/components/mineralWordle'
-import styles from '@/styles/mineralWordle.module.css'
+import { SITE_NAME } from '@/lib/config'
+
+const titulo = `${SITE_NAME} - Mineral Wordle`
+const descripcion = 'Mineral Wordle: adivina cada día el mineral o metal misterioso. El juego diario de Minería News.'
 
 export default function MineralWordlePage() {
   return (
-    <Layout
-      title={'Mineral Wordle'}
-      description={'Mineral Wordle: adivina cada día el mineral o metal misterioso. El juego diario de Minería News.'}
-    >
-      <main className={styles.pagina}>
-        <h1>⛏️ Mineral Wordle</h1>
-        <MineralWordle />
-      </main>
-    </Layout>
+    <>
+      <Head>
+        <title>{titulo}</title>
+        <meta name="description" content={descripcion} />
+        <meta property="og:title" content={titulo} />
+        <meta property="og:description" content={descripcion} />
+        <meta property="og:type" content="website" />
+      </Head>
+      <MineralWordle />
+    </>
   )
 }
