@@ -4,7 +4,7 @@ import LinksNav from '@/components/linksNav'
 describe('LinksNav', () => {
   it.each([
     ['Inicio', '/'], ['Nosotros', '/nosotros'], ['Noticias', '/noticias'],
-    ['Minas', '/minas'], ['Precios', '/metales'], ['Eventos', '/eventos'], ['Proveedores', '/proveedores'], ['Bolsa de trabajo', '/trabajos']
+    ['Minas', '/minas'], ['Precios', '/metales'], ['Juego', '/mineral-wordle'], ['Eventos', '/eventos'], ['Proveedores', '/proveedores'], ['Bolsa de trabajo', '/trabajos']
   ])('enlace "%s" apunta a %s', (texto, href) => {
     render(<LinksNav />)
     expect(screen.getByRole('link', { name: texto })).toHaveAttribute('href', href)

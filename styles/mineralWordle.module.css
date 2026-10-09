@@ -1,0 +1,167 @@
+.pagina {
+    background: #fff;
+    color: #111;
+    border-radius: 1rem;
+    padding: 1rem 1.5rem 3rem;
+}
+
+.juego {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.info, .pista, .nota, .cargando {
+    font-size: 1.6rem;
+    text-align: center;
+    margin: 0;
+}
+
+.pista {
+    background: #fff3c4;
+    color: #111;
+    border-radius: 0.8rem;
+    padding: 1rem 1.5rem;
+}
+
+.tablero {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.fila {
+    display: grid;
+    grid-template-columns: repeat(var(--letras), 1fr);
+    gap: 0.6rem;
+}
+
+.celda {
+    width: min(5.2rem, calc((100vw - 4rem) / var(--letras)));
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    font-weight: 700;
+    border: 0.2rem solid #8a8a8a;
+    background: #fff;
+    color: #111;
+    text-transform: uppercase;
+}
+
+.celda[data-estado="escribiendo"] { border-color: #111; }
+
+.correcta { background: #2e7d4f; border-color: #2e7d4f; color: #fff; }
+.presente { background: #f2c200; border-color: #f2c200; color: #111; }
+.ausente { background: #4a4a4a; border-color: #4a4a4a; color: #fff; }
+
+.teclado {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 50rem;
+}
+
+.filaTeclas {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.tecla {
+    flex: 1;
+    min-width: 0;
+    padding: 1.2rem 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border: 0;
+    border-radius: 0.5rem;
+    background: #d6d6d6;
+    color: #111;
+    cursor: pointer;
+}
+
+.tecla.correcta { background: #2e7d4f; color: #fff; }
+.tecla.presente { background: #f2c200; color: #111; }
+.tecla.ausente { background: #4a4a4a; color: #fff; }
+
+.resultado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2rem;
+}
+
+.resultado p { margin: 0; }
+
+.compartir {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.botonCompartir {
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    border: 0;
+    border-radius: 0.5rem;
+    background: #111;
+    color: #fff;
+    cursor: pointer;
+}
+
+.facebook { background: #1565c0; }
+.instagram { background: linear-gradient(45deg, #b3246a, #c2185b 40%, #8a3ab9); }
+
+.instrucciones {
+    width: 100%;
+    max-width: 50rem;
+    background: #f1f1f1;
+    color: #111;
+    border-radius: 0.8rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
+.instrucciones summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.instrucciones ol { padding-left: 2rem; margin: 1rem 0; }
+.instrucciones p { margin: 1rem 0 0; }
+
+.ejemplos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.ejemplos li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.muestra {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 3.2rem;
+    height: 3.2rem;
+    font-weight: 700;
+    border-radius: 0.3rem;
+}

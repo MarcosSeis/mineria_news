@@ -6,6 +6,7 @@ const enlaces = [
     { href: '/noticias', texto: 'Noticias' },
     { href: '/minas', texto: 'Minas' },
     { href: '/metales', texto: 'Precios' },
+    { href: '/mineral-wordle', texto: 'Juego' },
     { href: '/eventos', texto: 'Eventos' },
     { href: '/proveedores', texto: 'Proveedores' },
     { href: '/trabajos', texto: 'Bolsa de trabajo' }
