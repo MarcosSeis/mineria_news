@@ -1,12 +1,12 @@
 {
-  "actualizado": "2026-10-09",
+  "actualizado": "2026-10-10",
   "metales": [
     {
       "symbol": "XAU",
       "nombre": "Oro",
       "unidad": "USD / onza troy",
-      "precio": 4173.100098,
-      "actualizadoEn": "2026-10-09T02:19:10Z",
+      "precio": 4195.600098,
+      "actualizadoEn": "2026-10-10T01:49:15Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -1026,7 +1026,7 @@
         },
         {
           "fecha": "2026-10-09",
-          "precio": 4196.89990234375
+          "precio": 4220.2998046875
         }
       ]
     },
@@ -1034,8 +1034,8 @@
       "symbol": "XAG",
       "nombre": "Plata",
       "unidad": "USD / onza troy",
-      "precio": 60.251999,
-      "actualizadoEn": "2026-10-09T02:19:09Z",
+      "precio": 60.949001,
+      "actualizadoEn": "2026-10-10T01:49:14Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -2055,7 +2055,7 @@
         },
         {
           "fecha": "2026-10-09",
-          "precio": 60.31999969482422
+          "precio": 61.11000061035156
         }
       ]
     },
@@ -2063,8 +2063,8 @@
       "symbol": "HG",
       "nombre": "Cobre",
       "unidad": "USD / libra",
-      "precio": 6.602037,
-      "actualizadoEn": "2026-10-09T02:19:12Z",
+      "precio": 6.643384,
+      "actualizadoEn": "2026-10-10T01:49:18Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -3084,7 +3084,7 @@
         },
         {
           "fecha": "2026-10-09",
-          "precio": 6.637499809265137
+          "precio": 6.710999965667725
         }
       ]
     },
@@ -3092,8 +3092,8 @@
       "symbol": "XPT",
       "nombre": "Platino",
       "unidad": "USD / onza troy",
-      "precio": 1680,
-      "actualizadoEn": "2026-10-09T02:19:12Z",
+      "precio": 1695,
+      "actualizadoEn": "2026-10-10T01:49:19Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -4113,7 +4113,7 @@
         },
         {
           "fecha": "2026-10-09",
-          "precio": 1679.300048828125
+          "precio": 1695.4000244140625
         }
       ]
     },
@@ -4121,8 +4121,8 @@
       "symbol": "XPD",
       "nombre": "Paladio",
       "unidad": "USD / onza troy",
-      "precio": 1173,
-      "actualizadoEn": "2026-10-09T02:19:11Z",
+      "precio": 1172,
+      "actualizadoEn": "2026-10-10T01:49:18Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -5142,7 +5142,7 @@
         },
         {
           "fecha": "2026-10-09",
-          "precio": 1153
+          "precio": 1150
         }
       ]
     }
