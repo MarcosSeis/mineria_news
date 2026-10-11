@@ -1,5 +1,5 @@
 import {
-  textoCompartir, barraPuntuacion, urlJuego, compartirResultado, copiarResultado, RUTA_JUEGO, urlFacebook, urlLinkedIn,
+  textoCompartir, textoLinkedIn, barraPuntuacion, urlJuego, compartirResultado, copiarResultado, RUTA_JUEGO, urlFacebook, urlLinkedIn,
   puedeCompartirArchivos, compartirImagen, descargarImagen
 } from '@/lib/voladura/compartir'
 
@@ -16,6 +16,13 @@ describe('compartir', () => {
     expect(urlJuego()).toBe('https://mineria-news.vercel.app/la-voladura')
     expect(textoCompartir({ numero: 1, score: 0, mensaje: 'x' })).toContain('https://mineria-news.vercel.app' + RUTA_JUEGO)
     expect(textoCompartir({ numero: 1, score: 0, mensaje: 'x' })).not.toContain('localhost')
+  })
+
+  it('el texto de LinkedIn es corto: título, barra con nota, frase y enlace', () => {
+    const texto = textoLinkedIn({ numero: 127, score: 87, mensaje: 'La roca tenía otros planes.' })
+    expect(texto).toBe('🧨 LA VOLADURA #127\n🟧🟧🟧🟧🟧🟧🟧🟧🟧⬛ 87/100\n“La roca tenía otros planes.”\n👉 Juega hoy: https://mineria-news.vercel.app/la-voladura')
+    expect(texto.length).toBeLessThan(textoCompartir({ numero: 127, score: 87, mensaje: 'La roca tenía otros planes.' }).length)
+    expect(textoLinkedIn({ numero: 1, score: 50, mensaje: 'x', url: 'https://a.cl' })).toContain('👉 Juega hoy: https://a.cl')
   })
 
   it('la barra se llena según la puntuación', () => {

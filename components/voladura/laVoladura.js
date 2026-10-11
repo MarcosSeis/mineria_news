@@ -5,7 +5,7 @@ import { evaluateBlast } from '@/lib/voladura/blastEngine'
 import { configInicial, normalizarConfig } from '@/lib/voladura/config'
 import { valoresReales, calcularMetricas } from '@/lib/voladura/metricas'
 import {
-  textoCompartir, compartirResultado, copiarResultado, compartirImagen, descargarImagen, puedeCompartirArchivos,
+  textoCompartir, textoLinkedIn, compartirResultado, copiarResultado, compartirImagen, descargarImagen, puedeCompartirArchivos,
   urlFacebook, urlLinkedIn, URL_INSTAGRAM, urlJuego
 } from '@/lib/voladura/compartir'
 import { crearEscena } from '@/lib/voladura/pixelart/escena'
@@ -139,8 +139,9 @@ export default function LaVoladura() {
       ventana(urlFacebook(url(), texto()))
     } else if (red === 'linkedin') {
       // El editor de LinkedIn se abre con el texto y el enlace; el texto también se copia por si LinkedIn no lo rellena.
-      ventana(urlLinkedIn(texto()))
-      await copiarResultado(texto())
+      const corto = textoLinkedIn({ numero: desafio.numero, score: resultado.score, mensaje: resultado.mensaje, url: url() })
+      ventana(urlLinkedIn(corto))
+      await copiarResultado(corto)
       setAviso('Se abrió LinkedIn con tu resultado y el enlace. Si quieres tu tarjeta, usa "Descargar imagen" y adjúntala.')
     } else if (red === 'instagram') {
       if (puedeCompartirArchivos()) {
