@@ -1,0 +1,74 @@
+.intro {
+    margin: 0 0 2rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.lista {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 0 0 4rem;
+    padding: 0;
+    list-style: none;
+}
+
+.tarjeta {
+    border-radius: 1.2rem;
+    background: #fff;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+}
+
+.enlace {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    height: 100%;
+    padding: 2.4rem;
+    border-top: 1rem solid var(--color);
+    color: inherit;
+    text-decoration: none;
+}
+
+.enlace:hover .jugar,
+.enlace:focus-visible .jugar {
+    background: var(--black);
+}
+
+.emoji {
+    font-size: 5rem;
+    line-height: 1;
+}
+
+.enlace h2 {
+    margin: 0;
+    font-size: 3rem;
+}
+
+.enlace p {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.7rem;
+}
+
+.detalle {
+    color: #666;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.4rem;
+}
+
+.jugar {
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 0.8rem 2rem;
+    border-radius: 0.6rem;
+    background: var(--color);
+    color: #fff;
+    font-size: 2rem;
+}
+
+@media (min-width: 768px) {
+    .lista { grid-template-columns: 1fr 1fr; }
+}

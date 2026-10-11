@@ -2,8 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { minerales } from '@/data/minerales'
 import {
-  MAX_INTENTOS, INTENTOS_PARA_PISTA, mineralDelDia, evaluar, estadoTeclas, textoCompartir, urlFacebook, dibujarTarjeta, fechaLocal, URL_SITIO
+  MAX_INTENTOS, INTENTOS_PARA_PISTA, mineralDelDia, evaluar, estadoTeclas, textoCompartir, urlFacebook, urlLinkedIn, dibujarTarjeta, fechaLocal, URL_SITIO
 } from '@/lib/mineralWordle'
+import { urlPublica } from '@/lib/config'
 import styles from '@/styles/mineralWordle.module.css'
 
 const filasTeclado = ['QWERTYUIOP', 'ASDFGHJKLÑ', 'ZXCVBNM']
@@ -92,7 +93,7 @@ export default function MineralWordle() {
     return () => window.removeEventListener('keydown', alPulsar)
   }, [enviar, borrar, escribir, verInstrucciones, cerrarInstrucciones])
 
-  const urlJuego = () => `${window.location.origin}/mineral-wordle`
+  const urlJuego = () => urlPublica('/mineral-wordle')
   const resultado = () => textoCompartir(intentos, secreta, fecha)
 
   const copiar = async () => {
@@ -108,6 +109,12 @@ export default function MineralWordle() {
 
   const compartirFacebook = () => {
     window.open(urlFacebook(urlJuego(), resultado()), '_blank', 'noopener,noreferrer,width=600,height=500')
+  }
+
+  const compartirLinkedIn = async () => {
+    window.open(urlLinkedIn(textoCompartir(intentos, secreta, fecha, urlJuego())), '_blank', 'noopener,noreferrer,width=600,height=600')
+    await copiar()
+    setAviso('Se abrió LinkedIn con tu resultado y el enlace.')
   }
 
   const compartirInstagram = async () => {
@@ -140,7 +147,7 @@ export default function MineralWordle() {
   return (
     <div className={styles.pantalla}>
       <header className={styles.barra}>
-        <Link href="/" className={styles.volver} aria-label="Volver al inicio">←</Link>
+        <Link href="/juegos" className={styles.volver} aria-label="Volver a los juegos">←</Link>
         <h1>⛏️ Mineral Wordle</h1>
         <button type="button" className={styles.ayuda} aria-label="Cómo se juega" onClick={() => setVerInstrucciones(true)}>?</button>
       </header>
@@ -182,6 +189,7 @@ export default function MineralWordle() {
                   <button type="button" className={styles.botonCompartir} onClick={compartirNativo}>Compartir</button>
                 )}
                 <button type="button" className={`${styles.botonCompartir} ${styles.facebook}`} onClick={compartirFacebook}>Facebook</button>
+                <button type="button" className={`${styles.botonCompartir} ${styles.linkedin}`} onClick={compartirLinkedIn}>LinkedIn</button>
                 <button type="button" className={`${styles.botonCompartir} ${styles.instagram}`} onClick={compartirInstagram}>Instagram</button>
                 <button type="button" className={styles.botonCompartir} onClick={descargarImagen}>Descargar imagen</button>
                 <button type="button" className={styles.botonCompartir} onClick={compartirCopiar}>Copiar resultado</button>
