@@ -6,7 +6,7 @@ export default function Document() {
     <Head>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
       <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
       <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

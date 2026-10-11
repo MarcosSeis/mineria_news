@@ -46,7 +46,7 @@ describe('MineralWordle', () => {
     ganar()
     expect(screen.getByRole('status')).toHaveTextContent('¡Excelente!')
     await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Copiar resultado' })) })
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expect.stringContaining(window.location.origin + '/mineral-wordle'))
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expect.stringContaining('https://mineria-news.vercel.app/mineral-wordle'))
     expect(screen.getByText('¡Copiado!')).toBeInTheDocument()
   })
 
@@ -76,6 +76,19 @@ describe('MineralWordle', () => {
     expect(screen.getByText(/Resultado copiado/)).toBeInTheDocument()
   })
 
+  it('en LinkedIn abre el compartidor y copia el resultado', async () => {
+    window.open = jest.fn()
+    Object.assign(navigator, { clipboard: { writeText: jest.fn().mockResolvedValue() } })
+    ganar()
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'LinkedIn' })) })
+    const direccion = decodeURIComponent(window.open.mock.calls[0][0])
+    expect(direccion).toContain('linkedin.com/feed/?shareActive=true&text=')
+    expect(direccion).toContain('Mineral Wordle')
+    expect(direccion).toContain('https://mineria-news.vercel.app/mineral-wordle')
+    expect(direccion).not.toContain('localhost')
+    expect(screen.getByText(/Se abrió LinkedIn con tu resultado/)).toBeInTheDocument()
+  })
+
   it('en Instagram avisa si no pudo copiar', async () => {
     window.open = jest.fn()
     Object.assign(navigator, { clipboard: { writeText: jest.fn().mockRejectedValue(new Error('no')) } })
@@ -88,7 +101,7 @@ describe('MineralWordle', () => {
     navigator.share = jest.fn().mockResolvedValue()
     ganar()
     await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Compartir' })) })
-    expect(navigator.share).toHaveBeenCalledWith(expect.objectContaining({ url: window.location.origin + '/mineral-wordle' }))
+    expect(navigator.share).toHaveBeenCalledWith(expect.objectContaining({ url: 'https://mineria-news.vercel.app/mineral-wordle' }))
     navigator.share = jest.fn().mockRejectedValue(new Error('cancelado'))
     await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Compartir' })) })
     delete navigator.share
