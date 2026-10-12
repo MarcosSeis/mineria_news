@@ -148,12 +148,13 @@ describe('La Voladura (juego)', () => {
     fireEvent.change(screen.getByLabelText('Espaciamiento'), { target: { value: '10' } })
     fireEvent.change(screen.getByLabelText('Burden'), { target: { value: '20' } })
     expect(lecturas()).not.toBe(antes)
+    await irA('Barreno')
     fireEvent.change(screen.getByLabelText('Profundidad'), { target: { value: '80' } })
-    await irA('Carga')
     fireEvent.change(screen.getByLabelText('Carga por barreno'), { target: { value: '90' } })
-    await userEvent.selectOptions(screen.getByLabelText('Explosivo'), 'emulsion')
+    await irA('Explosivo')
+    await userEvent.click(screen.getByRole('radio', { name: 'Emulsión' }))
     expect(screen.getByText(/Aguanta la humedad/)).toBeInTheDocument()
-    await userEvent.selectOptions(screen.getByLabelText('Distribución de carga'), 'desacoplada')
+    await userEvent.click(screen.getByRole('radio', { name: 'Desacoplada' }))
     expect(screen.getByText(/mejor control del contorno/)).toBeInTheDocument()
   })
 
@@ -266,21 +267,36 @@ describe('La Voladura (juego)', () => {
   })
 })
 
-describe('controles por pasos', () => {
+describe('controles por grupos', () => {
   const abrirPasos = async () => {
     marcarVistas()
     render(<LaVoladura />)
     await listo()
   }
 
-  it('muestra tres pasos y empieza en la plantilla', async () => {
+  it('muestra cuatro grupos con su valor actual y empieza en la plantilla', async () => {
     await abrirPasos()
-    const pestanas = screen.getAllByRole('tab')
-    expect(pestanas.map((p) => p.textContent)).toEqual(['1Plantilla', '2Carga', '3Amarre'])
+    const fichas = screen.getAllByRole('tab')
+    expect(fichas.map((f) => f.textContent)).toEqual(['Plantilla1.0×1.2 m', 'Barreno3.0 m·68%', 'ExplosivoANFO', 'AmarrePor filas'])
     expect(screen.getByRole('tab', { name: /Plantilla/ })).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByLabelText('Burden')).toBeInTheDocument()
-    expect(screen.queryByLabelText('Explosivo')).not.toBeInTheDocument()
+    expect(screen.getByLabelText('Espaciamiento')).toBeInTheDocument()
+    expect(screen.getByRole('group', { name: 'Número de barrenos' })).toBeInTheDocument()
+    expect(screen.queryByLabelText('Profundidad')).not.toBeInTheDocument()
     expect(screen.queryByRole('radiogroup')).not.toBeInTheDocument()
+  })
+
+  it('las fichas siguen los cambios sin cambiar de grupo', async () => {
+    await abrirPasos()
+    fireEvent.change(screen.getByLabelText('Burden'), { target: { value: '100' } })
+    fireEvent.change(screen.getByLabelText('Espaciamiento'), { target: { value: '0' } })
+    expect(screen.getByRole('tab', { name: /Plantilla/ })).toHaveTextContent('1.5×0.6 m')
+    await irA('Explosivo')
+    await userEvent.click(screen.getByRole('radio', { name: 'Gel' }))
+    expect(screen.getByRole('tab', { name: /Explosivo/ })).toHaveTextContent('Gel Pixelita')
+    await irA('Amarre')
+    await userEvent.click(screen.getByRole('radio', { name: 'En V' }))
+    expect(screen.getByRole('tab', { name: /Amarre/ })).toHaveTextContent('En V')
   })
 
   it('cada control muestra su valor y una explicación en lenguaje simple', async () => {
@@ -290,31 +306,36 @@ describe('controles por pasos', () => {
     fireEvent.change(screen.getByLabelText('Burden'), { target: { value: '100' } })
     expect(screen.getByLabelText('Burden')).toHaveAttribute('aria-valuetext', '1.5 m')
     expect(screen.getByLabelText('Espaciamiento')).toHaveAttribute('aria-valuetext', '1.2 m')
-    expect(screen.getByLabelText('Profundidad')).toHaveAttribute('aria-valuetext', '3.0 m')
     expect(screen.getByText('CERRADO')).toBeInTheDocument()
-    await irA('Carga')
+    await irA('Barreno')
+    expect(screen.getByLabelText('Profundidad')).toHaveAttribute('aria-valuetext', '3.0 m')
     expect(screen.getByLabelText('Carga por barreno')).toHaveAttribute('aria-valuetext', '68 %')
+    expect(screen.getByText('Cuánto explosivo lleva cada barreno.')).toBeInTheDocument()
   })
 
-  it('el botón principal avanza de paso y en el último es ¡VOLAR!', async () => {
+  it('el botón principal avanza por los cuatro grupos y en el último es ¡VOLAR!', async () => {
     await abrirPasos()
     expect(screen.queryByRole('button', { name: 'Paso anterior' })).not.toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: /SIGUIENTE/ }))
-    expect(screen.getByRole('tab', { name: /Carga/ })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByLabelText('Explosivo')).toBeInTheDocument()
-    expect(screen.getByLabelText('Distribución de carga')).toBeInTheDocument()
+    expect(screen.getByRole('tab', { name: /Barreno/ })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByLabelText('Profundidad')).toBeInTheDocument()
+    expect(screen.getByLabelText('Carga por barreno')).toBeInTheDocument()
     expect(screen.queryByLabelText('Burden')).not.toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: /SIGUIENTE/ }))
+    expect(screen.getByRole('radiogroup', { name: 'Explosivo' })).toBeInTheDocument()
+    expect(screen.getByRole('radiogroup', { name: 'Distribución de carga' })).toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: /SIGUIENTE/ }))
     expect(screen.getByRole('radiogroup', { name: /Orden de salida/ })).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /SIGUIENTE/ })).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: '¡VOLAR!' })).toBeInTheDocument()
   })
 
-  it('el botón ◂ vuelve al paso anterior y se puede saltar entre pasos con las pestañas', async () => {
+  it('el botón ◂ vuelve al grupo anterior y se puede saltar entre grupos con las fichas', async () => {
     await abrirPasos()
     await irA('Amarre')
     await userEvent.click(screen.getByRole('button', { name: 'Paso anterior' }))
-    expect(screen.getByRole('tab', { name: /Carga/ })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tab', { name: /Explosivo/ })).toHaveAttribute('aria-selected', 'true')
+    await userEvent.click(screen.getByRole('button', { name: 'Paso anterior' }))
     await userEvent.click(screen.getByRole('button', { name: 'Paso anterior' }))
     expect(screen.getByLabelText('Burden')).toBeInTheDocument()
     await irA('Amarre')
@@ -322,27 +343,34 @@ describe('controles por pasos', () => {
     expect(screen.getByLabelText('Espaciamiento')).toBeInTheDocument()
   })
 
-  it('los valores elegidos se conservan al cambiar de paso', async () => {
+  it('los valores elegidos se conservan al cambiar de grupo', async () => {
     await abrirPasos()
     fireEvent.change(screen.getByLabelText('Burden'), { target: { value: '70' } })
-    await irA('Carga')
-    await userEvent.selectOptions(screen.getByLabelText('Explosivo'), 'gel')
+    await irA('Explosivo')
+    await userEvent.click(screen.getByRole('radio', { name: 'Gel' }))
     await irA('Plantilla')
     expect(screen.getByLabelText('Burden')).toHaveValue('70')
-    await irA('Carga')
-    expect(screen.getByLabelText('Explosivo')).toHaveValue('gel')
+    await irA('Explosivo')
+    expect(screen.getByRole('radio', { name: 'Gel' })).toHaveAttribute('aria-checked', 'true')
   })
 
-  it('el lienzo solo permite numerar barrenos en el paso del amarre manual', async () => {
+  it('el lienzo solo permite numerar barrenos en el grupo del amarre manual', async () => {
     await abrirPasos()
     Element.prototype.getBoundingClientRect = jest.fn(() => ({ left: 0, top: 0, width: 160, height: 120 }))
     await irA('Amarre')
     await userEvent.click(screen.getByRole('radio', { name: 'Manual' }))
     await irA('Plantilla')
-    const canvas = screen.getByRole('img', { name: /Frente de/ })
-    expect(canvas).not.toHaveAttribute('data-tocable')
+    expect(screen.getByRole('img', { name: /Frente de/ })).not.toHaveAttribute('data-tocable')
     await irA('Amarre')
     expect(screen.getByRole('img', { name: /Frente de/ })).toHaveAttribute('data-tocable', 'si')
+  })
+
+  it('las lecturas van sobre la escena', async () => {
+    await abrirPasos()
+    const lecturas = screen.getByLabelText('Lecturas de la plantilla')
+    expect(lecturas).toHaveTextContent(/Cobertura\s*\d+%/)
+    expect(lecturas).toHaveTextContent(/Útiles\s*\d+\/24/)
+    expect(lecturas.parentElement).toContainElement(screen.getByRole('img', { name: /Frente de/ }))
   })
 })
 
@@ -375,27 +403,27 @@ describe('amarre (orden de salida)', () => {
   it('con un amarre automático tocar el lienzo no cambia el orden', async () => {
     const canvas = await abrir()
     tocar(canvas, posicionDeBarreno(0))
-    expect(screen.queryByText(/barrenos numerados/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/numerados/)).not.toBeInTheDocument()
   })
 
   it('el modo manual permite numerar los barrenos tocándolos, deshacer y borrar', async () => {
     const canvas = await abrir()
     await userEvent.click(screen.getByRole('radio', { name: 'Manual' }))
-    expect(screen.getByText(/^0\/\d+ barrenos numerados$/)).toBeInTheDocument()
+    expect(screen.getByText(/^0\/\d+ numerados$/)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Deshacer' })).toBeDisabled()
     tocar(canvas, posicionDeBarreno(0))
     tocar(canvas, posicionDeBarreno(3))
-    expect(screen.getByText(/^2\/\d+ barrenos numerados$/)).toBeInTheDocument()
+    expect(screen.getByText(/^2\/\d+ numerados$/)).toBeInTheDocument()
     tocar(canvas, posicionDeBarreno(3))
-    expect(screen.getByText(/^1\/\d+ barrenos numerados$/)).toBeInTheDocument()
+    expect(screen.getByText(/^1\/\d+ numerados$/)).toBeInTheDocument()
     tocar(canvas, { px: 2, py: 2 })
-    expect(screen.getByText(/^1\/\d+ barrenos numerados$/)).toBeInTheDocument()
+    expect(screen.getByText(/^1\/\d+ numerados$/)).toBeInTheDocument()
     tocar(canvas, posicionDeBarreno(5))
     await userEvent.click(screen.getByRole('button', { name: 'Deshacer' }))
-    expect(screen.getByText(/^1\/\d+ barrenos numerados$/)).toBeInTheDocument()
+    expect(screen.getByText(/^1\/\d+ numerados$/)).toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: 'Borrar' }))
-    expect(screen.getByText(/^0\/\d+ barrenos numerados$/)).toBeInTheDocument()
-    expect(screen.getByText(/salen todos juntos al final/)).toBeInTheDocument()
+    expect(screen.getByText(/^0\/\d+ numerados$/)).toBeInTheDocument()
+    expect(screen.getByText(/salen juntos al final/)).toBeInTheDocument()
   })
 
   it('un barreno fuera de la sección no se puede numerar', async () => {
@@ -403,7 +431,7 @@ describe('amarre (orden de salida)', () => {
     await userEvent.click(screen.getByRole('radio', { name: 'Manual' }))
     const fuera = calcularMetricas(valoresReales(configInicial), reto()).plantilla.barrenos.find((b) => !b.dentro)
     tocar(canvas, aPantalla(crearEscena(reto()), fuera.x, fuera.y))
-    expect(screen.getByText(/^0\/\d+ barrenos numerados$/)).toBeInTheDocument()
+    expect(screen.getByText(/^0\/\d+ numerados$/)).toBeInTheDocument()
   })
 
   it('el amarre elegido se guarda, se usa en el resultado y se muestra', async () => {
