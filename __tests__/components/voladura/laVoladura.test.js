@@ -27,8 +27,22 @@ beforeEach(() => {
   Object.defineProperty(navigator, 'clipboard', { value: { writeText: jest.fn().mockResolvedValue() }, configurable: true })
 })
 
-const cerrarAyuda = async () => userEvent.click(await screen.findByRole('button', { name: '¡A VOLAR!' }))
+const irA = async (nombre) => userEvent.click(screen.getByRole('tab', { name: new RegExp(nombre) }))
+const volar = async () => {
+  await irA('Amarre')
+  await userEvent.click(screen.getByRole('button', { name: '¡VOLAR!' }))
+}
+// Cierra la ayuda y, después, el pop-up de condiciones del reto.
+const cerrarAyuda = async () => {
+  await userEvent.click(await screen.findByRole('button', { name: '¡A VOLAR!' }))
+  await userEvent.click(await screen.findByRole('button', { name: '¡A DISEÑAR!' }))
+}
 const reto = () => getDailyChallenge(new Date())
+const marcarVistas = () => {
+  localStorage.setItem('la-voladura-ayuda-vista', '1')
+  localStorage.setItem(`la-voladura-ficha-${reto().fecha}`, '1')
+}
+const listo = () => screen.findByRole('button', { name: 'Ver las condiciones del reto' })
 
 describe('La Voladura (página)', () => {
   it('muestra el título y el encabezado', () => {
@@ -50,32 +64,74 @@ describe('La Voladura (página)', () => {
 })
 
 describe('La Voladura (juego)', () => {
-  it('muestra el reto del día y explica el juego la primera vez', async () => {
+  it('la primera vez explica el juego y después abre el pop-up con las condiciones del reto', async () => {
     render(<LaVoladura />)
     expect(await screen.findByRole('dialog', { name: '¿Cómo se juega?' })).toBeInTheDocument()
     expect(screen.getAllByText(/entretenimiento/).length).toBeGreaterThan(0)
-    await cerrarAyuda()
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: '¡A VOLAR!' }))
     const d = reto()
-    expect(screen.getByText(new RegExp(`RETO #${d.numero}`))).toBeInTheDocument()
-    expect(screen.getByRole('heading', { level: 2, name: new RegExp(d.geometria.nombre) })).toBeInTheDocument()
-    expect(screen.getByText(/Objetivo: avanzar/)).toBeInTheDocument()
+    const ficha = await screen.findByRole('dialog', { name: new RegExp(d.geometria.nombre) })
+    expect(ficha).toHaveTextContent(`RETO #${d.numero}`)
+    expect(ficha).toHaveTextContent(d.roca.nombre)
+    expect(ficha).toHaveTextContent(`avanzar ${d.avanceObjetivo} m`)
+    expect(ficha).toHaveTextContent(`Pista: ${d.roca.pista}`)
+    expect(ficha).toHaveTextContent(`Ø ${d.diametro} mm`)
+    await userEvent.click(screen.getByRole('button', { name: '¡A DISEÑAR!' }))
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(screen.getByRole('img', { name: /Frente de/ })).toBeInTheDocument()
+    expect(localStorage.getItem(`la-voladura-ficha-${d.fecha}`)).toBe('1')
+  })
+
+  it('al cerrar el pop-up solo quedan la escena y los controles, y la fila de resumen lo reabre', async () => {
+    marcarVistas()
+    render(<LaVoladura />)
+    const resumen = await listo()
+    const d = reto()
+    expect(resumen).toHaveTextContent(`#${d.numero}`)
+    expect(resumen).toHaveTextContent(`${d.roca.nombre} · `)
+    expect(resumen).toHaveTextContent(`${d.avanceObjetivo} m`)
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(screen.queryByText(/^Roca$/)).not.toBeInTheDocument()
+    expect(screen.getByLabelText('Burden')).toBeInTheDocument()
+    await userEvent.click(resumen)
+    expect(screen.getByRole('dialog', { name: new RegExp(d.geometria.nombre) })).toBeInTheDocument()
+    fireEvent.keyDown(window, { key: 'Escape' })
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('el pop-up del reto se abre solo una vez al día', async () => {
+    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    const { unmount } = render(<LaVoladura />)
+    expect(await screen.findByRole('dialog', { name: new RegExp(reto().geometria.nombre) })).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: '¡A DISEÑAR!' }))
+    unmount()
+    render(<LaVoladura />)
+    await listo()
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('el pop-up del reto se cierra al pulsar fuera y no se abre al ver un resultado guardado', async () => {
+    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    render(<LaVoladura />)
+    const dialogo = await screen.findByRole('dialog', { name: new RegExp(reto().geometria.nombre) })
+    fireEvent.click(dialogo.parentElement)
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 
   it('no repite la ayuda cuando ya se vio, y se puede reabrir y cerrar con Escape', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     render(<LaVoladura />)
-    await screen.findByText(/Objetivo: avanzar/)
+    await listo()
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: 'Cómo se juega' }))
-    expect(screen.getByRole('dialog')).toBeInTheDocument()
+    expect(screen.getByRole('dialog', { name: '¿Cómo se juega?' })).toBeInTheDocument()
     fireEvent.keyDown(window, { key: 'Escape' })
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(localStorage.getItem('la-voladura-ayuda-vista')).toBe('1')
   })
 
   it('cierra la ayuda al pulsar fuera del cuadro', async () => {
+    localStorage.setItem(`la-voladura-ficha-${reto().fecha}`, '1')
     render(<LaVoladura />)
     const dialogo = await screen.findByRole('dialog')
     fireEvent.click(dialogo)
@@ -93,6 +149,7 @@ describe('La Voladura (juego)', () => {
     fireEvent.change(screen.getByLabelText('Burden'), { target: { value: '20' } })
     expect(lecturas()).not.toBe(antes)
     fireEvent.change(screen.getByLabelText('Profundidad'), { target: { value: '80' } })
+    await irA('Carga')
     fireEvent.change(screen.getByLabelText('Carga por barreno'), { target: { value: '90' } })
     await userEvent.selectOptions(screen.getByLabelText('Explosivo'), 'emulsion')
     expect(screen.getByText(/Aguanta la humedad/)).toBeInTheDocument()
@@ -103,7 +160,7 @@ describe('La Voladura (juego)', () => {
   it('el selector de barrenos suma, resta y respeta los límites', async () => {
     render(<LaVoladura />)
     await cerrarAyuda()
-    const salida = document.querySelector('output')
+    const salida = screen.getByRole('group', { name: 'Número de barrenos' }).querySelector('output')
     expect(salida).toHaveTextContent(String(configInicial.barrenos))
     await userEvent.click(screen.getByRole('button', { name: 'Más barrenos' }))
     expect(salida).toHaveTextContent(String(configInicial.barrenos + 1))
@@ -118,7 +175,7 @@ describe('La Voladura (juego)', () => {
   it('al volar muestra el resultado, lo guarda y no permite un segundo intento', async () => {
     render(<LaVoladura />)
     await cerrarAyuda()
-    await userEvent.click(screen.getByRole('button', { name: '¡VOLAR!' }))
+    await volar()
     const esperado = evaluateBlast(configInicial, reto())
     expect(await screen.findByRole('heading', { name: new RegExp(`LA VOLADURA #${reto().numero}`) })).toBeInTheDocument()
     expect(screen.getByLabelText(`Puntuación ${esperado.score} de 100`)).toBeInTheDocument()
@@ -131,7 +188,7 @@ describe('La Voladura (juego)', () => {
   })
 
   it('al volver el mismo día muestra el resultado guardado, igual que antes', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     const config = { ...configInicial, burden: 33, barrenos: 20 }
     localStorage.setItem(`la-voladura-${reto().fecha}`, JSON.stringify({ config }))
     render(<LaVoladura />)
@@ -141,7 +198,7 @@ describe('La Voladura (juego)', () => {
   })
 
   it('muestra los eventos ocurridos con su humor', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     // busca una configuración de hoy que tenga imprevisto
     let config = null
     for (let b = 0; b <= 100 && !config; b++) {
@@ -157,7 +214,7 @@ describe('La Voladura (juego)', () => {
   })
 
   it('destaca los eventos raros', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     const { default: Resultado } = await import('@/components/voladura/resultado')
     const base = evaluateBlast(configInicial, reto())
     const evento = { id: 'x', nombre: 'Algo raro', categoria: 'oficina', rareza: 'raro', rarezaEtiqueta: 'Raro', icono: 'gema', positivo: true, detalle: 'Detalle', humor: 'Humor', etiquetas: ['Eficiencia +6'] }
@@ -168,7 +225,7 @@ describe('La Voladura (juego)', () => {
   })
 
   it('copia el resultado cuando no hay Web Share', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     localStorage.setItem(`la-voladura-${reto().fecha}`, JSON.stringify({ config: configInicial }))
     render(<LaVoladura />)
     await userEvent.click(await screen.findByRole('button', { name: 'COPIAR RESULTADO' }))
@@ -178,7 +235,7 @@ describe('La Voladura (juego)', () => {
   })
 
   it('usa la Web Share API cuando está disponible', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     localStorage.setItem(`la-voladura-${reto().fecha}`, JSON.stringify({ config: configInicial }))
     navigator.share = jest.fn().mockResolvedValue()
     render(<LaVoladura />)
@@ -194,18 +251,98 @@ describe('La Voladura (juego)', () => {
     const setItem = jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { throw new Error('bloqueado') })
     render(<LaVoladura />)
     await cerrarAyuda()
-    await userEvent.click(screen.getByRole('button', { name: '¡VOLAR!' }))
+    await volar()
     expect(await screen.findByText(/Próximo reto en/)).toBeInTheDocument()
     getItem.mockRestore()
     setItem.mockRestore()
   })
 
   it('"Ver la voladura otra vez" repite la animación', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     localStorage.setItem(`la-voladura-${reto().fecha}`, JSON.stringify({ config: configInicial }))
     render(<LaVoladura />)
     await userEvent.click(await screen.findByRole('button', { name: 'Ver la voladura otra vez' }))
     expect(await screen.findByText(/Próximo reto en/)).toBeInTheDocument()
+  })
+})
+
+describe('controles por pasos', () => {
+  const abrirPasos = async () => {
+    marcarVistas()
+    render(<LaVoladura />)
+    await listo()
+  }
+
+  it('muestra tres pasos y empieza en la plantilla', async () => {
+    await abrirPasos()
+    const pestanas = screen.getAllByRole('tab')
+    expect(pestanas.map((p) => p.textContent)).toEqual(['1Plantilla', '2Carga', '3Amarre'])
+    expect(screen.getByRole('tab', { name: /Plantilla/ })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByLabelText('Burden')).toBeInTheDocument()
+    expect(screen.queryByLabelText('Explosivo')).not.toBeInTheDocument()
+    expect(screen.queryByRole('radiogroup')).not.toBeInTheDocument()
+  })
+
+  it('cada control muestra su valor y una explicación en lenguaje simple', async () => {
+    await abrirPasos()
+    expect(screen.getByText('Distancia entre filas de barrenos.')).toBeInTheDocument()
+    expect(screen.getByLabelText('Burden')).toHaveAttribute('aria-valuetext', '1.0 m')
+    fireEvent.change(screen.getByLabelText('Burden'), { target: { value: '100' } })
+    expect(screen.getByLabelText('Burden')).toHaveAttribute('aria-valuetext', '1.5 m')
+    expect(screen.getByLabelText('Espaciamiento')).toHaveAttribute('aria-valuetext', '1.2 m')
+    expect(screen.getByLabelText('Profundidad')).toHaveAttribute('aria-valuetext', '3.0 m')
+    expect(screen.getByText('CERRADO')).toBeInTheDocument()
+    await irA('Carga')
+    expect(screen.getByLabelText('Carga por barreno')).toHaveAttribute('aria-valuetext', '68 %')
+  })
+
+  it('el botón principal avanza de paso y en el último es ¡VOLAR!', async () => {
+    await abrirPasos()
+    expect(screen.queryByRole('button', { name: 'Paso anterior' })).not.toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: /SIGUIENTE/ }))
+    expect(screen.getByRole('tab', { name: /Carga/ })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByLabelText('Explosivo')).toBeInTheDocument()
+    expect(screen.getByLabelText('Distribución de carga')).toBeInTheDocument()
+    expect(screen.queryByLabelText('Burden')).not.toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: /SIGUIENTE/ }))
+    expect(screen.getByRole('radiogroup', { name: /Orden de salida/ })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /SIGUIENTE/ })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '¡VOLAR!' })).toBeInTheDocument()
+  })
+
+  it('el botón ◂ vuelve al paso anterior y se puede saltar entre pasos con las pestañas', async () => {
+    await abrirPasos()
+    await irA('Amarre')
+    await userEvent.click(screen.getByRole('button', { name: 'Paso anterior' }))
+    expect(screen.getByRole('tab', { name: /Carga/ })).toHaveAttribute('aria-selected', 'true')
+    await userEvent.click(screen.getByRole('button', { name: 'Paso anterior' }))
+    expect(screen.getByLabelText('Burden')).toBeInTheDocument()
+    await irA('Amarre')
+    await irA('Plantilla')
+    expect(screen.getByLabelText('Espaciamiento')).toBeInTheDocument()
+  })
+
+  it('los valores elegidos se conservan al cambiar de paso', async () => {
+    await abrirPasos()
+    fireEvent.change(screen.getByLabelText('Burden'), { target: { value: '70' } })
+    await irA('Carga')
+    await userEvent.selectOptions(screen.getByLabelText('Explosivo'), 'gel')
+    await irA('Plantilla')
+    expect(screen.getByLabelText('Burden')).toHaveValue('70')
+    await irA('Carga')
+    expect(screen.getByLabelText('Explosivo')).toHaveValue('gel')
+  })
+
+  it('el lienzo solo permite numerar barrenos en el paso del amarre manual', async () => {
+    await abrirPasos()
+    Element.prototype.getBoundingClientRect = jest.fn(() => ({ left: 0, top: 0, width: 160, height: 120 }))
+    await irA('Amarre')
+    await userEvent.click(screen.getByRole('radio', { name: 'Manual' }))
+    await irA('Plantilla')
+    const canvas = screen.getByRole('img', { name: /Frente de/ })
+    expect(canvas).not.toHaveAttribute('data-tocable')
+    await irA('Amarre')
+    expect(screen.getByRole('img', { name: /Frente de/ })).toHaveAttribute('data-tocable', 'si')
   })
 })
 
@@ -216,16 +353,17 @@ describe('amarre (orden de salida)', () => {
   }
   const tocar = (canvas, { px, py }) => fireEvent.click(canvas, { clientX: px, clientY: py })
   const abrir = async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     render(<LaVoladura />)
-    await screen.findByText(/Objetivo: avanzar/)
+    await listo()
     Element.prototype.getBoundingClientRect = jest.fn(() => ({ left: 0, top: 0, width: 160, height: 120 }))
+    await irA('Amarre')
     return screen.getByRole('img', { name: /Frente de/ })
   }
 
   it('ofrece los tipos de amarre y explica cada uno', async () => {
     await abrir()
-    const grupo = screen.getByRole('radiogroup', { name: /Amarre/ })
+    const grupo = screen.getByRole('radiogroup', { name: /Orden de salida/ })
     expect(grupo.querySelectorAll('[role=radio]')).toHaveLength(6)
     expect(screen.getByRole('radio', { name: 'Por filas' })).toHaveAttribute('aria-checked', 'true')
     await userEvent.click(screen.getByRole('radio', { name: 'En V' }))
@@ -271,7 +409,7 @@ describe('amarre (orden de salida)', () => {
   it('el amarre elegido se guarda, se usa en el resultado y se muestra', async () => {
     await abrir()
     await userEvent.click(screen.getByRole('radio', { name: 'Todos juntos' }))
-    await userEvent.click(screen.getByRole('button', { name: '¡VOLAR!' }))
+    await volar()
     expect(await screen.findByText(/Próximo reto en/)).toBeInTheDocument()
     expect(screen.getByText('Amarre:')).toHaveTextContent('Amarre: Todos juntos')
     const guardado = JSON.parse(localStorage.getItem(`la-voladura-${reto().fecha}`)).config
@@ -284,7 +422,7 @@ describe('amarre (orden de salida)', () => {
     await userEvent.click(screen.getByRole('radio', { name: 'Manual' }))
     tocar(canvas, posicionDeBarreno(1))
     tocar(canvas, posicionDeBarreno(0))
-    await userEvent.click(screen.getByRole('button', { name: '¡VOLAR!' }))
+    await volar()
     await screen.findByText(/Próximo reto en/)
     const guardado = JSON.parse(localStorage.getItem(`la-voladura-${reto().fecha}`)).config
     expect(guardado.amarre).toBe('manual')
@@ -294,7 +432,7 @@ describe('amarre (orden de salida)', () => {
 
 describe('compartir en redes', () => {
   const guardar = () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     localStorage.setItem(`la-voladura-${reto().fecha}`, JSON.stringify({ config: configInicial }))
   }
   let abrir
@@ -393,10 +531,10 @@ describe('animación con movimiento normal', () => {
   beforeEach(() => { reducido.matches = false })
 
   it('reproduce la voladura y termina mostrando el resultado', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     render(<LaVoladura />)
-    await screen.findByText(/Objetivo: avanzar/)
-    await userEvent.click(screen.getByRole('button', { name: '¡VOLAR!' }))
+    await listo()
+    await volar()
     expect(screen.getByText('¡FUEGO EN EL HUECO!')).toBeInTheDocument()
     expect(await screen.findByText(/Próximo reto en/, {}, { timeout: 3000 })).toBeInTheDocument()
     expect(putImageData.mock.calls.length).toBeGreaterThan(3)
@@ -404,30 +542,30 @@ describe('animación con movimiento normal', () => {
 
   it('con "reducir movimiento" la animación se reproduce igual, pero sin destellos ni sacudidas', async () => {
     reducido.matches = true
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     render(<LaVoladura />)
-    await screen.findByText(/Objetivo: avanzar/)
+    await listo()
     const antes = putImageData.mock.calls.length
-    await userEvent.click(screen.getByRole('button', { name: '¡VOLAR!' }))
+    await volar()
     expect(screen.getByText('¡FUEGO EN EL HUECO!')).toBeInTheDocument()
     expect(await screen.findByText(/Próximo reto en/, {}, { timeout: 3000 })).toBeInTheDocument()
     expect(putImageData.mock.calls.length).toBeGreaterThan(antes + 3)
   })
 
   it('se puede saltar la animación', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     global.requestAnimationFrame = () => 0
     render(<LaVoladura />)
-    await screen.findByText(/Objetivo: avanzar/)
-    await userEvent.click(screen.getByRole('button', { name: '¡VOLAR!' }))
+    await listo()
+    await volar()
     await userEvent.click(screen.getByRole('button', { name: /Saltar/ }))
     expect(await screen.findByText(/Próximo reto en/)).toBeInTheDocument()
   })
 
   it('la plantilla se desliza hacia su nueva posición al mover los controles', async () => {
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     render(<LaVoladura />)
-    await screen.findByText(/Objetivo: avanzar/)
+    await listo()
     const llamadas = putImageData.mock.calls.length
     fireEvent.change(screen.getByLabelText('Espaciamiento'), { target: { value: '5' } })
     await waitFor(() => expect(putImageData.mock.calls.length).toBeGreaterThan(llamadas + 2))
@@ -437,15 +575,16 @@ describe('animación con movimiento normal', () => {
 describe('próximo reto', () => {
   it('al llegar la medianoche carga el reto nuevo', async () => {
     jest.useFakeTimers()
-    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    marcarVistas()
     jest.setSystemTime(new Date(2026, 10, 3, 23, 59, 58))
+    localStorage.setItem('la-voladura-ficha-2026-11-04', '1')
     localStorage.setItem('la-voladura-2026-11-03', JSON.stringify({ config: configInicial }))
     render(<LaVoladura />)
     expect(screen.getByText(/Próximo reto en/)).toBeInTheDocument()
-    expect(screen.getByText(/RETO #/)).toHaveTextContent(`RETO #${getDailyChallenge(new Date(2026, 10, 3)).numero} `)
+    expect(screen.getByText(/^#\d+$/)).toHaveTextContent(`#${getDailyChallenge(new Date(2026, 10, 3)).numero}`)
     await act(async () => { jest.setSystemTime(new Date(2026, 10, 4, 0, 0, 1)); jest.advanceTimersByTime(3000) })
-    expect(screen.getByText(/RETO #/)).toHaveTextContent(`RETO #${getDailyChallenge(new Date(2026, 10, 4)).numero} `)
-    expect(screen.getByRole('button', { name: '¡VOLAR!' })).toBeInTheDocument()
+    expect(screen.getByText(/^#\d+$/)).toHaveTextContent(`#${getDailyChallenge(new Date(2026, 10, 4)).numero}`)
+    expect(screen.getByRole('button', { name: /SIGUIENTE/ })).toBeInTheDocument()
     jest.useRealTimers()
   })
 })

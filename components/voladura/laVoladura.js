@@ -11,17 +11,16 @@ import {
 import { crearEscena } from '@/lib/voladura/pixelart/escena'
 import { etiquetasUtiles, alternarManual } from '@/lib/voladura/amarre'
 import { dibujarTarjeta, aBlob } from '@/lib/voladura/tarjeta'
-import { etiquetaCompetencia } from '@/data/voladura/rocas'
 import useCuentaAtras from '@/hooks/useCuentaAtras'
 import EscenaPixel from './escenaPixel'
-import Controles from './controles'
+import Controles, { Pestanas, PASOS } from './controles'
 import Resultado from './resultado'
+import FichaReto, { HUMEDAD } from './fichaReto'
 import styles from '@/styles/voladura.module.css'
 
 const clave = (fecha) => `la-voladura-${fecha}`
 const CLAVE_AYUDA = 'la-voladura-ayuda-vista'
-const HUMEDAD = { seco: 'Seco', humedo: 'Húmedo', muy_humedo: 'Muy húmedo' }
-const FRACTURAMIENTO = { bajo: 'Bajo', medio: 'Medio', alto: 'Alto' }
+const claveFicha = (fecha) => `la-voladura-ficha-${fecha}`
 
 const AVISOS = { compartido: '¡Compartido!', copiado: '¡Resultado copiado!', error: 'No se pudo copiar el resultado', cancelado: '' }
 
@@ -34,7 +33,7 @@ function Ayuda({ alCerrar }) {
         <h2 id="titulo-ayuda">¿Cómo se juega?</h2>
         <ol className={styles.pasos}>
           <li>Mira el reto: roca, humedad y avance objetivo.</li>
-          <li>Mueve los controles: los barrenos se reacomodan en el frente. Elige el amarre: en qué orden salen.</li>
+          <li>Sigue los 3 pasos: plantilla, carga y amarre (el orden de salida). Los barrenos se reacomodan al mover los controles.</li>
           <li>Pulsa <strong>¡VOLAR!</strong>: el minero enciende la mecha y descubres qué salió bien (y qué no).</li>
         </ol>
         <p>Hay un reto nuevo cada día y un solo intento. El 100 es muy difícil: la geología y la operación también juegan.</p>
@@ -51,8 +50,10 @@ export default function LaVoladura() {
   const [fase, setFase] = useState('cargando')
   const [resultado, setResultado] = useState(null)
   const [ciclo, setCiclo] = useState(0)
+  const [paso, setPaso] = useState(0)
   const [aviso, setAviso] = useState('')
   const [verAyuda, setVerAyuda] = useState(false)
+  const [verFicha, setVerFicha] = useState(false)
   const [reducirMovimiento, setReducirMovimiento] = useState(false)
   const [puedeCompartir, setPuedeCompartir] = useState(false)
 
@@ -70,7 +71,10 @@ export default function LaVoladura() {
     } else {
       setConfig(configInicial)
       setResultado(null)
+      setPaso(0)
       setFase('config')
+      // Las condiciones cambian cada día: el pop-up se abre solo la primera vez que se entra en el día.
+      try { setVerFicha(!localStorage.getItem(claveFicha(reto.fecha))) } catch (e) { setVerFicha(true) }
     }
   }, [])
 
@@ -88,12 +92,24 @@ export default function LaVoladura() {
     try { localStorage.setItem(CLAVE_AYUDA, '1') } catch (e) { /* ignorar */ }
   }, [])
 
+  const cerrarFicha = useCallback(() => {
+    setVerFicha(false)
+    try { if (desafio) localStorage.setItem(claveFicha(desafio.fecha), '1') } catch (e) { /* ignorar */ }
+  }, [desafio])
+
+  // La ayuda va primero; la ficha del reto queda detrás hasta cerrarla.
+  const ventanaAbierta = verAyuda ? 'ayuda' : verFicha ? 'ficha' : null
+
   useEffect(() => {
-    if (!verAyuda) return undefined
-    const alPulsar = (e) => { if (e.key === 'Escape') cerrarAyuda() }
+    if (!ventanaAbierta) return undefined
+    const alPulsar = (e) => {
+      if (e.key !== 'Escape') return
+      if (ventanaAbierta === 'ayuda') cerrarAyuda()
+      else cerrarFicha()
+    }
     window.addEventListener('keydown', alPulsar)
     return () => window.removeEventListener('keydown', alPulsar)
-  }, [verAyuda, cerrarAyuda])
+  }, [ventanaAbierta, cerrarAyuda, cerrarFicha])
 
   const alCambiarDia = useCallback(() => iniciarDia(new Date()), [iniciarDia])
   const cuentaAtras = useCuentaAtras(fase === 'resultado', alCambiarDia, desafio?.fecha)
@@ -176,19 +192,11 @@ export default function LaVoladura() {
       {!desafio ? <p className={styles.cargando}>Preparando el frente de hoy…</p> : (
         <main className={styles.juego}>
           <div className={styles.columna}>
-            <section className={styles.reto} aria-label="Reto del día">
-              <p className={styles.retoNumero}>RETO #{desafio.numero} · {desafio.nivel.toUpperCase()} · {desafio.zona.toUpperCase()}</p>
-              <h2 className={styles.retoTitulo}>{desafio.geometria.nombre} en {desafio.roca.nombre.toLowerCase()}</h2>
-              <ul className={styles.fichas}>
-                <li><span>Roca</span><strong>{desafio.roca.nombre} · {etiquetaCompetencia(desafio.roca.competencia)}</strong></li>
-                <li><span>Humedad</span><strong>{HUMEDAD[desafio.humedad]}</strong></li>
-                <li><span>Fracturas</span><strong>{FRACTURAMIENTO[desafio.fracturamiento]}</strong></li>
-                <li><span>Sección</span><strong>{desafio.geometria.ancho} × {desafio.geometria.alto} m</strong></li>
-                <li><span>Barreno</span><strong>Ø {desafio.diametro} mm</strong></li>
-                <li><span>Dificultad</span><strong aria-label={`${desafio.dificultad} de 5`}>{'★'.repeat(desafio.dificultad)}{'☆'.repeat(5 - desafio.dificultad)}</strong></li>
-              </ul>
-              <p className={styles.objetivo}>Objetivo: avanzar <strong>{desafio.avanceObjetivo} m</strong></p>
-            </section>
+            <button type="button" className={styles.resumen} onClick={() => setVerFicha(true)} aria-label="Ver las condiciones del reto">
+              <span className={styles.resumenNumero}>#{desafio.numero}</span>
+              <span className={styles.resumenTexto}>{desafio.roca.nombre} · {HUMEDAD[desafio.humedad]} · {desafio.avanceObjetivo} m</span>
+              <span className={styles.resumenVer}>VER ▸</span>
+            </button>
 
             {/* En el móvil la escena queda fija arriba para ver cómo se mueve la plantilla mientras se ajusta. */}
             <div className={`${styles.escenaWrap} ${fase === 'config' ? styles.fija : ''}`}>
@@ -201,7 +209,7 @@ export default function LaVoladura() {
                 reducirMovimiento={reducirMovimiento}
                 ciclo={ciclo}
                 etiquetas={fase === 'config' ? etiquetas : null}
-                onTocar={fase === 'config' && config.amarre === 'manual' ? tocarBarreno : null}
+                onTocar={fase === 'config' && paso === 2 && config.amarre === 'manual' ? tocarBarreno : null}
               />
               {fase === 'config' && vista && (
                 <ul className={styles.lecturas} aria-label="Lecturas de la plantilla">
@@ -210,22 +218,28 @@ export default function LaVoladura() {
                   <li><span>Carga total</span><strong>{vista.kgTotal.toFixed(0)} kg</strong></li>
                 </ul>
               )}
+              {fase === 'config' && <Pestanas paso={paso} onPaso={setPaso} />}
             </div>
           </div>
 
           <div className={styles.columna}>
             {fase === 'config' && vista && (
               <>
-                <p className={styles.indicaciones}>1 · Diseña la plantilla &nbsp; 2 · Ajusta la carga &nbsp; 3 · Define el amarre &nbsp; 4 · ¡VOLAR!</p>
                 <Controles
                   config={config}
                   onCambio={setConfig}
+                  paso={paso}
                   numerados={config.orden.filter((i) => vista.plantilla.barrenos[i]?.dentro).length}
                   total={vista.utiles}
                 />
                 <p className={styles.legal}>Juego de entretenimiento: no es una herramienta de diseño ni una recomendación real de voladura.</p>
                 <div className={styles.barraAccion}>
-                  <button type="button" className={styles.botonVolar} onClick={ejecutar}>¡VOLAR!</button>
+                  <div className={styles.accionFila}>
+                    {paso > 0 && <button type="button" className={styles.atras} aria-label="Paso anterior" onClick={() => setPaso(paso - 1)}>◂</button>}
+                    {paso < PASOS.length - 1
+                      ? <button type="button" className={styles.botonVolar} onClick={() => setPaso(paso + 1)}>SIGUIENTE ▸</button>
+                      : <button type="button" className={styles.botonVolar} onClick={ejecutar}>¡VOLAR!</button>}
+                  </div>
                 </div>
               </>
             )}
@@ -252,7 +266,8 @@ export default function LaVoladura() {
         </main>
       )}
 
-      {verAyuda && <Ayuda alCerrar={cerrarAyuda} />}
+      {ventanaAbierta === 'ayuda' && <Ayuda alCerrar={cerrarAyuda} />}
+      {ventanaAbierta === 'ficha' && desafio && <FichaReto desafio={desafio} alCerrar={cerrarFicha} />}
     </div>
   )
 }
