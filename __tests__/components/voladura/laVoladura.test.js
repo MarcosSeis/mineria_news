@@ -18,6 +18,11 @@ beforeEach(() => {
   HTMLCanvasElement.prototype.getContext = jest.fn(() => ({ putImageData }))
   global.ImageData = class { constructor(datos, ancho, alto) { Object.assign(this, { data: datos, width: ancho, height: alto }) } }
   window.matchMedia = jest.fn(() => reducido)
+  // Cada cuadro de animación "dura" 1 s: la voladura termina en pocos cuadros.
+  let reloj = 0
+  jest.spyOn(performance, 'now').mockImplementation(() => reloj)
+  global.requestAnimationFrame = (cb) => setTimeout(() => { reloj += 1000; cb(reloj) }, 0)
+  global.cancelAnimationFrame = (id) => clearTimeout(id)
   Object.defineProperty(navigator, 'share', { value: undefined, configurable: true, writable: true })
   Object.defineProperty(navigator, 'clipboard', { value: { writeText: jest.fn().mockResolvedValue() }, configurable: true })
 })
@@ -385,15 +390,7 @@ describe('compartir en redes', () => {
 })
 
 describe('animación con movimiento normal', () => {
-  let ahora
-  beforeEach(() => {
-    reducido.matches = false
-    ahora = 0
-    jest.spyOn(performance, 'now').mockImplementation(() => ahora)
-    global.requestAnimationFrame = (cb) => setTimeout(() => { ahora += 1000; cb(ahora) }, 0)
-    global.cancelAnimationFrame = (id) => clearTimeout(id)
-  })
-  afterEach(() => jest.restoreAllMocks())
+  beforeEach(() => { reducido.matches = false })
 
   it('reproduce la voladura y termina mostrando el resultado', async () => {
     localStorage.setItem('la-voladura-ayuda-vista', '1')
@@ -403,6 +400,18 @@ describe('animación con movimiento normal', () => {
     expect(screen.getByText('¡FUEGO EN EL HUECO!')).toBeInTheDocument()
     expect(await screen.findByText(/Próximo reto en/, {}, { timeout: 3000 })).toBeInTheDocument()
     expect(putImageData.mock.calls.length).toBeGreaterThan(3)
+  })
+
+  it('con "reducir movimiento" la animación se reproduce igual, pero sin destellos ni sacudidas', async () => {
+    reducido.matches = true
+    localStorage.setItem('la-voladura-ayuda-vista', '1')
+    render(<LaVoladura />)
+    await screen.findByText(/Objetivo: avanzar/)
+    const antes = putImageData.mock.calls.length
+    await userEvent.click(screen.getByRole('button', { name: '¡VOLAR!' }))
+    expect(screen.getByText('¡FUEGO EN EL HUECO!')).toBeInTheDocument()
+    expect(await screen.findByText(/Próximo reto en/, {}, { timeout: 3000 })).toBeInTheDocument()
+    expect(putImageData.mock.calls.length).toBeGreaterThan(antes + 3)
   })
 
   it('se puede saltar la animación', async () => {

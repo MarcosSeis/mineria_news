@@ -73,20 +73,17 @@ export default function EscenaPixel({ desafio, plantilla, modo, resultado, onFin
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modo, plantilla, etiquetas, escena, desafio, reducirMovimiento])
 
-  // Animación de la voladura (o salto directo al final con movimiento reducido).
+  // Animación de la voladura. Con "reducir movimiento" se reproduce igual (la inicia el jugador),
+  // pero sin destellos ni sacudidas de pantalla.
   useEffect(() => {
     if (modo !== 'animacion' || !guion) return undefined
-    if (reducirMovimiento) {
-      pintar(estadoEn(guion, guion.duracion))
-      alFin.current?.()
-      return undefined
-    }
     let cuadro
     const inicio = performance.now()
     const paso = (ahora) => {
       const t = Math.min(guion.duracion, (ahora - inicio) / 1000)
       const estado = estadoEn(guion, t)
-      pintar(estado, estado.sacudida)
+      if (reducirMovimiento) pintar({ ...estado, destello: 0 })
+      else pintar(estado, estado.sacudida)
       if (t < guion.duracion) cuadro = requestAnimationFrame(paso)
       else alFin.current?.()
     }
