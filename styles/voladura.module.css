@@ -93,6 +93,11 @@
     display: contents;
 }
 
+.fija .escena {
+    width: 84%;
+    margin: 0 auto;
+}
+
 .escenaWrap {
     display: flex;
     flex-direction: column;
@@ -118,6 +123,56 @@
     padding: 1.2rem 1.4rem;
 }
 
+.resumen {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    min-height: 5rem;
+    padding: 0.4rem 1.2rem;
+    border: 0.3rem solid var(--borde);
+    background: var(--panel);
+    color: var(--texto);
+    font-family: var(--cuerpo);
+    font-size: 2.1rem;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0.3rem 0.3rem 0 #000;
+}
+
+.resumen:focus-visible {
+    outline: 0.3rem dashed var(--texto);
+    outline-offset: 0.3rem;
+}
+
+.resumenNumero {
+    flex: none;
+    color: var(--naranja);
+    font-family: var(--pixel);
+    font-size: 1rem;
+}
+
+.resumenTexto {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.resumenVer {
+    flex: none;
+    padding: 0.2rem 0.8rem;
+    background: var(--borde);
+    color: #000;
+    font-size: 1.9rem;
+}
+
+.pistaRoca {
+    margin: 0;
+    color: var(--suave);
+}
+
 .retoNumero {
     margin: 0 0 0.4rem;
     color: var(--naranja);
@@ -135,8 +190,8 @@
 
 .fichas {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.4rem 1.2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem 0.8rem;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -145,12 +200,14 @@
 .fichas li {
     display: flex;
     flex-direction: column;
-    font-size: 1.9rem;
+    min-width: 0;
+    font-size: 1.8rem;
+    line-height: 1.05;
 }
 
 .fichas span {
     color: var(--suave);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
 }
 
 .fichas strong {
@@ -181,9 +238,8 @@
 .indicaciones {
     margin: 0;
     color: var(--borde);
-    font-family: var(--pixel);
-    font-size: 0.9rem;
-    line-height: 1.8;
+    font-size: 2rem;
+    line-height: 1.1;
     text-align: center;
 }
 
@@ -200,7 +256,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.6rem 0.4rem;
+    padding: 0.3rem 0.4rem;
     border: 0.2rem solid #4a505c;
     background: var(--panel);
     text-align: center;
@@ -213,7 +269,7 @@
 }
 
 .lecturas strong {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
     font-weight: 400;
 }
 
@@ -221,13 +277,105 @@
     color: var(--rojo);
 }
 
+.controlesWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-width: 0;
+}
+
 .controles {
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: 1.6rem;
     margin: 0;
     min-width: 0;
     padding: 1.4rem;
+}
+
+.pasos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+}
+
+.paso_tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 5rem;
+    padding: 0.4rem;
+    border: 0.3rem solid #000;
+    background: var(--panel-claro);
+    color: var(--suave);
+    font-family: var(--cuerpo);
+    font-size: 2.1rem;
+    cursor: pointer;
+}
+
+.paso_activo {
+    background: var(--borde);
+    color: #000;
+    box-shadow: inset -0.3rem -0.3rem 0 #b38f00;
+}
+
+.paso_numero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    background: #000;
+    color: var(--borde);
+    font-family: var(--pixel);
+    font-size: 1.1rem;
+}
+
+.paso_tab:focus-visible {
+    outline: 0.3rem dashed var(--texto);
+    outline-offset: 0.2rem;
+}
+
+.valor {
+    padding: 0 0.8rem;
+    background: #000;
+    color: var(--borde);
+    font-family: var(--cuerpo);
+    font-size: 2.2rem;
+    line-height: 1.2;
+}
+
+.pista {
+    margin: -0.2rem 0 0;
+    color: var(--suave);
+    font-size: 1.8rem;
+    line-height: 1.05;
+}
+
+.accionFila {
+    display: flex;
+    gap: 0.8rem;
+    width: 100%;
+    max-width: 52rem;
+}
+
+.atras {
+    flex: none;
+    width: 6.4rem;
+    min-height: 6.4rem;
+    border: 0.4rem solid #000;
+    background: var(--panel-claro);
+    color: var(--texto);
+    font-family: var(--pixel);
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0.4rem 0.4rem 0 #000;
+}
+
+.atras:focus-visible {
+    outline: 0.3rem dashed var(--texto);
+    outline-offset: 0.3rem;
 }
 
 .control {
@@ -239,7 +387,7 @@
 
 .controlTitulo {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     font-family: var(--pixel);
     font-size: 1rem;
@@ -312,7 +460,8 @@
     gap: 1.2rem;
 }
 
-.paso {
+
+.paso_boton {
     width: 6rem;
     height: 5.2rem;
     border: 0.3rem solid #000;
@@ -324,11 +473,11 @@
     box-shadow: inset -0.3rem -0.3rem 0 #b38f00;
 }
 
-.paso:active:not(:disabled) {
+.paso_boton:active:not(:disabled) {
     transform: translateY(0.2rem);
 }
 
-.paso:disabled {
+.paso_boton:disabled {
     background: #5c5f66;
     box-shadow: none;
     cursor: not-allowed;
@@ -525,7 +674,7 @@
     box-shadow: inset -0.4rem -0.4rem 0 #b3470e, inset 0.4rem 0.4rem 0 #ff9a52;
 }
 
-.botonVolar:focus-visible, .botonPrincipal:focus-visible, .botonSecundario:focus-visible, .circulo:focus-visible, .paso:focus-visible {
+.botonVolar:focus-visible, .botonPrincipal:focus-visible, .botonSecundario:focus-visible, .circulo:focus-visible, .paso_boton:focus-visible {
     outline: 0.3rem dashed var(--texto);
     outline-offset: 0.3rem;
 }
@@ -850,6 +999,7 @@
     .juego { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 2.4rem; }
     .columna { display: flex; flex-direction: column; gap: 1.2rem; min-width: 0; }
     .fija { position: static; margin: 0; padding: 0; background: none; }
+    .fija .escena { width: 100%; }
 }
 
 @media (min-width: 768px) {
