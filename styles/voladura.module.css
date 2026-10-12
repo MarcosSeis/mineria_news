@@ -93,25 +93,21 @@
     display: contents;
 }
 
-.fija .escena {
-    width: 84%;
-    margin: 0 auto;
-}
 
 .escenaWrap {
     display: flex;
+    flex: none;
     flex-direction: column;
     gap: 0.8rem;
 }
 
-.fija {
-    position: sticky;
-    top: 0;
-    z-index: 3;
-    margin: 0 -1.2rem;
-    padding: 0.6rem 1.2rem;
-    background: var(--fondo);
+/* El marco se ajusta al tamaño de la escena y sostiene las lecturas encima de ella. */
+.marco {
+    position: relative;
+    align-self: center;
+    width: 100%;
 }
+
 
 .reto, .controles, .resultado, .modal {
     border: 0.3rem solid var(--borde);
@@ -244,32 +240,30 @@
 }
 
 .lecturas {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.6rem;
+    position: absolute;
+    left: 0.6rem;
+    bottom: 0.6rem;
+    display: flex;
+    gap: 0.5rem;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
 .lecturas li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.3rem 0.4rem;
+    padding: 0.1rem 0.7rem;
     border: 0.2rem solid #4a505c;
-    background: var(--panel);
-    text-align: center;
+    background: rgba(0, 0, 0, 0.78);
+    font-size: 1.8rem;
+    line-height: 1.1;
 }
 
 .lecturas span {
     color: var(--suave);
-    font-size: 1.5rem;
-    line-height: 1;
 }
 
 .lecturas strong {
-    font-size: 2.2rem;
+    color: var(--borde);
     font-weight: 400;
 }
 
@@ -284,33 +278,37 @@
     min-width: 0;
 }
 
+
 .controles {
     display: flex;
     flex-direction: column;
-    gap: 1.6rem;
+    gap: 0.8rem;
     margin: 0;
     min-width: 0;
-    padding: 1.4rem;
+    min-height: 0;
+    padding: 0.8rem 1.2rem;
+    overflow-y: auto;
 }
 
 .pasos {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.6rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
 }
 
 .paso_tab {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    min-height: 5rem;
-    padding: 0.4rem;
+    min-width: 0;
+    min-height: 5.2rem;
+    padding: 0.2rem 0.2rem;
     border: 0.3rem solid #000;
     background: var(--panel-claro);
     color: var(--suave);
     font-family: var(--cuerpo);
-    font-size: 2.1rem;
+    line-height: 1;
     cursor: pointer;
 }
 
@@ -320,17 +318,24 @@
     box-shadow: inset -0.3rem -0.3rem 0 #b38f00;
 }
 
-.paso_numero {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.6rem;
-    height: 2.6rem;
-    background: #000;
-    color: var(--borde);
-    font-family: var(--pixel);
-    font-size: 1.1rem;
+.paso_nombre {
+    font-size: 1.6rem;
 }
+
+.paso_valor {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--texto);
+    font-size: 1.8rem;
+}
+
+.paso_activo .paso_valor {
+    color: #000;
+}
+
+/* (sin número de paso: la ficha muestra el valor) */
 
 .paso_tab:focus-visible {
     outline: 0.3rem dashed var(--texto);
@@ -347,10 +352,10 @@
 }
 
 .pista {
-    margin: -0.2rem 0 0;
+    margin: 0;
     color: var(--suave);
-    font-size: 1.8rem;
-    line-height: 1.05;
+    font-size: 1.7rem;
+    line-height: 1;
 }
 
 .accionFila {
@@ -381,8 +386,25 @@
 .control {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.2rem;
     min-width: 0;
+}
+
+.controlFila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.sliderFila {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--suave);
+    font-size: 1.5rem;
+    line-height: 1;
 }
 
 .controlTitulo {
@@ -404,7 +426,7 @@
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 4.4rem;
+    height: 3.8rem;
     margin: 0;
     background: transparent;
     cursor: pointer;
@@ -456,8 +478,9 @@
 
 .contador {
     display: flex;
+    flex: none;
     align-items: center;
-    gap: 1.2rem;
+    gap: 0.8rem;
 }
 
 
@@ -484,20 +507,24 @@
 }
 
 .cuenta {
-    min-width: 6rem;
+    min-width: 4.4rem;
     font-family: var(--pixel);
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     text-align: center;
 }
 
 .carga_fila {
+    display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 1.4rem;
+    gap: 1.2rem;
 }
 
 .cargaControl {
+    display: flex;
     flex: 1;
+    flex-direction: column;
+    gap: 1rem;
     min-width: 0;
 }
 
@@ -564,18 +591,24 @@
 
 .amarres {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+}
+
+.segmentos {
+    display: grid;
+    grid-template-columns: repeat(var(--columnas, 3), 1fr);
     gap: 0.6rem;
 }
 
 .amarre {
-    min-height: 4.8rem;
-    padding: 0.4rem 0.6rem;
+    min-height: 4.2rem;
+    padding: 0.2rem 0.4rem;
     border: 0.3rem solid #000;
     background: var(--panel-claro);
     color: var(--texto);
     font-family: var(--cuerpo);
-    font-size: 2rem;
+    font-size: 1.9rem;
     line-height: 1;
     cursor: pointer;
 }
@@ -641,11 +674,12 @@
     bottom: 0;
     z-index: 2;
     display: flex;
+    flex: none;
     flex-direction: column;
     align-items: center;
     gap: 0.8rem;
     margin: 0 -1.2rem;
-    padding: 1rem 1.2rem 1.4rem;
+    padding: 0.8rem 1.2rem 1rem;
     background: linear-gradient(0deg, var(--fondo) 70%, transparent);
 }
 
@@ -982,24 +1016,101 @@
     font-weight: 400;
 }
 
-.modal p, .pasos {
+.modal p, .listaPasos {
     margin: 0;
 }
 
-.pasos {
+.listaPasos {
     padding-left: 2.4rem;
 }
 
-.pasos li {
+.listaPasos li {
     margin-bottom: 0.6rem;
+}
+
+/* Teléfono, durante el diseño: todo cabe en una pantalla, sin desplazarse. La escena se encoge
+   para dejar sitio a las fichas, los controles y el botón. */
+@media (max-width: 899px) {
+    .pantallaConfig {
+        height: 100dvh;
+        overflow: hidden;
+        padding-bottom: 0;
+    }
+
+    .pantallaConfig .juego {
+        flex: 1;
+        gap: 0.8rem;
+        min-height: 0;
+        padding-bottom: 0;
+    }
+
+    .pantallaConfig .columna {
+        display: contents;
+    }
+
+    .pantallaConfig .marco {
+        width: auto;
+        max-width: 100%;
+    }
+
+    .pantallaConfig .escena {
+        width: auto;
+        max-width: 100%;
+        height: min(29dvh, 70vw);
+    }
+
+    .pantallaConfig .controles {
+        flex: 1;
+    }
+
+    .pantallaConfig .barraAccion {
+        margin-bottom: 0;
+    }
+}
+
+/* Pantallas bajas (iPhone con la barra de Safari): se quitan las frases de ayuda y se compacta
+   todo para que los controles sigan cabiendo sin desplazarse. */
+@media (max-width: 899px) and (max-height: 780px) {
+    .pantallaConfig .pista {
+        display: none;
+    }
+
+    .pantallaConfig .escena {
+        height: min(26dvh, 66vw);
+    }
+
+    .pantallaConfig .circulo {
+        width: 3.8rem;
+        height: 3.8rem;
+    }
+
+    .pantallaConfig .barra {
+        padding-bottom: 0.4rem;
+    }
+
+    .pantallaConfig .resumen {
+        min-height: 4.2rem;
+    }
+
+    .pantallaConfig .paso_tab {
+        min-height: 4.6rem;
+    }
+
+    .pantallaConfig .botonVolar,
+    .pantallaConfig .atras {
+        min-height: 5.4rem;
+    }
+
+    .pantallaConfig .barraAccion {
+        padding-top: 0.4rem;
+        padding-bottom: 0.6rem;
+    }
 }
 
 @media (min-width: 900px) {
     .barra, .juego { max-width: 100rem; }
     .juego { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 2.4rem; }
     .columna { display: flex; flex-direction: column; gap: 1.2rem; min-width: 0; }
-    .fija { position: static; margin: 0; padding: 0; background: none; }
-    .fija .escena { width: 100%; }
 }
 
 @media (min-width: 768px) {

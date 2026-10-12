@@ -31,7 +31,7 @@ function Ayuda({ alCerrar }) {
     <div className={styles.fondo} onClick={(e) => { if (e.target === e.currentTarget) alCerrar() }}>
       <div className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="titulo-ayuda">
         <h2 id="titulo-ayuda">¿Cómo se juega?</h2>
-        <ol className={styles.pasos}>
+        <ol className={styles.listaPasos}>
           <li>Mira el reto: roca, humedad y avance objetivo.</li>
           <li>Sigue los 3 pasos: plantilla, carga y amarre (el orden de salida). Los barrenos se reacomodan al mover los controles.</li>
           <li>Pulsa <strong>¡VOLAR!</strong>: el minero enciende la mecha y descubres qué salió bien (y qué no).</li>
@@ -182,7 +182,7 @@ export default function LaVoladura() {
   const modoEscena = fase === 'config' ? 'edicion' : fase === 'animando' ? 'animacion' : 'final'
 
   return (
-    <div className={styles.pantalla}>
+    <div className={`${styles.pantalla} ${fase === 'config' ? styles.pantallaConfig : ''}`}>
       <header className={styles.barra}>
         <Link href="/juegos" className={styles.circulo} aria-label="Volver a los juegos">←</Link>
         <h1>LA VOLADURA</h1>
@@ -198,27 +198,27 @@ export default function LaVoladura() {
               <span className={styles.resumenVer}>VER ▸</span>
             </button>
 
-            {/* En el móvil la escena queda fija arriba para ver cómo se mueve la plantilla mientras se ajusta. */}
-            <div className={`${styles.escenaWrap} ${fase === 'config' ? styles.fija : ''}`}>
-              <EscenaPixel
-                desafio={desafio}
-                plantilla={vista?.plantilla}
-                modo={modoEscena}
-                resultado={resultado}
-                onFin={alTerminarAnimacion}
-                reducirMovimiento={reducirMovimiento}
-                ciclo={ciclo}
-                etiquetas={fase === 'config' ? etiquetas : null}
-                onTocar={fase === 'config' && paso === 2 && config.amarre === 'manual' ? tocarBarreno : null}
-              />
-              {fase === 'config' && vista && (
-                <ul className={styles.lecturas} aria-label="Lecturas de la plantilla">
-                  <li><span>Cobertura</span><strong>{Math.round(vista.cobertura * 100)}%</strong></li>
-                  <li><span>Barrenos útiles</span><strong className={vista.plantilla.fuera ? styles.alerta : ''}>{vista.utiles}/{config.barrenos}</strong></li>
-                  <li><span>Carga total</span><strong>{vista.kgTotal.toFixed(0)} kg</strong></li>
-                </ul>
-              )}
-              {fase === 'config' && <Pestanas paso={paso} onPaso={setPaso} />}
+            <div className={styles.escenaWrap}>
+              <div className={styles.marco}>
+                <EscenaPixel
+                  desafio={desafio}
+                  plantilla={vista?.plantilla}
+                  modo={modoEscena}
+                  resultado={resultado}
+                  onFin={alTerminarAnimacion}
+                  reducirMovimiento={reducirMovimiento}
+                  ciclo={ciclo}
+                  etiquetas={fase === 'config' ? etiquetas : null}
+                  onTocar={fase === 'config' && paso === 3 && config.amarre === 'manual' ? tocarBarreno : null}
+                />
+                {fase === 'config' && vista && (
+                  <ul className={styles.lecturas} aria-label="Lecturas de la plantilla">
+                    <li><span>Cobertura</span> <strong>{Math.round(vista.cobertura * 100)}%</strong></li>
+                    <li><span>Útiles</span> <strong className={vista.plantilla.fuera ? styles.alerta : ''}>{vista.utiles}/{config.barrenos}</strong></li>
+                  </ul>
+                )}
+              </div>
+              {fase === 'config' && <Pestanas config={config} paso={paso} onPaso={setPaso} />}
             </div>
           </div>
 
@@ -232,7 +232,6 @@ export default function LaVoladura() {
                   numerados={config.orden.filter((i) => vista.plantilla.barrenos[i]?.dentro).length}
                   total={vista.utiles}
                 />
-                <p className={styles.legal}>Juego de entretenimiento: no es una herramienta de diseño ni una recomendación real de voladura.</p>
                 <div className={styles.barraAccion}>
                   <div className={styles.accionFila}>
                     {paso > 0 && <button type="button" className={styles.atras} aria-label="Paso anterior" onClick={() => setPaso(paso - 1)}>◂</button>}
