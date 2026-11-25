@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-11-21",
+  "actualizado": "2026-11-25",
   "metales": [
     {
       "symbol": "XAU",
@@ -2303,8 +2303,8 @@
       "symbol": "HG",
       "nombre": "Cobre",
       "unidad": "USD / libra",
-      "precio": 5.621824,
-      "actualizadoEn": "2026-11-21T03:18:09Z",
+      "precio": 5.416725,
+      "actualizadoEn": "2026-11-25T04:56:47Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -3444,7 +3444,19 @@
         },
         {
           "fecha": "2026-11-20",
-          "precio": 5.465000152587891
+          "precio": 5.4770002365112305
+        },
+        {
+          "fecha": "2026-11-23",
+          "precio": 5.626999855041504
+        },
+        {
+          "fecha": "2026-11-24",
+          "precio": 5.362500190734863
+        },
+        {
+          "fecha": "2026-11-25",
+          "precio": 5.445000171661377
         }
       ]
     },
@@ -3452,8 +3464,8 @@
       "symbol": "XPT",
       "nombre": "Platino",
       "unidad": "USD / onza troy",
-      "precio": 1286,
-      "actualizadoEn": "2026-11-21T03:18:10Z",
+      "precio": 1248.150024,
+      "actualizadoEn": "2026-11-25T04:56:48Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -4593,7 +4605,19 @@
         },
         {
           "fecha": "2026-11-20",
-          "precio": 1286
+          "precio": 1289.4000244140625
+        },
+        {
+          "fecha": "2026-11-23",
+          "precio": 1323.199951171875
+        },
+        {
+          "fecha": "2026-11-24",
+          "precio": 1258.699951171875
+        },
+        {
+          "fecha": "2026-11-25",
+          "precio": 1248.4000244140625
         }
       ]
     },
@@ -4601,8 +4625,8 @@
       "symbol": "XPD",
       "nombre": "Paladio",
       "unidad": "USD / onza troy",
-      "precio": 893,
-      "actualizadoEn": "2026-11-21T03:18:09Z",
+      "precio": 851.5,
+      "actualizadoEn": "2026-11-25T04:56:47Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -5742,7 +5766,19 @@
         },
         {
           "fecha": "2026-11-20",
-          "precio": 893
+          "precio": 891.7000122070312
+        },
+        {
+          "fecha": "2026-11-23",
+          "precio": 895.2000122070312
+        },
+        {
+          "fecha": "2026-11-24",
+          "precio": 858
+        },
+        {
+          "fecha": "2026-11-25",
+          "precio": 850.5
         }
       ]
     }
