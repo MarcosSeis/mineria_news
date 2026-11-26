@@ -1,12 +1,12 @@
 {
-  "actualizado": "2026-11-25",
+  "actualizado": "2026-11-26",
   "metales": [
     {
       "symbol": "XAU",
       "nombre": "Oro",
       "unidad": "USD / onza troy",
-      "precio": 3539,
-      "actualizadoEn": "2026-11-21T03:18:07Z",
+      "precio": 3575.899902,
+      "actualizadoEn": "2026-11-26T04:13:47Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -1146,7 +1146,23 @@
         },
         {
           "fecha": "2026-11-20",
-          "precio": 3539
+          "precio": 3515.39990234375
+        },
+        {
+          "fecha": "2026-11-23",
+          "precio": 3651.39990234375
+        },
+        {
+          "fecha": "2026-11-24",
+          "precio": 3561.89990234375
+        },
+        {
+          "fecha": "2026-11-25",
+          "precio": 3535.800048828125
+        },
+        {
+          "fecha": "2026-11-26",
+          "precio": 3603.800048828125
         }
       ]
     },
@@ -1154,8 +1170,8 @@
       "symbol": "XAG",
       "nombre": "Plata",
       "unidad": "USD / onza troy",
-      "precio": 41.080002,
-      "actualizadoEn": "2026-11-21T03:18:06Z",
+      "precio": 41.485001,
+      "actualizadoEn": "2026-11-26T04:13:46Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -2295,7 +2311,23 @@
         },
         {
           "fecha": "2026-11-20",
-          "precio": 41.08000183105469
+          "precio": 41.03499984741211
+        },
+        {
+          "fecha": "2026-11-23",
+          "precio": 43.14699935913086
+        },
+        {
+          "fecha": "2026-11-24",
+          "precio": 40.7599983215332
+        },
+        {
+          "fecha": "2026-11-25",
+          "precio": 40.051998138427734
+        },
+        {
+          "fecha": "2026-11-26",
+          "precio": 41.970001220703125
         }
       ]
     },
@@ -2303,8 +2335,8 @@
       "symbol": "HG",
       "nombre": "Cobre",
       "unidad": "USD / libra",
-      "precio": 5.416725,
-      "actualizadoEn": "2026-11-25T04:56:47Z",
+      "precio": 5.40546,
+      "actualizadoEn": "2026-11-26T04:13:19Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -3456,7 +3488,11 @@
         },
         {
           "fecha": "2026-11-25",
-          "precio": 5.445000171661377
+          "precio": 5.332499980926514
+        },
+        {
+          "fecha": "2026-11-26",
+          "precio": 5.494999885559082
         }
       ]
     },
@@ -3464,8 +3500,8 @@
       "symbol": "XPT",
       "nombre": "Platino",
       "unidad": "USD / onza troy",
-      "precio": 1248.150024,
-      "actualizadoEn": "2026-11-25T04:56:48Z",
+      "precio": 1286.349976,
+      "actualizadoEn": "2026-11-26T04:13:20Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -4617,7 +4653,11 @@
         },
         {
           "fecha": "2026-11-25",
-          "precio": 1248.4000244140625
+          "precio": 1241.4000244140625
+        },
+        {
+          "fecha": "2026-11-26",
+          "precio": 1284.0999755859375
         }
       ]
     },
@@ -4625,8 +4665,8 @@
       "symbol": "XPD",
       "nombre": "Paladio",
       "unidad": "USD / onza troy",
-      "precio": 851.5,
-      "actualizadoEn": "2026-11-25T04:56:47Z",
+      "precio": 868.25,
+      "actualizadoEn": "2026-11-26T04:13:19Z",
       "serie": [
         {
           "fecha": "2025-10-06",
@@ -5778,7 +5818,11 @@
         },
         {
           "fecha": "2026-11-25",
-          "precio": 850.5
+          "precio": 831.0999755859375
+        },
+        {
+          "fecha": "2026-11-26",
+          "precio": 879
         }
       ]
     }
